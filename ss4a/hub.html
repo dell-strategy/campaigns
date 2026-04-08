@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dell SS4A Enablement Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dellBlue: '#0076CE',
+                        dellDark: '#444444',
+                        dellLight: '#F5F6F7',
+                        alertRed: '#CE1126'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Specific rules to ensure precise print formatting */
+        @media print {
+            @page {
+                margin: 0.5in;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background-color: white !important;
+            }
+            /* Expand textarea fully for print */
+            textarea#emailTemplate {
+                height: 350px !important;
+                overflow: visible !important;
+                white-space: pre-wrap !important;
+            }
+            /* Ensure page breaks don't happen inside elements */
+            .print-break-avoid {
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel border-b border-gray-200 shadow-sm print:hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <svg class="w-8 h-8 text-dellBlue" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    <span class="font-bold text-xl tracking-tight text-dellDark">Dell SS4A <span class="text-dellBlue">Enablement Hub</span></span>
+                </div>
+                <div class="hidden md:flex space-x-6" id="nav-links">
+                    <a href="#overview" class="nav-link text-sm font-medium text-gray-600 hover:text-dellBlue transition">Overview & Urgency</a>
+                    <a href="#tech" class="nav-link text-sm font-medium text-gray-600 hover:text-dellBlue transition">Tech Translation</a>
+                    <a href="#targets" class="nav-link text-sm font-medium text-gray-600 hover:text-dellBlue transition">Targets</a>
+                    <a href="#motion" class="nav-link text-sm font-medium text-gray-600 hover:text-dellBlue transition">AE Motion</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-20 pb-8 bg-gradient-to-br from-dellDark to-gray-900 text-white print:bg-white print:bg-none print:text-gray-900 print:pt-4 print:pb-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-4 print:mt-2">
+            <span class="inline-block py-1 px-3 rounded-full bg-alertRed text-white text-xs font-bold tracking-wider uppercase mb-4 animate-pulse print:animate-none print:border print:border-alertRed print:text-alertRed print:bg-transparent print:mb-2">
+                Critical Update: FY26 is the Final Year of IIJA Authorization
+            </span>
+            <h1 class="text-3xl md:text-5xl font-extrabold mb-4 print:text-dellBlue print:text-3xl print:mb-2">Fund Safety. Spark Demand. Scale Impact.</h1>
+            <p class="text-lg text-gray-300 max-w-3xl mx-auto mb-6 print:text-gray-700 print:text-base print:mb-4">
+                Nearly $1B in federal funding is available for roadway and transportation safety. Dell makes it easy for customers to pursue funding, seeding future multi-million dollar infrastructure deals.
+            </p>
+            
+            <!-- Countdown Timer Container -->
+            <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 inline-block border border-white/20 mb-4 shadow-xl print:bg-transparent print:border-none print:shadow-none print:p-0 print:mb-2">
+                <p class="text-sm uppercase tracking-widest text-gray-300 mb-2 font-semibold print:text-alertRed print:mb-0">SS4A Application Deadline: May 26, 2026 (5:00 PM EDT)</p>
+                <!-- Interactive Timer (Hidden on Print) -->
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 text-center justify-center items-center print:hidden" id="countdown">
+                    <div class="flex flex-col"><span class="text-4xl font-bold text-white" id="days">00</span><span class="text-xs text-gray-400">Days</span></div>
+                    <div class="hidden sm:block text-4xl font-bold text-white">:</div>
+                    <div class="flex flex-col"><span class="text-4xl font-bold text-white" id="hours">00</span><span class="text-xs text-gray-400">Hours</span></div>
+                    <div class="hidden sm:block text-4xl font-bold text-white">:</div>
+                    <div class="flex flex-col"><span class="text-4xl font-bold text-white" id="minutes">00</span><span class="text-xs text-gray-400">Mins</span></div>
+                    <div class="hidden sm:block text-4xl font-bold text-white">:</div>
+                    <div class="flex flex-col"><span class="text-4xl font-bold text-white" id="seconds">00</span><span class="text-xs text-gray-400">Secs</span></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Section: Overview -->
+        <section id="overview" class="py-10 bg-white print:py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8 text-center print:mb-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-dellDark mb-3 print:text-2xl print:mb-2">What is SS4A? (And Why Act Now)</h2>
+                    <p class="text-md text-gray-600 max-w-3xl mx-auto print:text-base">The Safe Streets and Roads for All (SS4A) is a $5 billion program (FY22-26). <strong>FY26 is the final year of funding under the current authorization.</strong> It funds local initiatives to prevent roadway deaths ("Vision Zero").</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4 print:grid print:grid-cols-2 print:gap-4 print:mb-4">
+                    <div class="bg-blue-50 border border-blue-100 p-5 rounded-xl print-break-avoid print:bg-white print:border-gray-300 print:mb-0 print:p-4">
+                        <h3 class="text-xl font-bold text-dellBlue mb-2">1. Planning & Demonstration Grants</h3>
+                        <p class="text-gray-700 text-sm mb-4">For customers who need to build or update a <em>Comprehensive Safety Action Plan</em>. Includes funding for feasibility studies, pilot programs, and data collection.</p>
+                        <ul class="text-sm space-y-2 text-gray-600">
+                            <li>✓ Up to $5 Million per grant</li>
+                            <li>✓ Feasibility studies for new tech (e.g., adaptive signals)</li>
+                            <li>✓ Developing holistic safety roadmaps</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 border border-green-100 p-5 rounded-xl print-break-avoid print:bg-white print:border-gray-300 print:mb-0 print:p-4">
+                        <h3 class="text-xl font-bold text-green-700 mb-2 print:text-green-800">2. Implementation Grants</h3>
+                        <p class="text-gray-700 text-sm mb-4">For customers who already have an Action Plan and are ready to deploy infrastructure, behavioral, or operational activities.</p>
+                        <ul class="text-sm space-y-2 text-gray-600">
+                            <li>✓ Up to $25 Million per grant</li>
+                            <li>✓ Deploying intelligent transportation systems (ITS)</li>
+                            <li>✓ Upgrades to public safety radio & dispatch systems</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Tech Translation -->
+        <section id="tech" class="py-10 bg-dellDark text-white print:bg-white print:text-gray-900 print:py-6 print:border-t print:border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8 text-center print:mb-6">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-3 print:text-dellDark print:text-2xl print:mb-2">Bridging the Gap: SS4A to Dell Technology</h2>
+                    <p class="text-md text-gray-300 max-w-3xl mx-auto print:text-gray-700 print:text-base">How do federal safety dollars translate into quota-retiring IT infrastructure? Here are the approved intelligent transportation system (ITS) use cases.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 print:grid print:grid-cols-3 print:gap-4">
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 print-break-avoid print:bg-gray-50 print:border-gray-300 print:mb-0 print:p-4">
+                        <div class="w-12 h-12 bg-dellBlue rounded-lg flex items-center justify-center mb-4 print:mb-2 print:h-8 print:w-8">
+                            <svg class="w-6 h-6 text-white print:w-4 print:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Server icon" role="img"><title>Server Edge Compute</title><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 print:text-gray-900">Predictive Sensing & AI</h4>
+                        <p class="text-sm text-gray-400 mb-4 print:text-gray-700 print:mb-2"><strong>SS4A Use Case:</strong> AI-driven multimodal traffic sensing, wrong-way driving alerts, and speed safety cameras.</p>
+                        <p class="text-sm font-semibold text-dellBlue">Dell Solutions:</p>
+                        <ul class="text-sm text-gray-300 list-disc pl-5 mt-1 space-y-1 print:text-gray-700">
+                            <li><a href="#internal-link-poweredge" class="text-blue-400 hover:text-blue-300 hover:underline transition print:text-dellBlue print:no-underline">PowerEdge XR/XE Edge Servers</a></li>
+                            <li><a href="#internal-link-nativeedge" class="text-blue-400 hover:text-blue-300 hover:underline transition print:text-dellBlue print:no-underline">Dell NativeEdge orchestration</a></li>
+                            <li><a href="#internal-link-nvidia" class="text-blue-400 hover:text-blue-300 hover:underline transition print:text-dellBlue print:no-underline">NVIDIA GPU integrations</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 print-break-avoid print:bg-gray-50 print:border-gray-300 print:mb-0 print:p-4">
+                        <div class="w-12 h-12 bg-dellBlue rounded-lg flex items-center justify-center mb-4 print:mb-2 print:h-8 print:w-8">
+                            <svg class="w-6 h-6 text-white print:w-4 print:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Networking icon" role="img"><title>Connected Infrastructure</title><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 print:text-gray-900">Connected Infrastructure (V2X)</h4>
+                        <p class="text-sm text-gray-400 mb-4 print:text-gray-700 print:mb-2"><strong>SS4A Use Case:</strong> Vehicle-to-everything (V2X) communications, adaptive signal timing, and emergency vehicle preemption.</p>
+                        <p class="text-sm font-semibold text-dellBlue">Dell Solutions:</p>
+                        <ul class="text-sm text-gray-300 list-disc pl-5 mt-1 space-y-1 print:text-gray-700">
+                            <li><a href="#internal-link-iot" class="text-blue-400 hover:text-blue-300 hover:underline transition print:text-dellBlue print:no-underline">IoT Gateways</a></li>
+                            <li><a href="#internal-link-networking" class="text-blue-400 hover:text-blue-300 hover:underline transition print:text-dellBlue print:no-underline">Enterprise Networking / Switches</a></li>
+                            <li><a href="#internal-link-5g" class="text-blue-400 hover:text-blue-300 hover:underline transition print:text-dellBlue print:no-underline">Private 5G / Broadband solutions</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 print-break-avoid print:bg-gray-50 print:border-gray-300 print:mb-0 print:p-4">
+                        <div class="w-12 h-12 bg-dellBlue rounded-lg flex items-center justify-center mb-4 print:mb-2 print:h-8 print:w-8">
+                            <svg class="w-6 h-6 text-white print:w-4 print:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Database icon" role="img"><title>Safety Data & Dashboards</title><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2 print:text-gray-900">Safety Data & Dashboards</h4>
+                        <p class="text-sm text-gray-400 mb-4 print:text-gray-700 print:mb-2"><strong>SS4A Use Case:</strong> Centralizing crash data, 911 integration, and tracking progress for the Action Plan.</p>
+                        <p class="text-sm font-semibold text-dellBlue">Dell Solutions:</p>
+                        <ul class="text-sm text-gray-300 list-disc pl-5 mt-1 space-y-1 print:text-gray-700">
+                            <li><a href="#internal-link-powerscale" class="text-blue-400 hover:text-blue-300 hover:underline transition print:text-dellBlue print:no-underline">PowerScale (Unstructured Data)</a></li>
+                            <li><a href="#internal-link-datalake" class="text-blue-400 hover:text-blue-300 hover:underline transition print:text-dellBlue print:no-underline">Data Lakehouse solutions</a></li>
+                            <li><a href="#internal-link-analytics" class="text-blue-400 hover:text-blue-300 hover:underline transition print:text-dellBlue print:no-underline">Dell Data Analytics Services</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Targets -->
+        <section id="targets" class="py-10 bg-dellLight print:py-6 print:bg-white print:border-t print:border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 print:mb-6">
+                    <h2 class="text-2xl md:text-3xl font-bold text-dellDark mb-3 print:text-2xl print:mb-2">Target Segments & Personas</h2>
+                    <p class="text-md text-gray-600 print:text-base">Eligible applicants include Counties, Cities, MPOs, and Tribal Governments. K-12 and Higher-Ed often partner with these entities.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 print:grid print:grid-cols-4 print:gap-2">
+                    <!-- Cities -->
+                    <div class="bg-white rounded-xl shadow-md p-5 border-t-4 border-dellBlue hover:shadow-lg transition print-break-avoid print:shadow-none print:border print:border-t-4 print:border-gray-200 print:border-t-dellBlue print:mb-0 print:p-2">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 print:text-base">Cities & Towns</h3>
+                        <p class="text-sm text-gray-600 mb-4 print:mb-2 print:text-xs">Prime targets for Smart Intersections and Vision Zero initiatives.</p>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 print:text-[10px]">Target Personas:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 list-disc pl-4 print:text-xs">
+                            <li>CIO / CTO</li>
+                            <li>Director of Transportation</li>
+                            <li>Public Works Director</li>
+                        </ul>
+                    </div>
+
+                    <!-- Counties -->
+                    <div class="bg-white rounded-xl shadow-md p-5 border-t-4 border-dellBlue hover:shadow-lg transition print-break-avoid print:shadow-none print:border print:border-t-4 print:border-gray-200 print:border-t-dellBlue print:mb-0 print:p-2">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 print:text-base">Counties & MPOs</h3>
+                        <p class="text-sm text-gray-600 mb-4 print:mb-2 print:text-xs">Focus on regional coordination, rural roadway safety, and data sharing.</p>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 print:text-[10px]">Target Personas:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 list-disc pl-4 print:text-xs">
+                            <li>County IT Director</li>
+                            <li>MPO Planners</li>
+                            <li>Sheriff / EMS Leaders</li>
+                        </ul>
+                    </div>
+
+                    <!-- K-12 -->
+                    <div class="bg-white rounded-xl shadow-md p-5 border-t-4 border-dellBlue hover:shadow-lg transition print-break-avoid print:shadow-none print:border print:border-t-4 print:border-gray-200 print:border-t-dellBlue print:mb-0 print:p-2">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 print:text-base">K-12 Districts</h3>
+                        <p class="text-sm text-gray-600 mb-4 print:mb-2 print:text-xs">Must partner with local govt. Focus: Safe Routes to School, crosswalk beacons.</p>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 print:text-[10px]">Target Personas:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 list-disc pl-4 print:text-xs">
+                            <li>Superintendent</li>
+                            <li>Director of Safety</li>
+                            <li>Transportation Director</li>
+                        </ul>
+                    </div>
+
+                    <!-- Higher Ed -->
+                    <div class="bg-white rounded-xl shadow-md p-5 border-t-4 border-dellBlue hover:shadow-lg transition print-break-avoid print:shadow-none print:border print:border-t-4 print:border-gray-200 print:border-t-dellBlue print:mb-0 print:p-2">
+                        <h3 class="text-lg font-bold text-gray-800 mb-2 print:text-base">Higher Education</h3>
+                        <p class="text-sm text-gray-600 mb-4 print:mb-2 print:text-xs">Must partner with local govt. Focus: Smart campus, pedestrian safety.</p>
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 print:text-[10px]">Target Personas:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 list-disc pl-4 print:text-xs">
+                            <li>VP Admin / Finance</li>
+                            <li>Campus Safety Director</li>
+                            <li>Smart Campus Lead</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: The Motion -->
+        <section id="motion" class="py-10 bg-white print:py-6 print:border-t print:border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 print:bg-white print:p-0 print:border-none">
+                    <h2 class="text-2xl md:text-3xl font-bold text-dellDark mb-6 text-center print:text-2xl print:mb-4">The AE Motion: Keep It Simple</h2>
+                    
+                    <div class="flex flex-col md:flex-row gap-4 justify-between items-center relative print-break-avoid print:flex print:flex-row print:gap-4 print:items-stretch">
+                        <!-- Step 1 -->
+                        <div class="flex-1 bg-white p-5 rounded-xl shadow border border-gray-100 z-10 text-center w-full print:shadow-none print:border-gray-300 print:p-4 print:mb-0">
+                            <div class="w-10 h-10 bg-dellBlue text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4 print:mb-2 print:h-8 print:w-8 print:text-sm">1</div>
+                            <h4 class="font-bold text-gray-800">Identify & Outreach</h4>
+                            <p class="text-xs text-gray-500 mt-2 print:mt-1">Use segment email templates. Target key tech and safety personas.</p>
+                        </div>
+                        
+                        <div class="hidden md:block w-6 h-1 bg-gray-300 print:block"></div>
+
+                        <!-- Step 2 -->
+                        <div class="flex-1 bg-white p-5 rounded-xl shadow border border-gray-100 z-10 text-center w-full border-b-4 border-blue-500 print:shadow-none print:border-gray-300 print:border-b-4 print:p-4 print:mb-0">
+                            <div class="w-10 h-10 bg-dellBlue text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4 print:mb-2 print:h-8 print:w-8 print:text-sm">2</div>
+                            <h4 class="font-bold text-gray-800">15-Min Discovery</h4>
+                            <p class="text-xs text-gray-500 mt-2 print:mt-1">"How are you funding your Vision Zero goals? Do you have an Action Plan?"</p>
+                        </div>
+
+                        <div class="hidden md:block w-6 h-1 bg-gray-300 print:block"></div>
+
+                        <!-- Step 3 -->
+                        <div class="flex-1 bg-white p-5 rounded-xl shadow border border-gray-100 z-10 text-center w-full border-b-4 border-green-500 print:shadow-none print:border-gray-300 print:border-b-4 print:p-4 print:mb-0">
+                            <div class="w-10 h-10 bg-dellBlue text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4 print:mb-2 print:h-8 print:w-8 print:text-sm">3</div>
+                            <h4 class="font-bold text-gray-800">Handoff to Grants Office</h4>
+                            <p class="text-xs text-gray-500 mt-2 print:mt-1">Bring in the <a href="https://dell.sharepoint.com/sites/na-sled-marketing/SitePages/Documents/DOC-342398.aspx" target="_blank" class="text-dellBlue hover:underline font-semibold print:no-underline print:text-black print:font-bold">Dell Grants Office</a>. We handle the grant heavy lifting at no cost.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 bg-blue-50 p-5 rounded-lg border border-blue-100 flex items-start print-break-avoid print:bg-white print:border-gray-300 print:mt-4 print:p-4">
+                        <svg class="w-6 h-6 text-dellBlue mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Objection Handling: "Free vendor help? Procurement won't allow it."</h4>
+                            <p class="text-sm text-gray-600 mt-1"><strong>The Deflector:</strong> "Our grant support team provides programmatic guidance and data alignment that is fully compliant with municipal procurement rules. We help you write the narrative, not the tech specs, keeping the eventual RFP fully competitive."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dellDark py-6 text-center text-gray-400 print:bg-white print:text-gray-500 print:py-4 print:border-t print:border-gray-200">
+        <p class="text-sm">&copy; 2026 Dell Technologies. Internal Enablement Only. Do not distribute.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // CONFIGURATION CONSTANTS
+        const SS4A_DEADLINE = "May 26, 2026 17:00:00"; // Extracted deadline date for easy updates
+
+        // 1. Countdown Timer Logic
+        const countDownDate = new Date(SS4A_DEADLINE).getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            // Timer Fallback State
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("countdown").innerHTML = `
+                    <div class='text-center p-4 bg-gray-900/50 rounded-lg border border-red-500/30 print:bg-white print:border-none print:p-0' id="countdown-fallback">
+                        <p class='text-xl font-bold text-alertRed mb-2'>FY26 Window Closed</p>
+                        <p class='text-sm text-gray-300 print:text-gray-700'>Shift focus to long-term implementation and FY27 pipeline planning.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerHTML = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds;
+        }, 1000);
+
+        // 2. Scroll Spy Navigation Context
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("text-dellBlue", "font-bold");
+                link.classList.add("text-gray-600");
+                if (link.getAttribute("href").includes(current) && current !== "") {
+                    link.classList.add("text-dellBlue", "font-bold");
+                    link.classList.remove("text-gray-600");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
