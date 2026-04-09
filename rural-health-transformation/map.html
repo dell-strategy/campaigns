@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RHTP Funding Map & Strategy - Dell Technologies</title>
+    
+    <!-- Scripts & Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dellBlue: '#0076CE',
+                        dellDark: '#00447C',
+                        dellLight: '#EBF4FA'
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        /* Chart Container Styling Rules */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            max-height: 280px;
+        }
+
+        /* Map Container */
+        #plotlyMap {
+            width: 100%;
+            height: 500px;
+        }
+
+        /* Custom scrollbars */
+        .table-container::-webkit-scrollbar,
+        .custom-scroll::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .table-container::-webkit-scrollbar-track,
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb,
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover,
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Global Navigation -->
+    <nav class="bg-dellBlue text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-server text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight">SLG Strategy: RHTP Intelligence</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:block text-sm font-medium bg-dellDark/50 px-4 py-1.5 rounded-full border border-white/10">
+                        <i class="fa-solid fa-calendar-days mr-2"></i>FY2026 - FY2030 ($50B)
+                    </div>
+                    <a href="https://dell-strategy.github.io/campaigns/rht/report.pdf" target="_blank" rel="noopener noreferrer" class="bg-white text-dellBlue px-4 py-1.5 rounded font-semibold text-sm hover:bg-slate-100 transition-colors shadow-sm flex items-center gap-2">
+                        <i class="fa-solid fa-file-pdf"></i> Source PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+        
+        <!-- Header -->
+        <div>
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Rural Health Transformation Program (RHTP)</h1>
+            <p class="mt-2 text-lg text-slate-600">State-by-State Distribution Analysis & Dell Infrastructure Sales Targets</p>
+        </div>
+
+        <!-- Dashboard Top Row: Stats & Aggregates -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            
+            <!-- Intro/Methodology Card -->
+            <div class="md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-center">
+                <h3 class="text-lg font-bold text-slate-800 mb-3"><i class="fa-solid fa-magnifying-glass-chart text-dellBlue mr-2"></i>Analysis Methodology</h3>
+                <p class="text-sm text-slate-600 mb-4">
+                    Rather than focusing strictly on the receiving entity (e.g., DOH vs. University), our model now maps each state's procurement flow to one of four <strong>Strategic Distribution Archetypes</strong> to dictate sales engagement.
+                </p>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <div class="w-3 h-3 rounded-full bg-blue-500 mt-1 mr-3 shadow-sm flex-shrink-0"></div>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Centralized:</strong> State retains funds; enterprise stack target.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-3 h-3 rounded-full bg-emerald-500 mt-1 mr-3 shadow-sm flex-shrink-0"></div>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Regional:</strong> Hub-and-spoke; target CINs/Collaboratives.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-3 h-3 rounded-full bg-amber-500 mt-1 mr-3 shadow-sm flex-shrink-0"></div>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Sub-Grant:</strong> Decentralized portal; high-velocity channel sales.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-3 h-3 rounded-full bg-purple-500 mt-1 mr-3 shadow-sm flex-shrink-0"></div>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Tribal:</strong> Direct allocations; target Tribal Health Orgs.</p>
+                    </div>
+                    <div class="flex items-start mt-2 pt-2 border-t border-slate-100">
+                        <span class="text-sm mr-2">🎓</span>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Higher Ed:</strong> Identifies states allocating material funds to University partnerships or medical schools.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Viz 1: Archetype Distribution -->
+            <div class="md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4 text-center">National Archetype Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="archetypeChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Viz 2: Procurement Insight -->
+            <div class="md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4 text-center">Projected Tech Investment Focus</h3>
+                <div class="chart-container">
+                    <canvas id="complexityChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 1: Interactive Map & Detail Panel -->
+        <section class="w-full">
+            <div class="flex items-center justify-between mb-4 mt-2">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-map-location-dot text-dellBlue text-xl"></i>
+                    <h2 class="text-2xl font-bold text-slate-800">Interactive Funding Map</h2>
+                </div>
+                <div class="flex gap-2">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800"><i class="fa-solid fa-circle text-[8px] mr-1 animate-pulse"></i> Live Data</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Left Column: The State Map -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-2 rounded-xl shadow-sm border border-slate-200 h-full relative">
+                        <div id="plotlyMap"></div>
+                        <div class="absolute bottom-4 right-6 text-xs text-slate-400 font-medium bg-white/80 px-2 py-1 rounded">
+                            <i class="fa-solid fa-hand-pointer mr-1"></i> Click a state to view funding details
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Detail Inspector -->
+                <div class="lg:col-span-1">
+                    <div id="detailPanel" class="bg-white p-0 rounded-xl shadow-md border border-slate-200 h-full overflow-hidden flex flex-col">
+                        
+                        <!-- Default Empty State -->
+                        <div id="emptyState" class="p-8 text-center h-full flex flex-col justify-center items-center text-slate-400 bg-slate-50/50">
+                            <div class="w-16 h-16 bg-slate-100 text-slate-300 rounded-full flex items-center justify-center mb-4">
+                                <i class="fa-solid fa-map text-2xl"></i>
+                            </div>
+                            <p class="text-lg font-bold text-slate-600 mb-1">Select a State</p>
+                            <p class="text-sm">Click on any state on the map to analyze its strategic archetype and sales approach.</p>
+                        </div>
+
+                        <!-- Active Content (Hidden by default) -->
+                        <div id="activeContent" class="hidden flex flex-col h-full">
+                            <!-- Header Area -->
+                            <div class="bg-slate-800 text-white p-6 relative overflow-hidden">
+                                <div class="absolute -right-4 -top-4 opacity-10">
+                                    <i class="fa-solid fa-building-flag text-9xl"></i>
+                                </div>
+                                <div class="relative z-10 flex justify-between items-start">
+                                    <div>
+                                        <h2 id="detailName" class="text-3xl font-bold mb-1">State Name</h2>
+                                        <div class="flex flex-wrap gap-2 mt-2">
+                                            <span id="detailArchetype" class="inline-block text-xs px-2.5 py-1 rounded border font-bold shadow-sm">Archetype</span>
+                                            <span id="detailTech" class="inline-block bg-slate-700 text-slate-100 text-xs px-2.5 py-1 rounded border border-slate-600 font-medium shadow-sm">Tech Focus</span>
+                                            <span id="detailHigherEd" class="hidden bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded border border-stone-300 font-bold shadow-sm"><i class="fa-solid fa-graduation-cap mr-1"></i> Higher Ed Partner</span>
+                                        </div>
+                                    </div>
+                                    <span id="detailAbbr" class="text-4xl font-black text-slate-600 opacity-50">ST</span>
+                                </div>
+                            </div>
+
+                            <div class="p-6 flex-grow flex flex-col space-y-6 custom-scroll overflow-y-auto">
+                                
+                                <!-- Primary Route Section -->
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Likely Funding Route</h4>
+                                    <p id="detailRoute" class="text-slate-700 text-sm leading-relaxed border-l-4 border-dellBlue pl-4 bg-slate-50 py-3 pr-3 rounded-r-md">
+                                        Route description goes here.
+                                    </p>
+                                </div>
+
+                                <!-- Confidence Meter -->
+                                <div class="bg-white p-4 rounded-lg border border-slate-100 shadow-sm">
+                                    <div class="flex justify-between items-end mb-2">
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Analysis Basis</h4>
+                                        <span id="detailConfidence" class="text-xs font-bold text-amber-600 px-2 py-0.5 bg-amber-50 rounded-full">Derived Context</span>
+                                    </div>
+                                    <div class="w-full bg-slate-100 rounded-full h-2">
+                                        <div id="confidenceBar" class="bg-amber-500 h-2 rounded-full transition-all duration-500" style="width: 50%"></div>
+                                    </div>
+                                    <p id="confidenceText" class="text-xs text-slate-500 mt-2 italic">Based on historical structure.</p>
+                                </div>
+
+                                <!-- Dell/Procurement Context -->
+                                <div class="bg-dellLight/50 p-5 rounded-lg border border-dellBlue/20 mt-auto shadow-sm">
+                                    <h4 class="text-xs font-bold text-dellDark uppercase tracking-wider mb-2 flex items-center">
+                                        <i class="fa-solid fa-bullseye mr-2 text-dellBlue"></i> Dell Strategic Insight
+                                    </h4>
+                                    <p id="detailProcurement" class="text-slate-800 text-sm font-medium leading-relaxed">
+                                        Procurement insight text.
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROW 2: Distribution Archetypes Legend -->
+        <section class="w-full">
+            <div class="flex items-center gap-2 mb-6 mt-4">
+                <i class="fa-solid fa-network-wired text-dellBlue text-xl"></i>
+                <h2 class="text-2xl font-bold text-slate-800">Distribution Archetypes Defined</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-blue-500 cursor-pointer">
+                    <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 mb-4">
+                        <i class="fa-solid fa-building-columns text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Centralized Command</h3>
+                    <p class="text-sm text-slate-600 mb-4 h-16">The State Department of Health retains funds and issues large-scale RFPs for statewide systems.</p>
+                    <div class="bg-slate-50 rounded p-3 text-sm border border-slate-100">
+                        <span class="font-bold text-slate-700 block mb-1">Dell Strategy:</span> 
+                        Sell enterprise stacks directly to the State CIO/CTO.
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-emerald-500 cursor-pointer">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600 mb-4">
+                        <i class="fa-solid fa-diagram-project text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Regional Coalition</h3>
+                    <p class="text-sm text-slate-600 mb-4 h-16">The State divides funds among regional non-profits, CINs, or hospital collaboratives.</p>
+                    <div class="bg-slate-50 rounded p-3 text-sm border border-slate-100">
+                        <span class="font-bold text-slate-700 block mb-1">Dell Strategy:</span> 
+                        Align with and sell to the lead agency of the regional hub.
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-amber-500 cursor-pointer">
+                    <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
+                        <i class="fa-solid fa-hand-holding-dollar text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Competitive Sub-Grant</h3>
+                    <p class="text-sm text-slate-600 mb-4 h-16">The State acts as a pass-through entity, managing a portal for hundreds of small clinic grants.</p>
+                    <div class="bg-slate-50 rounded p-3 text-sm border border-slate-100">
+                        <span class="font-bold text-slate-700 block mb-1">Dell Strategy:</span> 
+                        Execute a high-velocity, channel-driven sales approach.
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-purple-500 cursor-pointer">
+                    <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 mb-4">
+                        <i class="fa-solid fa-campground text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Tribal Sovereignty Shift</h3>
+                    <p class="text-sm text-slate-600 mb-4 h-16">Bypassing state bureaucracy in favor of direct, massive allocations to Tribal Nations.</p>
+                    <div class="bg-slate-50 rounded p-3 text-sm border border-slate-100">
+                        <span class="font-bold text-slate-700 block mb-1">Dell Strategy:</span> 
+                        Target highly-capitalized Tribal Health Organizations (THOs).
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ROW 3: Top 10 List Section -->
+        <section class="w-full pb-12">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 mt-4 gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-crosshairs text-dellBlue text-xl"></i>
+                    <h2 class="text-2xl font-bold text-slate-800">Top 10 State Targets</h2>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-sm text-slate-500 italic bg-white border border-slate-200 shadow-sm px-3 py-1 rounded-full"><i class="fa-solid fa-arrow-down-short-wide mr-1"></i> Ranked by Dell Enterprise Infra Potential</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto table-container">
+                    <table class="w-full text-left border-collapse min-w-[900px]">
+                        <thead>
+                            <tr class="bg-slate-100/50 text-slate-600 border-b border-slate-200 text-sm uppercase tracking-wider">
+                                <th class="py-4 px-6 font-bold">Rank & State</th>
+                                <th class="py-4 px-6 font-bold">FY26 Award</th>
+                                <th class="py-4 px-6 font-bold">Primary Archetype</th>
+                                <th class="py-4 px-6 font-bold w-1/2">Dell Strategic Angle & Required Pivot</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <!-- Texas -->
+                            <tr class="hover:bg-slate-50 transition-colors group">
+                                <td class="py-5 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-dellBlue text-white font-bold shadow-sm">1</span>
+                                        <span class="font-bold text-slate-800 text-lg">Texas</span>
+                                    </div>
+                                </td>
+                                <td class="py-5 px-6 font-bold text-emerald-600 text-lg">$281.3M</td>
+                                <td class="py-5 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 shadow-sm">
+                                        Competitive Sub-Grant
+                                    </span>
+                                </td>
+                                <td class="py-5 px-6 text-sm text-slate-700 leading-relaxed">
+                                    <strong class="text-red-600"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Pivot Required:</strong> 80 rural hospital districts receiving direct endpoint/infra funding. Target CIN/ACO hubs winning massive RFPs for RPM and cyber stacks (not the state CIO).
+                                </td>
+                            </tr>
+                            
+                            <!-- Indiana -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">2</span>
+                                        <span class="font-bold text-slate-800">Indiana</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$206.9M</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
+                                        Centralized Command
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
+                                    Building a centralized Medical Operations Coordination Center (MOCC). Represents a massive centralized IT and logistics contract with a $56.2M budget.
+                                </td>
+                            </tr>
+
+                            <!-- Vermont -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">3</span>
+                                        <span class="font-bold text-slate-800">Vermont</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$195.0M</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
+                                        Centralized Command
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
+                                    "Clinically Integrated Network of Shared Services." Core strategy revolves around centralized hosting for Shared EHRs, HR systems, and AI transcription.
+                                </td>
+                            </tr>
+
+                            <!-- Rhode Island -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">4</span>
+                                        <span class="font-bold text-slate-800">Rhode Island</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$156.1M</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
+                                        Centralized Command
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
+                                    Boutique lab for high-cost interventions. Massive, winner-take-all contract potential for a State-Sponsored EHR and centralized data hub infrastructure.
+                                </td>
+                            </tr>
+
+                            <!-- Maine -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">5</span>
+                                        <span class="font-bold text-slate-800">Maine</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$190.0M</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
+                                        Centralized Command
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
+                                    Explicitly funding a "Rural AI Hub." Premier opportunity for High-Performance Computing (HPC) and AI-as-a-Service architecture.
+                                </td>
+                            </tr>
+
+                            <!-- Alabama -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">6</span>
+                                        <div class="flex flex-col">
+                                            <span class="font-bold text-slate-800">Alabama</span>
+                                            <span class="text-[10px] font-bold text-stone-500 mt-0.5"><i class="fa-solid fa-graduation-cap text-stone-400"></i> Higher Ed</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$203.4M</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">
+                                        Regional Coalition
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
+                                    Funding centralized "Regional shared-service hubs" to manage EHR and cybersecurity. Massive play for Managed Service Providers (MSPs).
+                                </td>
+                            </tr>
+
+                            <!-- Arkansas -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">7</span>
+                                        <span class="font-bold text-slate-800">Arkansas</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$208.7M</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
+                                        Centralized Command
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
+                                    Enterprise-grade data infrastructure play. Procuring centrally for a statewide telehealth platform and data lake known as "ROADMAP."
+                                </td>
+                            </tr>
+
+                            <!-- Louisiana -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">8</span>
+                                        <span class="font-bold text-slate-800">Louisiana</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$208.3M</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 shadow-sm">
+                                        Competitive Sub-Grant
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
+                                    "Rural Tech Catalyst Fund" acts as a direct voucher program for rural hospitals to buy IT endpoint products. High-velocity channel sales required.
+                                </td>
+                            </tr>
+
+                            <!-- California -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">9</span>
+                                        <span class="font-bold text-slate-800">California</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$233.6M</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">
+                                        Regional Coalition
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
+                                    Funding a "Rural Technical Assistance Center" and Hub-and-Spoke networks for HIE/cyber. Requires complex databases for workforce mapping.
+                                </td>
+                            </tr>
+
+                            <!-- Florida -->
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="py-4 px-6">
+                                    <div class="flex items-center gap-3">
+                                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 text-slate-600 font-bold border border-slate-200">10</span>
+                                        <span class="font-bold text-slate-800">Florida</span>
+                                    </div>
+                                </td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$209.9M</td>
+                                <td class="py-4 px-6">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">
+                                        Regional Coalition
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
+                                    Competitive RFA approach requiring providers to form legal entities. Features $5M direct subsidy for HIE onboarding and connectivity solutions.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Application Logic -->
+    <script>
+        // --- Data Source: Rural Health Funding Landscape ---
+        // Refactored to map states by their Primary Distribution Archetype
+        const stateData = [
+            { abbr: "AL", name: "Alabama", archetype: "regional", techFocus: "Cloud & Edge", higherEd: true, confidence: "high", route: "Building 'Regional shared-service hubs' to manage EHR and cybersecurity for clusters of independent hospitals. Also funding a new School of Healthcare Sciences.", insight: "Position VxRail and PowerEdge for modernizing legacy on-prem hospital servers via these regional hubs." },
+            { abbr: "AK", name: "Alaska", archetype: "tribal", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Heavy reliance on Tribal Health Organizations (THOs) bypassing state bureaucracy. Investments in medical transport and remote monitoring in villages.", insight: "Focus on Latitude Rugged devices and edge gateways for extreme remote connectivity." },
+            { abbr: "AZ", name: "Arizona", archetype: "centralized", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "AHCCCS (Medicaid) utilizing Managed Care Organizations to distribute funds centrally for workforce pipelines and data integration via Northern Arizona University.", insight: "Target AI-ready workstations and high-compute servers for university-led population health research." },
+            { abbr: "AR", name: "Arkansas", archetype: "centralized", techFocus: "Cybersecurity", confidence: "high", route: "Centralized procurement via Dept of Finance for a statewide telehealth platform or data lake ('ROADMAP').", insight: "Lead with Zero-Trust infrastructure and PowerProtect backup/recovery solutions." },
+            { abbr: "CA", name: "California", archetype: "regional", techFocus: "Data & AI", confidence: "high", route: "Funding a 'Rural Technical Assistance Center' and Hub-and-Spoke networks for HIE/cyber, anchored by larger hospitals.", insight: "Strong focus on statewide data reporting; position APEX storage and data lake solutions." },
+            { abbr: "CO", name: "Colorado", archetype: "subgrant", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Providing capital grants to providers joining the Hospital Transformation Program (HTP) to upgrade endpoints and behavioral health wings.", insight: "Partner with non-profits to supply standardized OptiPlex and Latitude telehealth carts." },
+            { abbr: "CT", name: "Connecticut", archetype: "subgrant", techFocus: "Cybersecurity", confidence: "medium", route: "Targeted grants focusing on 'treatment barriers' and patient-centered care. High probability of sub-grants.", insight: "Focus on endpoint security and compliance solutions for FQHCs." },
+            { abbr: "DE", name: "Delaware", archetype: "centralized", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Massive capital investments from the state level for 'Hope Centers' and centralized HIE Expansion, alongside massive allocations to University medical programs.", insight: "Position analytics dashboards and backend storage for state-level health planning." },
+            { abbr: "FL", name: "Florida", archetype: "regional", techFocus: "Cloud & Edge", confidence: "high", route: "Competitive RFA approach requiring providers to form legal entities and regional partnerships to apply for tech funds.", insight: "Target individual County Health Departments with standardized edge server deployments." },
+            { abbr: "GA", name: "Georgia", archetype: "regional", techFocus: "Cybersecurity", confidence: "high", route: "DCH manages the GREAT Health program, funding initiatives like Treat-vs-Transport telehealth pilots for regional EMS systems.", insight: "Urgent need for immutable backups, endpoint detection (MDR), and ransomware recovery (PowerProtect)." },
+            { abbr: "HI", name: "Hawaii", archetype: "centralized", techFocus: "Telehealth & Endpoints", higherEd: true, confidence: "medium", route: "State Executive Office distributing funds directly for air ambulance/inter-island transport subsidies and telemedicine, funding JABSOM medical school.", insight: "Logistics, mobile connectivity, and rugged edge endpoints for inter-island care." },
+            { abbr: "ID", name: "Idaho", archetype: "subgrant", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Pursuing data-driven, community-targeted efforts via direct grants to hospitals for tele-stroke and tele-psych.", insight: "Bundle telehealth hardware solutions with Hospital Association training programs." },
+            { abbr: "IL", name: "Illinois", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "HFS is using funds to right-size care delivery via direct transformation grants to rural hospitals to convert service lines.", insight: "Direct sales to CAHs using state grant money for server and storage refreshes." },
+            { abbr: "IN", name: "Indiana", archetype: "centralized", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Building a centralized Medical Operations Coordination Center (MOCC). Retaining significant funds at state level for tech.", insight: "Engage IRHA to deploy standardized remote-care endpoint packages." },
+            { abbr: "IA", name: "Iowa", archetype: "centralized", techFocus: "Cybersecurity", confidence: "high", route: "Focus on connecting local care to specialized centers and centrally subsidizing rural connections to the state HIE.", insight: "Focus on network security and secure remote access for distributed clinics." },
+            { abbr: "KS", name: "Kansas", archetype: "regional", techFocus: "Cloud & Edge", confidence: "high", route: "KDHE coordinates with the 'Rural Health Alliance', heavily pushing rural providers into Accountable Care Organizations (ACOs).", insight: "Local Health Department infrastructure modernization (servers/switches)." },
+            { abbr: "KY", name: "Kentucky", archetype: "regional", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Establishing public-private partnerships to build 'Rural Community Hubs' for chronic care innovation. Strong university research ties.", insight: "Academic computing environments; position high-performance computing (HPC) nodes." },
+            { abbr: "LA", name: "Louisiana", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Establishing a 'Rural Tech Catalyst Fund' specifically acting as a voucher program for rural providers to purchase technology.", insight: "FQHC network infrastructure upgrades and centralized data management." },
+            { abbr: "ME", name: "Maine", archetype: "centralized", techFocus: "Data & AI", confidence: "high", route: "Explicitly planning a 'Rural AI Hub' centralized at the state or a major academic center to drive analytics.", insight: "Data interoperability solutions between rural clinics and the state CDC." },
+            { abbr: "MD", name: "Maryland", archetype: "centralized", techFocus: "Data & AI", confidence: "high", route: "State-managed centralized approach heavily utilizing the All-Payer model to dictate rural stability.", insight: "High-level consulting, value-based care analytics, and massive data storage." },
+            { abbr: "MA", name: "Massachusetts", archetype: "centralized", techFocus: "Cybersecurity", confidence: "medium", route: "State EOHHS launching SHINE HT program and handling SDOH tracking centrally.", insight: "Compliance and cybersecurity auditing tools for small independent hospitals." },
+            { abbr: "MI", name: "Michigan", archetype: "subgrant", techFocus: "Cybersecurity", confidence: "high", route: "Direct grants to Community Mental Health Services Programs (CMHSPs) to buy vehicles and staff mobile crisis units.", insight: "Statewide initiatives to secure rural health data exchanges; position Dell Security." },
+            { abbr: "MN", name: "Minnesota", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "MDH is running a 'Collaboration for Financial Viability' program consisting of direct grants to providers.", insight: "Hospitals will have competitive grant money; target core infrastructure overhauls." },
+            { abbr: "MS", name: "Mississippi", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Direct grants for telehealth and health IT upgrades under 'Health Technology Advancement and Modernization'.", insight: "Cost-reduction technologies; HCI (VxRail) to reduce IT headcount needs." },
+            { abbr: "MO", name: "Missouri", archetype: "regional", techFocus: "Cloud & Edge", confidence: "high", route: "Activating local community hubs. Funds flow to local lead agencies (hospitals or CAP agencies) to coordinate.", insight: "State-wide shared services platforms and hybrid cloud implementations." },
+            { abbr: "MT", name: "Montana", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: true, confidence: "high", route: "Funding critical facility repairs and modernization across rural facilities alongside apprenticeships via local colleges.", insight: "Simulation lab tech, VR training endpoints, and high-res medical displays." },
+            { abbr: "NE", name: "Nebraska", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Direct wellness and hospital sustainability grants, engaging the Nebraska Hospital Association.", insight: "Hospital operational efficiency tools; hyperconverged infrastructure." },
+            { abbr: "NV", name: "Nevada", archetype: "centralized", techFocus: "Telehealth & Endpoints", higherEd: true, confidence: "high", route: "State-managed allocation largely flowing to NSHE institutions for workforce and centralized telehealth extension.", insight: "Telehealth backbone infrastructure and remote edge computing devices." },
+            { abbr: "NH", name: "New Hampshire", archetype: "centralized", techFocus: "Cybersecurity", confidence: "high", route: "State DHHS scaling the CCBHC model statewide, effectively directing the IT upgrades from a central level.", insight: "Securing sensitive behavioral health data; endpoint encryption." },
+            { abbr: "NJ", name: "New Jersey", archetype: "subgrant", techFocus: "Data & AI", confidence: "high", route: "Concentrating funds via a Request for Applications (RFA) distributed directly to providers and tribal organizations.", insight: "Target specific health networks with population health analytics hardware." },
+            { abbr: "NM", name: "New Mexico", archetype: "tribal", techFocus: "Telehealth & Endpoints", confidence: "medium", route: "Significant portion of funds acting as pass-throughs to Indian Health Service (IHS) and 638 facilities.", insight: "Tribal health clinic modernization; reliable endpoints and networking." },
+            { abbr: "NY", name: "New York", archetype: "centralized", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "DOH centrally dictating 'Rural Roots' pipeline via SUNY schools, alongside explicit state-managed cybersecurity strengthening.", insight: "Network-level analytics and state-aggregated data center solutions." },
+            { abbr: "NC", name: "North Carolina", archetype: "regional", techFocus: "Cloud & Edge", confidence: "high", route: "Launching locally governed 'NC ROOTS' Hubs. Regional bodies connecting medical and mental health supports.", insight: "Safety net provider tech refreshes; edge servers for remote clinics." },
+            { abbr: "ND", name: "North Dakota", archetype: "centralized", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Massive centralized 'Connect Tech' play managed alongside the Bank of North Dakota for unified EHR/payer hubs, supported by UND.", insight: "Research data tools; scalable unstructured data storage (PowerScale)." },
+            { abbr: "OH", name: "Ohio", archetype: "regional", techFocus: "Cybersecurity", confidence: "high", route: "Tiered funding for regional alliances (Clinically Integrated Networks) to coordinate care and shared services.", insight: "Bundle grant applications with standardized cybersecurity audits/hardware." },
+            { abbr: "OK", name: "Oklahoma", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: true, confidence: "high", route: "Pivoted to offering a direct microgrants program ($50k-$250k) for one-time equipment purchases by clinics, alongside OSU medical integration.", insight: "Medical education tech and mobile clinic endpoints." },
+            { abbr: "OR", name: "Oregon", archetype: "tribal", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Heavy focus on long-term shared infrastructure and explicit Tribal sovereignty distributions. Provider tracking via OHSU.", insight: "Workforce management data systems; university data center expansion." },
+            { abbr: "PA", name: "Pennsylvania", archetype: "regional", techFocus: "Cybersecurity", confidence: "high", route: "Establishing 'Rural Care Collaboratives' (RCCs). Regional bodies dictating local tech solutions.", insight: "Protecting academic-to-rural-hospital data pipelines." },
+            { abbr: "RI", name: "Rhode Island", archetype: "centralized", techFocus: "Data & AI", confidence: "high", route: "Boutique pilot lab exploring a 'State-Sponsored EHR' and centralized Rural Health Data Hub.", insight: "Health equity mapping requires heavy data analysis and visualization workstations." },
+            { abbr: "SC", name: "South Carolina", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Implementing a 'Tech Catalyst Fund' providing competitive seed funding directly to rural health startups/clinics.", insight: "Direct relationship with SCORH to build a centralized managed cloud for hospitals." },
+            { abbr: "SD", name: "South Dakota", archetype: "centralized", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Centralized 'Tech and Data Connection' modernizing digital health and launching a statewide Rural Data Atlas.", insight: "EMS technology, rugged tablets for ambulances, and comms gateways." },
+            { abbr: "TN", name: "Tennessee", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Complex plan with 17 distinct initiatives, largely sub-granting for mobile units and local tech adoption.", insight: "New Rural Emergency Hospital (REH) builds mean ground-up IT infrastructure (servers to endpoints)." },
+            { abbr: "TX", name: "Texas", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Decentralized. 80 rural hospital districts receiving direct endpoint/infra funding. Subcontracting hubs via RFPs.", insight: "Massive opportunity for VxRail and PowerEdge as Texas aggressively modernizes on-prem data centers to prevent rural hospital closures." },
+            { abbr: "UT", name: "Utah", archetype: "centralized", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Implementing state-managed PATH program to strengthen rural food infrastructure and active transportation.", insight: "Telehealth focus; remote patient monitoring gateways." },
+            { abbr: "VT", name: "Vermont", archetype: "centralized", techFocus: "Cybersecurity", confidence: "high", route: "Building a 'Clinically Integrated Network of Shared Services' featuring centralized procurement for a Shared EHR.", insight: "Securing primary care data exchanges across the state network." },
+            { abbr: "VA", name: "Virginia", archetype: "tribal", techFocus: "Data & AI", confidence: "medium", route: "DMAS prioritizing competitive grant programs specifically for federally recognized tribes and broadband extension.", insight: "Social Determinants of Health (SDOH) massive data processing infrastructure." },
+            { abbr: "WA", name: "Washington", archetype: "tribal", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Mix of direct awards with massive explicit $20M/year tribal set-asides. Heavy investments in UW and WSU medical schools.", insight: "Value-based care analytics requiring high-performance computing clusters." },
+            { abbr: "WV", name: "West Virginia", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Operating 'Smart Care Catalyst' grants, passing funds down for tech-enabled innovation at the clinic level.", insight: "Distressed asset turnaround; replace aging servers with efficient HCI solutions." },
+            { abbr: "WI", name: "Wisconsin", archetype: "regional", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "$230M total distributed to regional care coordination networks. Operational support via UW.", insight: "Hybrid Academic/Operational tools; university-managed cloud services." },
+            { abbr: "WY", name: "Wyoming", archetype: "centralized", techFocus: "Data & AI", confidence: "high", route: "Creating a centralized state trust structure prioritizing CAHs and dictating EMS regionalization from the top down.", insight: "Statewide data lakes and secure edge-to-core data pipelines." }
+        ];
+
+        // --- Logic: Map Generation & Interaction ---
+        
+        function initApp() {
+            // 1. Render Map via Plotly
+            function renderMap() {
+                const locations = stateData.map(s => s.abbr);
+                
+                // Map Archetypes to names and numerical values for Plotly's colorscale
+                const hoverText = stateData.map(s => {
+                    let archName = "";
+                    if(s.archetype === 'centralized') archName = "Centralized Command";
+                    if(s.archetype === 'regional') archName = "Regional Coalition";
+                    if(s.archetype === 'subgrant') archName = "Competitive Sub-Grant";
+                    if(s.archetype === 'tribal') archName = "Tribal Sovereignty";
+                    
+                    const edMarker = s.higherEd ? "<br>🎓 Higher Ed Funding" : "";
+                    return `<b>${s.name}</b><br>${archName}${edMarker}`;
+                });
+                
+                const zValues = stateData.map(s => {
+                    if(s.archetype === 'centralized') return 1;
+                    if(s.archetype === 'regional') return 2;
+                    if(s.archetype === 'subgrant') return 3;
+                    if(s.archetype === 'tribal') return 4;
+                    return 1;
+                });
+
+                const trace = {
+                    type: 'choropleth',
+                    locationmode: 'USA-states',
+                    locations: locations,
+                    z: zValues,
+                    text: hoverText,
+                    hoverinfo: 'location+text',
+                    showscale: false, 
+                    colorscale: [
+                        [0, '#3b82f6'],      // Blue-500 (Centralized)
+                        [0.25, '#3b82f6'], 
+                        [0.25, '#10b981'],   // Emerald-500 (Regional)
+                        [0.5, '#10b981'],
+                        [0.5, '#f59e0b'],    // Amber-500 (Subgrant)
+                        [0.75, '#f59e0b'],
+                        [0.75, '#8b5cf6'],   // Purple-500 (Tribal)
+                        [1, '#8b5cf6']
+                    ],
+                    zmin: 1,
+                    zmax: 4,
+                    marker: {
+                        line: {
+                            color: '#ffffff',
+                            width: 1.5
+                        }
+                    }
+                };
+
+                // Create a secondary trace to overlay the Higher Ed icons
+                const higherEdStates = stateData.filter(s => s.higherEd);
+                const edLocations = higherEdStates.map(s => s.abbr);
+                const edIcons = higherEdStates.map(() => '🎓');
+
+                const iconTrace = {
+                    type: 'scattergeo',
+                    locationmode: 'USA-states',
+                    locations: edLocations,
+                    mode: 'text',
+                    text: edIcons,
+                    textfont: {
+                        size: 16
+                    },
+                    hoverinfo: 'skip', // Let the underlying state handle the hover card
+                    showlegend: false
+                };
+
+                const layout = {
+                    geo: {
+                        scope: 'usa',
+                        projection: { type: 'albers usa' },
+                        showlakes: false,
+                        bgcolor: 'rgba(0,0,0,0)'
+                    },
+                    margin: { t: 0, b: 0, l: 0, r: 0 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    dragmode: false // Disable panning/zooming
+                };
+
+                Plotly.newPlot('plotlyMap', [trace, iconTrace], layout, {responsive: true, displayModeBar: false});
+
+                // Attach click listener to the map
+                document.getElementById('plotlyMap').on('plotly_click', function(data){
+                    const clickedAbbr = data.points[0].location;
+                    const stateObj = stateData.find(s => s.abbr === clickedAbbr);
+                    if(stateObj) {
+                        selectState(stateObj);
+                    }
+                });
+            }
+
+            // 2. Select State Logic
+            function selectState(state) {
+                // Panel Update
+                document.getElementById('emptyState').classList.add('hidden');
+                const content = document.getElementById('activeContent');
+                content.classList.remove('hidden');
+                
+                // Populate Text
+                document.getElementById('detailName').innerText = state.name;
+                document.getElementById('detailAbbr').innerText = state.abbr;
+                
+                // Format Archetype Badge
+                const archBadge = document.getElementById('detailArchetype');
+                if (state.archetype === 'centralized') {
+                    archBadge.innerText = 'Centralized Command';
+                    archBadge.className = "inline-block text-xs px-2.5 py-1 rounded font-bold shadow-sm bg-blue-100 text-blue-700 border border-blue-200";
+                } else if (state.archetype === 'regional') {
+                    archBadge.innerText = 'Regional Coalition';
+                    archBadge.className = "inline-block text-xs px-2.5 py-1 rounded font-bold shadow-sm bg-emerald-100 text-emerald-700 border border-emerald-200";
+                } else if (state.archetype === 'subgrant') {
+                    archBadge.innerText = 'Competitive Sub-Grant';
+                    archBadge.className = "inline-block text-xs px-2.5 py-1 rounded font-bold shadow-sm bg-amber-100 text-amber-700 border border-amber-200";
+                } else if (state.archetype === 'tribal') {
+                    archBadge.innerText = 'Tribal Sovereignty';
+                    archBadge.className = "inline-block text-xs px-2.5 py-1 rounded font-bold shadow-sm bg-purple-100 text-purple-700 border border-purple-200";
+                }
+
+                // Populate Tech Focus Badge
+                const techBadge = document.getElementById('detailTech');
+                techBadge.innerText = state.techFocus;
+                if(state.techFocus === 'Cybersecurity') techBadge.className = "inline-block bg-red-500/20 text-red-100 text-xs px-2.5 py-1 rounded border border-red-500/30 font-medium shadow-sm";
+                else if(state.techFocus === 'Cloud & Edge') techBadge.className = "inline-block bg-sky-500/20 text-sky-100 text-xs px-2.5 py-1 rounded border border-sky-500/30 font-medium shadow-sm";
+                else if(state.techFocus === 'Telehealth & Endpoints') techBadge.className = "inline-block bg-teal-500/20 text-teal-100 text-xs px-2.5 py-1 rounded border border-teal-500/30 font-medium shadow-sm";
+                else techBadge.className = "inline-block bg-indigo-500/20 text-indigo-100 text-xs px-2.5 py-1 rounded border border-indigo-500/30 font-medium shadow-sm"; // Data & AI
+
+                // Higher Ed Badge
+                const edBadge = document.getElementById('detailHigherEd');
+                if (state.higherEd) {
+                    edBadge.classList.remove('hidden');
+                    edBadge.classList.add('inline-block');
+                } else {
+                    edBadge.classList.add('hidden');
+                    edBadge.classList.remove('inline-block');
+                }
+
+                document.getElementById('detailRoute').innerHTML = state.route;
+                document.getElementById('detailProcurement').innerText = state.insight;
+                
+                // Confidence Logic
+                const confBar = document.getElementById('confidenceBar');
+                const confText = document.getElementById('confidenceText');
+                const confLabel = document.getElementById('detailConfidence');
+
+                if (state.confidence === 'high') {
+                    confBar.style.width = '90%';
+                    confBar.className = 'bg-emerald-500 h-2 rounded-full transition-all duration-500';
+                    confLabel.innerText = "Documented Structure";
+                    confLabel.className = "text-xs font-bold text-emerald-600 px-2 py-0.5 bg-emerald-50 rounded-full border border-emerald-100";
+                    confText.innerText = "Based on explicit state RHTP publication.";
+                } else if (state.confidence === 'medium') {
+                    confBar.style.width = '60%';
+                    confBar.className = 'bg-amber-500 h-2 rounded-full transition-all duration-500';
+                    confLabel.innerText = "Inferred Structure";
+                    confLabel.className = "text-xs font-bold text-amber-600 px-2 py-0.5 bg-amber-50 rounded-full border border-amber-100";
+                    confText.innerText = "Based on structural extrapolation and funding trends.";
+                } else {
+                    confBar.style.width = '30%';
+                    confBar.className = 'bg-red-400 h-2 rounded-full transition-all duration-500';
+                    confLabel.innerText = "Best Guess";
+                    confLabel.className = "text-xs font-bold text-red-500 px-2 py-0.5 bg-red-50 rounded-full border border-red-100";
+                    confText.innerText = "Awaiting formal state documentation.";
+                }
+            }
+
+            // 3. Init Charts
+            renderCharts();
+
+            // Initial Render
+            renderMap();
+        }
+
+        // --- Chart Generation ---
+        function renderCharts() {
+            // Data Prep
+            const archCounts = { centralized: 0, regional: 0, subgrant: 0, tribal: 0 };
+            const techCounts = { cyber: 0, edge: 0, telehealth: 0, data: 0 };
+
+            stateData.forEach(s => {
+                if (s.archetype === 'centralized') archCounts.centralized++;
+                if (s.archetype === 'regional') archCounts.regional++;
+                if (s.archetype === 'subgrant') archCounts.subgrant++;
+                if (s.archetype === 'tribal') archCounts.tribal++;
+                
+                if (s.techFocus === 'Cybersecurity') techCounts.cyber++;
+                if (s.techFocus === 'Cloud & Edge') techCounts.edge++;
+                if (s.techFocus === 'Telehealth & Endpoints') techCounts.telehealth++;
+                if (s.techFocus === 'Data & AI') techCounts.data++;
+            });
+
+            // Chart 1: Archetypes
+            const ctx1 = document.getElementById('archetypeChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Centralized Command', 'Regional Coalition', 'Competitive Sub-Grant', 'Tribal Sovereignty'],
+                    datasets: [{
+                        data: [archCounts.centralized, archCounts.regional, archCounts.subgrant, archCounts.tribal],
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'], // Blue, Emerald, Amber, Purple
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 8, padding: 15 } }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            // Chart 2: Projected Tech Investment
+            const ctx2 = document.getElementById('complexityChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['Cloud & Edge', 'Telehealth', 'Data & AI', 'Cybersecurity'],
+                    datasets: [{
+                        label: 'Number of States',
+                        data: [techCounts.edge, techCounts.telehealth, techCounts.data, techCounts.cyber],
+                        backgroundColor: ['#0ea5e9', '#14b8a6', '#6366f1', '#ef4444'], // Sky, Teal, Indigo, Red
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { beginAtZero: true, grid: { color: '#f1f5f9' }, ticks: { stepSize: 5 } },
+                        y: { grid: { display: false } }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw + ' States focused on this area';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Start
+        window.onload = initApp;
+
+    </script>
+</body>
+</html>
