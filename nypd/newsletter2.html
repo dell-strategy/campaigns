@@ -59,8 +59,17 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="bg-slate-900 text-white py-20 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
+    <header class="bg-slate-900 text-white pt-24 pb-32 px-6 relative overflow-hidden">
+        
+        <!-- Fading Background Image Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1600&q=80" alt="NYC Skyline" class="w-full h-full object-cover object-top opacity-30">
+            <!-- Gradient fades from dark slate at the top to the body's slate-50 at the bottom for a seamless blend -->
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-900/30 via-slate-900/80 to-slate-50"></div>
+        </div>
+        
+        <!-- Grid Pattern (Subtle) -->
+        <div class="absolute inset-0 opacity-[0.03] z-0">
             <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -79,7 +88,7 @@
                 <span class="ml-4 text-xl font-medium tracking-widest text-slate-300 uppercase">Internal Customer Success Story</span>
             </div>
             
-            <div class="mb-6 text-blue-400 font-mono text-sm tracking-widest uppercase">
+            <div class="mb-6 text-blue-400 font-mono text-sm tracking-widest uppercase shadow-sm">
                 Issue 01 • Executive Briefing
             </div>
             
@@ -93,12 +102,12 @@
     </header>
 
     <!-- Main Content Container -->
-    <main class="max-w-6xl mx-auto px-6 py-16 space-y-24">
+    <main class="max-w-6xl mx-auto px-6 py-8 space-y-24">
         
         <!-- Context & Mandate -->
         <div class="fade-in-section">
-            <section id="mandate" class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start scroll-mt-24">
-                <div class="lg:col-span-7">
+            <section id="mandate" class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start scroll-mt-24 relative z-10 -mt-12">
+                <div class="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-slate-100">
                     <div class="mb-8">
                         <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Executive Context and Purpose</h2>
                         <p class="text-xl text-blue-600 mt-3 font-medium">Technology availability at NYPD is inseparable from public safety.</p>
@@ -269,32 +278,37 @@
                 </div>
 
                 <!-- Narrative & Visual Blocks -->
-                <div class="space-y-16">
+                <div class="space-y-24">
                     
                     <!-- Desktops Block -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                        <div class="lg:col-span-7 prose prose-lg text-slate-600">
-                            <h3 class="text-2xl font-bold text-slate-900 flex items-center mb-4">
-                                <i data-lucide="check-circle" class="text-green-500 mr-3 w-6 h-6"></i> Desktop Environment Transformation
-                            </h3>
-                            <p>
-                                The desktop experience was rebuilt for speed, security, and consistency. NYPD completed a major modernization initiative by deploying Dell Pro Slim Desktops powered by the latest Intel chipset, delivering a dramatically improved end-user experience.
-                            </p>
-                            <p>
-                                The new environment enables full integration with Microsoft M365, including Teams, OneDrive, and SharePoint, supporting modern collaboration across the department. Each workstation now includes Dual 24‑inch Dell monitors, one standard and one optimized for video conferencing with integrated webcam and speakers. Security is enhanced through Windows Hello, enabling fast, secure authentication.
-                            </p>
-                            <p>
-                                Approximately 25,000 desktops and 50,000 monitors were deployed, creating a uniform citywide experience regardless of borough or command.
-                            </p>
-                            <div class="bg-blue-50 border-l-4 border-blue-600 p-5 mt-6 rounded-r-lg text-slate-800">
-                                <strong class="text-blue-900 block mb-1">What This Means for NYPD:</strong> 
-                                Login time has dropped from minutes to seconds—allowing officers to begin their shift ready to work. Operationally, help desk tickets and downtime have declined significantly, freeing IT from break fix activities and allowing focus on proactive enablement. Officers spend less time waiting on technology and more time performing their duties.
+                    <div>
+                        <!-- Section Feature Image -->
+                        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=1200&q=80" alt="Modern Workspace" class="w-full h-72 object-cover rounded-2xl shadow-sm mb-10">
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                            <div class="lg:col-span-7 prose prose-lg text-slate-600">
+                                <h3 class="text-2xl font-bold text-slate-900 flex items-center mb-4">
+                                    <i data-lucide="check-circle" class="text-green-500 mr-3 w-6 h-6"></i> Desktop Environment Transformation
+                                </h3>
+                                <p>
+                                    The desktop experience was rebuilt for speed, security, and consistency. NYPD completed a major modernization initiative by deploying Dell Pro Slim Desktops powered by the latest Intel chipset, delivering a dramatically improved end-user experience.
+                                </p>
+                                <p>
+                                    The new environment enables full integration with Microsoft M365, including Teams, OneDrive, and SharePoint, supporting modern collaboration across the department. Each workstation now includes Dual 24‑inch Dell monitors, one standard and one optimized for video conferencing with integrated webcam and speakers. Security is enhanced through Windows Hello, enabling fast, secure authentication.
+                                </p>
+                                <p>
+                                    Approximately 25,000 desktops and 50,000 monitors were deployed, creating a uniform citywide experience regardless of borough or command.
+                                </p>
+                                <div class="bg-blue-50 border-l-4 border-blue-600 p-5 mt-6 rounded-r-lg text-slate-800">
+                                    <strong class="text-blue-900 block mb-1">What This Means for NYPD:</strong> 
+                                    Login time has dropped from minutes to seconds—allowing officers to begin their shift ready to work. Operationally, help desk tickets and downtime have declined significantly, freeing IT from break fix activities and allowing focus on proactive enablement. Officers spend less time waiting on technology and more time performing their duties.
+                                </div>
                             </div>
-                        </div>
-                        <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                            <h4 class="text-center font-bold text-slate-700 mb-6">Login Time Reduction</h4>
-                            <div class="h-64 relative w-full">
-                                <canvas id="loginChart"></canvas>
+                            <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                                <h4 class="text-center font-bold text-slate-700 mb-6">Login Time Reduction</h4>
+                                <div class="h-64 relative w-full">
+                                    <canvas id="loginChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -302,29 +316,34 @@
                     <hr class="border-slate-200" />
 
                     <!-- Storage Block -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                        <div class="lg:col-span-5 bg-slate-900 p-8 rounded-2xl shadow-xl text-white">
-                            <h4 class="text-center font-bold text-slate-300 mb-6 uppercase tracking-widest text-sm">Shift to Proactive Operations</h4>
-                            <div class="h-64 relative w-full">
-                                <canvas id="incidentChart"></canvas>
+                    <div>
+                        <!-- Section Feature Image -->
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80" alt="Modern Server Datacenter" class="w-full h-72 object-cover rounded-2xl shadow-sm mb-10 object-bottom">
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                            <div class="lg:col-span-5 bg-slate-900 p-8 rounded-2xl shadow-xl text-white">
+                                <h4 class="text-center font-bold text-slate-300 mb-6 uppercase tracking-widest text-sm">Shift to Proactive Operations</h4>
+                                <div class="h-64 relative w-full">
+                                    <canvas id="incidentChart"></canvas>
+                                </div>
                             </div>
-                        </div>
-                        <div class="lg:col-span-7 prose prose-lg text-slate-600">
-                            <h3 class="text-2xl font-bold text-slate-900 flex items-center mb-4">
-                                <i data-lucide="database" class="text-blue-600 mr-3 w-6 h-6"></i> Storage Modernization
-                            </h3>
-                            <p>
-                                The data platform was rebuilt to support uninterrupted policing operations at city scale. NYPD has fully standardized and modernized its data center storage environment on Dell Technologies, establishing a mission critical foundation designed to keep essential policing systems continuously available.
-                            </p>
-                            <p>
-                                Prior to modernization, storage platforms varied by organization and age. Today, NYPD operates on best-of-breed Dell storage platforms supporting file, block, and object workloads, protected by a modernized Dell Data Domain solution. This unified architecture simplifies operations while delivering the performance, scalability, and security required.
-                            </p>
-                            <p>
-                                The new environment is engineered for five nines (99.999%) availability, ensuring that mission critical applications remain online. Systems such as the License Plate Reader, Domain Awareness System, Arrest Processing, and other operational platforms now run faster and more reliably.
-                            </p>
-                            <div class="bg-blue-50 border-l-4 border-blue-600 p-5 mt-6 rounded-r-lg text-slate-800">
-                                <strong class="text-blue-900 block mb-1">What This Means for NYPD:</strong> 
-                                Critical policing applications remain up and running without infrastructure driven interruptions. Command staff, officers, and investigators can rely on systems knowing the data layer supporting them is resilient, secure, and designed for continuous operation. NYPD can focus on protecting the City of New York—not managing storage outages.
+                            <div class="lg:col-span-7 prose prose-lg text-slate-600">
+                                <h3 class="text-2xl font-bold text-slate-900 flex items-center mb-4">
+                                    <i data-lucide="database" class="text-blue-600 mr-3 w-6 h-6"></i> Storage Modernization
+                                </h3>
+                                <p>
+                                    The data platform was rebuilt to support uninterrupted policing operations at city scale. NYPD has fully standardized and modernized its data center storage environment on Dell Technologies, establishing a mission critical foundation designed to keep essential policing systems continuously available.
+                                </p>
+                                <p>
+                                    Prior to modernization, storage platforms varied by organization and age. Today, NYPD operates on best-of-breed Dell storage platforms supporting file, block, and object workloads, protected by a modernized Dell Data Domain solution. This unified architecture simplifies operations while delivering the performance, scalability, and security required.
+                                </p>
+                                <p>
+                                    The new environment is engineered for five nines (99.999%) availability, ensuring that mission critical applications remain online. Systems such as the License Plate Reader, Domain Awareness System, Arrest Processing, and other operational platforms now run faster and more reliably.
+                                </p>
+                                <div class="bg-blue-50 border-l-4 border-blue-600 p-5 mt-6 rounded-r-lg text-slate-800">
+                                    <strong class="text-blue-900 block mb-1">What This Means for NYPD:</strong> 
+                                    Critical policing applications remain up and running without infrastructure driven interruptions. Command staff, officers, and investigators can rely on systems knowing the data layer supporting them is resilient, secure, and designed for continuous operation. NYPD can focus on protecting the City of New York—not managing storage outages.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -382,55 +401,61 @@
                 
                 <div class="space-y-8 mt-8">
                     <!-- Compute Card -->
-                    <div class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
-                        <div class="flex items-center mb-6">
-                            <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mr-6 shrink-0">
-                                <i data-lucide="server" class="w-8 h-8"></i>
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80" alt="AI Server Datacenter" class="w-full h-56 object-cover object-center">
+                        <div class="p-8 md:p-10">
+                            <div class="flex items-center mb-6">
+                                <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mr-6 shrink-0">
+                                    <i data-lucide="server" class="w-8 h-8"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-slate-900">Compute Modernization <span class="text-sm font-normal text-slate-500 ml-2">(HPE → Dell)</span></h3>
+                                    <p class="text-blue-600 font-medium mt-1">Modern compute is the next critical step in sustaining NYPD’s “Never Down” mission.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-slate-900">Compute Modernization <span class="text-sm font-normal text-slate-500 ml-2">(HPE → Dell)</span></h3>
-                                <p class="text-blue-600 font-medium mt-1">Modern compute is the next critical step in sustaining NYPD’s “Never Down” mission.</p>
-                            </div>
-                        </div>
-                        <div class="prose prose-lg text-slate-600 max-w-none">
-                            <p>
-                                While significant progress has been made across desktops, storage, and data protection, modernizing compute remains essential. The current HPE server environment has reached a point where it no longer provides the performance, scalability, or lifecycle assurance required. Much of the existing infrastructure is aging and approaching end of life, introducing unnecessary risk to mission critical systems.
-                            </p>
-                            <p>
-                                To address these challenges, NYPD has made the strategic decision to move away from HPE and standardize on the latest Dell PowerEdge 17G servers powered by AMD processors. This aligns compute modernization with the broader standardization already achieved.
-                            </p>
-                            <p>
-                                Dell PowerEdge 17G platforms deliver a modern compute foundation designed for high performance, efficiency, and scale. Powered by AMD chips, the new servers provide increased processing capability to support analytics, real-time data ingestion (like LPR and DAS), and future application demands, while also improving energy efficiency.
-                            </p>
-                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mt-6 rounded-r-lg text-slate-800 text-base">
-                                <strong class="text-blue-900">What This Means for NYPD:</strong> Critical applications will run on modern, fully supported compute platforms built to scale. Officers benefit from faster, more reliable systems, while IT gains a consistent, supportable environment that reduces operational risk.
+                            <div class="prose prose-lg text-slate-600 max-w-none">
+                                <p>
+                                    While significant progress has been made across desktops, storage, and data protection, modernizing compute remains essential. The current HPE server environment has reached a point where it no longer provides the performance, scalability, or lifecycle assurance required. Much of the existing infrastructure is aging and approaching end of life, introducing unnecessary risk to mission critical systems.
+                                </p>
+                                <p>
+                                    To address these challenges, NYPD has made the strategic decision to move away from HPE and standardize on the latest Dell PowerEdge 17G servers powered by AMD processors. This aligns compute modernization with the broader standardization already achieved.
+                                </p>
+                                <p>
+                                    Dell PowerEdge 17G platforms deliver a modern compute foundation designed for high performance, efficiency, and scale. Powered by AMD chips, the new servers provide increased processing capability to support analytics, real-time data ingestion (like LPR and DAS), and future application demands, while also improving energy efficiency.
+                                </p>
+                                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mt-6 rounded-r-lg text-slate-800 text-base">
+                                    <strong class="text-blue-900">What This Means for NYPD:</strong> Critical applications will run on modern, fully supported compute platforms built to scale. Officers benefit from faster, more reliable systems, while IT gains a consistent, supportable environment that reduces operational risk.
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Patrol Car Card -->
-                    <div class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
-                        <div class="flex items-center mb-6">
-                            <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mr-6 shrink-0">
-                                <i data-lucide="car" class="w-8 h-8"></i>
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
+                        <img src="https://images.unsplash.com/photo-1555026938-1616c31bf015?auto=format&fit=crop&w=1200&q=80" alt="Police Car Lights" class="w-full h-56 object-cover object-center">
+                        <div class="p-8 md:p-10">
+                            <div class="flex items-center mb-6">
+                                <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mr-6 shrink-0">
+                                    <i data-lucide="car" class="w-8 h-8"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-slate-900">Patrol Car / RMP Rugged Technology Modernization</h3>
+                                    <p class="text-blue-600 font-medium mt-1">A patrol car is the lifeblood of NYPD operations—technology inside it must work every time.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-slate-900">Patrol Car / RMP Rugged Technology Modernization</h3>
-                                <p class="text-blue-600 font-medium mt-1">A patrol car is the lifeblood of NYPD operations—technology inside it must work every time.</p>
-                            </div>
-                        </div>
-                        <div class="prose prose-lg text-slate-600 max-w-none">
-                            <p>
-                                NYPD patrol vehicles are constantly in motion across the city, serving as the front line of public safety. These vehicles are mobile work environments that officers rely on for situational awareness, communication, reporting, and access to critical systems.
-                            </p>
-                            <p>
-                                For years, the in vehicle computing environment was powered by Panasonic rugged tablets that are now more than a decade old. While durable in their time, these devices no longer meet the performance, reliability, or modern application requirements of today’s policing operations. Delays, freezes, or outages in a patrol car directly affect officer effectiveness and safety.
-                            </p>
-                            <p>
-                                To address this, NYPD made the strategic decision to move away from Panasonic and modernize on Dell rugged in-vehicle technology. Dell rugged solutions are designed to withstand the physical demands of patrol work—vibration, heat, cold, and extended usage—while delivering modern performance. 
-                            </p>
-                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mt-6 rounded-r-lg text-slate-800 text-base">
-                                <strong class="text-blue-900">What This Means for NYPD:</strong> Officers can rely on the technology in their patrol cars as confidently as the systems in command centers. Information is available when needed, systems respond quickly, and technology supports—rather than slows—field operations.
+                            <div class="prose prose-lg text-slate-600 max-w-none">
+                                <p>
+                                    NYPD patrol vehicles are constantly in motion across the city, serving as the front line of public safety. These vehicles are mobile work environments that officers rely on for situational awareness, communication, reporting, and access to critical systems.
+                                </p>
+                                <p>
+                                    For years, the in vehicle computing environment was powered by Panasonic rugged tablets that are now more than a decade old. While durable in their time, these devices no longer meet the performance, reliability, or modern application requirements of today’s policing operations. Delays, freezes, or outages in a patrol car directly affect officer effectiveness and safety.
+                                </p>
+                                <p>
+                                    To address this, NYPD made the strategic decision to move away from Panasonic and modernize on Dell rugged in-vehicle technology. Dell rugged solutions are designed to withstand the physical demands of patrol work—vibration, heat, cold, and extended usage—while delivering modern performance. 
+                                </p>
+                                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mt-6 rounded-r-lg text-slate-800 text-base">
+                                    <strong class="text-blue-900">What This Means for NYPD:</strong> Officers can rely on the technology in their patrol cars as confidently as the systems in command centers. Information is available when needed, systems respond quickly, and technology supports—rather than slows—field operations.
+                                </div>
                             </div>
                         </div>
                     </div>
