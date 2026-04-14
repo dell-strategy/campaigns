@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYPD & Dell Transformation</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Fade-in Animation Classes */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Custom scroll margin for fixed header */
+        .scroll-mt-24 {
+            scroll-margin-top: 6rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800">
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4 shadow-sm">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-sm font-medium text-slate-600">
+            <div class="text-blue-600 font-bold uppercase tracking-wider mb-2 sm:mb-0 flex items-center">
+                <i data-lucide="shield" class="w-4 h-4 mr-2"></i> NYPD | Dell Transformation
+            </div>
+            <div class="flex space-x-6 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+                <a href="#mandate" class="hover:text-blue-600 transition-colors whitespace-nowrap">1. Mandate</a>
+                <a href="#baseline" class="hover:text-blue-600 transition-colors whitespace-nowrap">2. Baseline</a>
+                <a href="#transformation" class="hover:text-blue-600 transition-colors whitespace-nowrap">3. Transformation</a>
+                <a href="#future" class="hover:text-blue-600 transition-colors whitespace-nowrap">4. The Future</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-slate-900 text-white py-20 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M0 40L40 0H20L0 20M40 40V20L20 40" stroke="currentColor" strokeWidth="2" fill="none"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid-pattern)"/>
+            </svg>
+        </div>
+        
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="flex items-center space-x-4 mb-8">
+                <i data-lucide="shield" class="w-10 h-10 text-yellow-500"></i>
+                <div class="h-8 w-px bg-slate-700"></div>
+                <i data-lucide="server" class="w-10 h-10 text-blue-500"></i>
+                <span class="ml-4 text-xl font-medium tracking-widest text-slate-300 uppercase">Strategic Partnership</span>
+            </div>
+            
+            <div class="mb-6 text-blue-400 font-mono text-sm tracking-widest uppercase">
+                Issue 01 • Executive Briefing • Q3 Review
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                Executive Technology <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">Transformation Roadmap</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl leading-relaxed font-light">
+                Moving from reactive remediation to engineered resilience. How NYPD and Dell Technologies rearchitected the foundation of public safety.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-6 py-16 space-y-24">
+        
+        <!-- Context & Mandate -->
+        <div class="fade-in-section">
+            <section id="mandate" class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center scroll-mt-24">
+                <div>
+                    <div class="mb-10">
+                        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">The Executive Mandate</h2>
+                        <p class="text-lg text-slate-600 mt-3 max-w-3xl leading-relaxed">Technology availability at NYPD is inseparable from public safety.</p>
+                        <div class="h-1 w-20 bg-blue-600 mt-6 rounded-full"></div>
+                    </div>
+                    <div class="prose prose-lg text-slate-600">
+                        <p class="mb-4">
+                            At the outset of this transformation, the New York City Police Department faced increasing operational risk driven by aging, unsupported, and unreliable infrastructure. Core systems had exceeded their expected lifecycle.
+                        </p>
+                        <p>
+                            Frequent outages and performance degradation impacted mission-critical policing applications, disrupting daily operations and reducing confidence. What had once been tolerable became unacceptable. Leadership made a decisive shift away from incremental remediation toward full modernization.
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-blue-600 text-white p-10 rounded-2xl shadow-xl relative overflow-hidden">
+                    <i data-lucide="shield" class="absolute -right-10 -bottom-10 opacity-10 w-64 h-64"></i>
+                    <i data-lucide="activity" class="mb-6 text-yellow-400 w-12 h-12"></i>
+                    <blockquote class="text-3xl font-bold leading-tight mb-6 relative z-10">
+                        "NYPD must operate in a <span class="text-yellow-400 underline decoration-yellow-400/50">Never Down</span> technology environment."
+                    </blockquote>
+                    <p class="text-blue-100 text-lg relative z-10">
+                        Uptime is not a traditional IT metric—it is a non‑negotiable public safety requirement.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- The Baseline (Where We Were) -->
+        <div class="fade-in-section">
+            <section id="baseline" class="bg-white border border-red-100 rounded-3xl p-8 md:p-12 shadow-sm relative scroll-mt-24">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 to-orange-400 rounded-t-3xl"></div>
+                
+                <div class="mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Where We Were: Baseline Conditions</h2>
+                    <p class="text-lg text-slate-600 mt-3 max-w-3xl leading-relaxed">Fifteen months ago, critical systems across the department were running on aging, end-of-life, and out-of-support technology.</p>
+                    <div class="h-1 w-20 bg-blue-600 mt-6 rounded-full"></div>
+                </div>
+            
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+                    <div class="bg-red-50/50 p-6 rounded-xl border border-red-100">
+                        <div class="bg-red-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="clock" class="text-red-600 w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Productivity Constraints</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Desktops across five boroughs were 10+ years old. Officers experienced long boot times, slow responsiveness, and a severe Windows 10 security vulnerability, drastically reducing operational efficiency.
+                        </p>
+                    </div>
+
+                    <div class="bg-orange-50/50 p-6 rounded-xl border border-orange-100">
+                        <div class="bg-orange-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="alert-triangle" class="text-orange-600 w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Data Foundation Risks</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Storage platforms were 10+ years old, distributed unevenly across ITSD and DAS. Complexity increased operational overhead, recovery risk, and caused repeated outages affecting command environments.
+                        </p>
+                    </div>
+
+                    <div class="bg-rose-50/50 p-6 rounded-xl border border-rose-100">
+                        <div class="bg-rose-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="lock" class="text-rose-600 w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Unsupported Infrastructure</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Critical platforms (Dell VNX, HPE Gen 8/9) exceeded vendor support. This forced IT into a highly reactive break-fix model, creating unacceptable operational and security risks.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- The Transformation (Where We Are Today) -->
+        <div class="fade-in-section">
+            <section id="transformation" class="scroll-mt-24">
+                <div class="mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Where We Are Today: Transformation Delivered</h2>
+                    <p class="text-lg text-slate-600 mt-3 max-w-3xl leading-relaxed">The partnership encompasses architecture, planning, execution, and accountability—aligning technology with operational mission needs.</p>
+                    <div class="h-1 w-20 bg-blue-600 mt-6 rounded-full"></div>
+                </div>
+                
+                <!-- Stats Row -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                    <!-- Stat Card 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex items-start space-x-4 transition-transform hover:-translate-y-1">
+                        <div class="p-3 rounded-lg bg-blue-600">
+                            <i data-lucide="monitor" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-slate-500 text-sm font-semibold uppercase tracking-wider">Desktops Deployed</h4>
+                            <p class="text-3xl font-bold text-slate-900 mt-1">25,000</p>
+                            <p class="text-slate-600 text-sm mt-1">Dell Pro Slim with Intel</p>
+                        </div>
+                    </div>
+                    <!-- Stat Card 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex items-start space-x-4 transition-transform hover:-translate-y-1">
+                        <div class="p-3 rounded-lg bg-blue-500">
+                            <i data-lucide="monitor" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-slate-500 text-sm font-semibold uppercase tracking-wider">Monitors Deployed</h4>
+                            <p class="text-3xl font-bold text-slate-900 mt-1">50,000</p>
+                            <p class="text-slate-600 text-sm mt-1">Dual 24-inch configurations</p>
+                        </div>
+                    </div>
+                    <!-- Stat Card 3 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex items-start space-x-4 transition-transform hover:-translate-y-1">
+                        <div class="p-3 rounded-lg bg-green-500">
+                            <i data-lucide="activity" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-slate-500 text-sm font-semibold uppercase tracking-wider">Storage Availability</h4>
+                            <p class="text-3xl font-bold text-slate-900 mt-1">99.999%</p>
+                            <p class="text-slate-600 text-sm mt-1">Engineered for Five Nines</p>
+                        </div>
+                    </div>
+                    <!-- Stat Card 4 -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex items-start space-x-4 transition-transform hover:-translate-y-1">
+                        <div class="p-3 rounded-lg bg-yellow-500">
+                            <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-slate-500 text-sm font-semibold uppercase tracking-wider">Login Times</h4>
+                            <p class="text-3xl font-bold text-slate-900 mt-1">Seconds</p>
+                            <p class="text-slate-600 text-sm mt-1">Down from minutes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Editorial Pull Quote -->
+                <div class="my-16 bg-blue-50/50 border-l-4 border-blue-600 p-8 md:p-12 rounded-r-2xl relative shadow-sm">
+                    <i data-lucide="quote" class="absolute top-6 left-6 text-blue-200 w-16 h-16 -z-10"></i>
+                    <blockquote class="text-2xl md:text-3xl font-medium text-slate-800 leading-snug mb-6 relative z-10">
+                        "When I start my shift, I no longer spend the first 10 minutes fighting with my computer. I turn it on, use Windows Hello, and I'm instantly ready to review precinct data and hit the street."
+                    </blockquote>
+                    <p class="font-bold text-slate-900 uppercase tracking-widest text-sm">— NYPD Precinct Commander</p>
+                </div>
+
+                <!-- Narrative & Visual Blocks -->
+                <div class="space-y-16">
+                    
+                    <!-- Desktops Block -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                        <div class="lg:col-span-7 prose prose-lg text-slate-600">
+                            <h3 class="text-2xl font-bold text-slate-900 flex items-center mb-4">
+                                <i data-lucide="check-circle" class="text-green-500 mr-3 w-6 h-6"></i> Desktop Environment Transformation
+                            </h3>
+                            <p class="mb-4">
+                                The desktop experience was rebuilt for speed, security, and consistency. NYPD deployed Dell Pro Slim Desktops, enabling full integration with Microsoft M365 (Teams, OneDrive, SharePoint).
+                            </p>
+                            <p>
+                                Each workstation includes dual 24‑inch monitors, optimized for video conferencing. Security is enhanced through Windows Hello for fast, secure authentication.
+                            </p>
+                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mt-6 rounded-r-lg text-blue-900 font-medium">
+                                Officer Impact: Officers spend less time waiting on technology and more time performing their duties. Help desk tickets and downtime have declined significantly.
+                            </div>
+                        </div>
+                        <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                            <h4 class="text-center font-bold text-slate-700 mb-6">Login Time Reduction</h4>
+                            <div class="h-64 relative w-full">
+                                <canvas id="loginChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-slate-200" />
+
+                    <!-- Storage & Data Protection Block -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                        <div class="lg:col-span-5 bg-slate-900 p-8 rounded-2xl shadow-xl text-white">
+                            <h4 class="text-center font-bold text-slate-300 mb-6 uppercase tracking-widest text-sm">Shift to Proactive Operations</h4>
+                            <div class="h-64 relative w-full">
+                                <canvas id="incidentChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-7 prose prose-lg text-slate-600">
+                            <h3 class="text-2xl font-bold text-slate-900 flex items-center mb-4">
+                                <i data-lucide="database" class="text-blue-600 mr-3 w-6 h-6"></i> Storage & Cyber Resilience
+                            </h3>
+                            <p class="mb-4">
+                                The data platform was rebuilt to support uninterrupted policing operations at city scale. NYPD has standardized on best-of-breed Dell storage platforms (file, block, object workloads) and protected them with Dell Data Domain.
+                            </p>
+                            <p>
+                                Crucial systems—License Plate Reader (LPR), Domain Awareness System (DAS), and Arrest Processing—now run faster and reliably. Data recoverability is a dependable operational capability, ensuring investigations and court proceedings are never delayed by IT.
+                            </p>
+                            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 mt-6 rounded-r-lg text-blue-900 font-medium">
+                                IT Impact: Simplified operations, predictable recovery, and a secure foundation capable of supporting future data growth. The focus remains on policing, not recovering data.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- The Road Ahead -->
+        <div class="fade-in-section">
+            <section id="future" class="bg-slate-100 rounded-3xl p-8 md:p-12 border border-slate-200 scroll-mt-24">
+                <div class="mb-10">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">Where We Are Going: The Road Ahead</h2>
+                    <p class="text-lg text-slate-600 mt-3 max-w-3xl leading-relaxed">Sustaining the 'Never Down' mission requires continuous momentum. Here is the roadmap for the next phase of modernization.</p>
+                    <div class="h-1 w-20 bg-blue-600 mt-6 rounded-full"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+                            <i data-lucide="server" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Compute Modernization <span class="text-sm font-normal text-slate-500 ml-2 block sm:inline">(HPE → Dell)</span></h3>
+                        <p class="text-slate-600 mb-6">
+                            Moving away from aging HPE servers to the latest Dell PowerEdge 17G servers powered by AMD processors. This aligns compute with the broader standardization achieved across the department.
+                        </p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-green-500 mr-2 shrink-0 mt-0.5 w-[18px] h-[18px]"></i> <span class="text-sm text-slate-700">Supports data-intensive, real-time analytics (LPR, DAS)</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-green-500 mr-2 shrink-0 mt-0.5 w-[18px] h-[18px]"></i> <span class="text-sm text-slate-700">Reduces end-of-life and support risk</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-green-500 mr-2 shrink-0 mt-0.5 w-[18px] h-[18px]"></i> <span class="text-sm text-slate-700">Improved energy efficiency and scaling</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                        <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-6">
+                            <i data-lucide="car" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 mb-4">Patrol Car Rugged Tech <span class="text-sm font-normal text-slate-500 ml-2 block sm:inline">(Panasonic → Dell)</span></h3>
+                        <p class="text-slate-600 mb-6">
+                            A patrol car is the lifeblood of operations. We are replacing 10-year-old Panasonic tablets with Dell rugged in-vehicle technology designed to withstand the physical demands of patrol work.
+                        </p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-green-500 mr-2 shrink-0 mt-0.5 w-[18px] h-[18px]"></i> <span class="text-sm text-slate-700">Faster access to critical field information</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-green-500 mr-2 shrink-0 mt-0.5 w-[18px] h-[18px]"></i> <span class="text-sm text-slate-700">Withstands vibration, heat, and extended usage</span></li>
+                            <li class="flex items-start"><i data-lucide="check-circle" class="text-green-500 mr-2 shrink-0 mt-0.5 w-[18px] h-[18px]"></i> <span class="text-sm text-slate-700">Predictable lifecycle management & support</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Conclusion / Footer -->
+    <footer class="bg-slate-900 text-white py-16 px-6 mt-12 border-t-8 border-blue-600">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            <div class="flex justify-center mb-8">
+                <i data-lucide="users" class="w-12 h-12 text-yellow-500"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold">What is fundamentally different today is confidence.</h2>
+            <p class="text-xl text-slate-300 font-light leading-relaxed">
+                Confidence in the technology that supports NYPD's mission, every hour of every day. Fifteen months ago, technology posed risk. Today, it provides assurance. By moving beyond a traditional vendor relationship, Dell Technologies has proven they can be trusted to stand behind their solutions.
+            </p>
+            <div class="pt-8 mt-8 border-t border-slate-800">
+                <p class="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">
+                    When technology is never down, NYPD is always ready to serve New York City.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Initialize Scroll Animations (Intersection Observer)
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Initialize Chart.js Custom Configurations
+        Chart.defaults.font.family = 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+        
+        // --- 1. Login Time Bar Chart ---
+        const loginCtx = document.getElementById('loginChart').getContext('2d');
+        new Chart(loginCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Legacy Systems', 'Dell Pro Slim'],
+                datasets: [{
+                    data: [180, 15],
+                    backgroundColor: ['#ef4444', '#22c55e'],
+                    borderRadius: 4,
+                    barThickness: 40
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Horizontal bar chart
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleFont: { size: 14, weight: 'bold' },
+                        bodyFont: { size: 13 },
+                        padding: 12,
+                        cornerRadius: 8,
+                        callbacks: {
+                            title: function(context) {
+                                let label = context[0].label;
+                                let val = context[0].raw;
+                                let unit = label === 'Legacy Systems' ? 'Minutes' : 'Seconds';
+                                return `${label}: ${val} ${unit}`;
+                            },
+                            label: function() { return null; }, // Hide default label
+                            afterBody: function(context) {
+                                if (context[0].label === 'Legacy Systems') {
+                                    return '\nOfficers spent critical minutes\nwaiting for systems to boot,\ndelaying deployments.';
+                                } else {
+                                    return '\nOfficers can log in and start\ntheir patrol shifts almost\nimmediately.';
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        display: false,
+                        grid: { display: false }
+                    },
+                    y: {
+                        grid: {
+                            color: '#e2e8f0',
+                            drawBorder: false,
+                            borderDash: [3, 3]
+                        },
+                        ticks: {
+                            color: '#475569',
+                            font: { weight: '600' }
+                        },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+
+        // --- 2. Incident Line Chart ---
+        const incidentCtx = document.getElementById('incidentChart').getContext('2d');
+        new Chart(incidentCtx, {
+            type: 'line',
+            data: {
+                labels: ['Baseline', 'Transition', 'Today'],
+                datasets: [
+                    {
+                        label: 'System Outages',
+                        data: [85, 40, 5],
+                        borderColor: '#ef4444',
+                        backgroundColor: '#ef4444',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Proactive IT (%)',
+                        data: [10, 50, 85],
+                        borderColor: '#3b82f6',
+                        backgroundColor: '#3b82f6',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#94a3b8', boxWidth: 12 }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        padding: 10,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8' },
+                        border: { display: false }
+                    },
+                    y: {
+                        display: false, // Hide y-axis labels to match previous Recharts design
+                        grid: {
+                            color: '#334155',
+                            drawBorder: false,
+                            borderDash: [3, 3]
+                        },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
