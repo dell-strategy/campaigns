@@ -39,6 +39,36 @@
             color: #334155;
             font-weight: 400;
         }
+
+        /* --- PRINT STYLES --- */
+        @media print {
+            /* Force all animated sections to be fully visible when printing */
+            .fade-in-section {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+            
+            /* Hide the sticky navigation on printed pages */
+            nav {
+                display: none !important;
+            }
+
+            /* Prevent sections and charts from breaking uncomfortably across pages */
+            section, .bg-white, canvas, img {
+                page-break-inside: avoid;
+            }
+
+            /* Improve general print layout margins */
+            @page {
+                margin: 0.5in;
+            }
+            
+            /* Lighten the background for better ink usage (optional, but good practice) */
+            body {
+                background-color: #ffffff !important;
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen bg-slate-100 font-sans text-slate-800">
