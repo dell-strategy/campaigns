@@ -54,10 +54,16 @@
                 display: none !important;
             }
 
-            /* Prevent sections, cards, and charts from breaking uncomfortably across pages */
-            section, .bg-white, canvas, img, .rounded-xl, .rounded-2xl, .rounded-3xl {
+            /* Prevent specific smaller cards, charts, and images from breaking uncomfortably across pages */
+            .bg-white, canvas, img, .rounded-xl {
                 page-break-inside: avoid;
                 break-inside: avoid;
+            }
+
+            /* Explicitly allow large layout sections to break to prevent massive white spaces on the page */
+            section, .rounded-3xl, .rounded-2xl, .prose {
+                page-break-inside: auto !important;
+                break-inside: auto !important;
             }
 
             /* Improve general print layout margins */
@@ -65,7 +71,7 @@
                 margin: 0.5in;
             }
             
-            /* Lighten the background for better ink usage (optional, but good practice) */
+            /* Lighten the background for better ink usage */
             body {
                 background-color: #ffffff !important;
             }
@@ -75,17 +81,24 @@
                 display: none !important;
             }
 
-            /* Expand the first column in Mandate section to fill the space left by the hidden quote */
-            #mandate > div:first-child {
-                grid-column: span 12 / span 12 !important;
+            /* Disable sticky positioning for print so the quote box flows naturally and doesn't overlap text */
+            .lg\:sticky {
+                position: static !important;
             }
 
-            /* Constrain header and footer width to align with body */
+            /* Constrain header and footer width to align with body and reduce massive padding */
             header, footer {
                 max-width: 72rem !important;
                 margin-left: auto !important;
                 margin-right: auto !important;
                 border-radius: 1.5rem !important;
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+
+            /* Reduce the giant gaps between main sections for a tighter printed document */
+            .space-y-24 > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 3rem !important;
             }
         }
     </style>
@@ -185,7 +198,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="lg:col-span-5 lg:sticky lg:top-32 print-hide">
+                <div class="lg:col-span-5 lg:sticky lg:top-32">
                     <div class="bg-blue-600 text-white p-10 rounded-2xl shadow-xl relative overflow-hidden">
                         <i data-lucide="shield" class="absolute -right-10 -bottom-10 opacity-10 w-64 h-64"></i>
                         <i data-lucide="activity" class="mb-6 text-yellow-400 w-12 h-12"></i>
