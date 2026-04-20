@@ -68,6 +68,24 @@
             body {
                 background-color: #ffffff !important;
             }
+
+            /* Target elements that should be hidden in print */
+            .print-hide {
+                display: none !important;
+            }
+
+            /* Expand the first column in Mandate section to fill the space left by the hidden quote */
+            #mandate > div:first-child {
+                grid-column: span 12 / span 12 !important;
+            }
+
+            /* Constrain header and footer width to align with body */
+            header, footer {
+                max-width: 72rem !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                border-radius: 1.5rem !important;
+            }
         }
     </style>
 </head>
@@ -166,7 +184,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="lg:col-span-5 lg:sticky lg:top-32">
+                <div class="lg:col-span-5 lg:sticky lg:top-32 print-hide">
                     <div class="bg-blue-600 text-white p-10 rounded-2xl shadow-xl relative overflow-hidden">
                         <i data-lucide="shield" class="absolute -right-10 -bottom-10 opacity-10 w-64 h-64"></i>
                         <i data-lucide="activity" class="mb-6 text-yellow-400 w-12 h-12"></i>
