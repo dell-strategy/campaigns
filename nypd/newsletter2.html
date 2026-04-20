@@ -54,9 +54,10 @@
                 display: none !important;
             }
 
-            /* Prevent sections and charts from breaking uncomfortably across pages */
-            section, .bg-white, canvas, img {
+            /* Prevent sections, cards, and charts from breaking uncomfortably across pages */
+            section, .bg-white, canvas, img, .rounded-xl, .rounded-2xl, .rounded-3xl {
                 page-break-inside: avoid;
+                break-inside: avoid;
             }
 
             /* Improve general print layout margins */
@@ -184,7 +185,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="lg:col-span-5 lg:top-32 print-hide">
+                <div class="lg:col-span-5 lg:sticky lg:top-32 print-hide">
                     <div class="bg-blue-600 text-white p-10 rounded-2xl shadow-xl relative overflow-hidden">
                         <i data-lucide="shield" class="absolute -right-10 -bottom-10 opacity-10 w-64 h-64"></i>
                         <i data-lucide="activity" class="mb-6 text-yellow-400 w-12 h-12"></i>
