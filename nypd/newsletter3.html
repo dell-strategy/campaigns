@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYPD & Dell Executive Transformation Brief</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        nypd: {
+                            blue: '#002855',
+                            light: '#00438a',
+                            gold: '#f2a900'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+        .scroll-mt-24 {
+            scroll-margin-top: 6rem;
+        }
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .cite {
+            font-size: 0.75rem;
+            color: #64748b;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+        @media print {
+            .fade-in-section { opacity: 1 !important; transform: none !important; transition: none !important; }
+            nav { display: none !important; }
+            .bg-white, canvas, img, .rounded-xl { page-break-inside: avoid; break-inside: avoid; }
+            @page { margin: 0.5in; }
+            body { background-color: #ffffff !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-800">
+
+    <nav class="sticky top-0 z-50 bg-nypd-blue/95 backdrop-blur-md border-b border-blue-900 px-6 py-4 shadow-sm">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-sm font-medium text-blue-200">
+            <div class="font-bold uppercase tracking-wider mb-2 sm:mb-0 flex items-center text-white">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Patch_of_the_New_York_City_Police_Department.svg" alt="NYPD Logo" class="w-6 h-auto mr-3 drop-shadow-sm"> NYPD | Dell Transformation
+            </div>
+            <div class="flex space-x-6 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+                <a href="#mandate" class="hover:text-nypd-gold transition-colors whitespace-nowrap">Mandate</a>
+                <a href="#impact" class="hover:text-nypd-gold transition-colors whitespace-nowrap">Impact</a>
+                <a href="#infrastructure" class="hover:text-nypd-gold transition-colors whitespace-nowrap">Infrastructure</a>
+                <a href="#endpoints" class="hover:text-nypd-gold transition-colors whitespace-nowrap">Field Operations</a>
+                <a href="#future" class="hover:text-nypd-gold transition-colors whitespace-nowrap">The Future</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-nypd-blue text-white pt-24 pb-24 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=1600&q=80" alt="NYC Skyline" class="w-full h-full object-cover object-top opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-nypd-blue/90 to-slate-50"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto relative z-10 text-center md:text-left">
+            <div class="flex justify-center md:justify-start items-center space-x-4 mb-6">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Patch_of_the_New_York_City_Police_Department.svg" alt="NYPD Logo" class="w-12 h-auto drop-shadow-lg">
+                <div class="h-8 w-px bg-slate-400"></div>
+                <i data-lucide="server" class="w-10 h-10 text-blue-400"></i>
+                <span class="ml-4 text-sm md:text-base font-bold tracking-widest text-nypd-gold uppercase">Executive Briefing • Issue 02</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 leading-tight text-shadow">
+                Infrastructure Transformation <br/>
+                <span class="text-blue-300">By The Numbers</span>
+            </h1>
+            <p class="text-lg md:text-xl text-blue-100 max-w-2xl font-light">
+                Moving from reactive remediation to engineered resilience. How NYPD and Dell Technologies are consolidating footprint, executing historic infrastructure refreshes, and securing mission-critical applications.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-8 space-y-20">
+        
+        <div class="fade-in-section">
+            <section id="mandate" class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center scroll-mt-24 relative z-10 -mt-12">
+                <div class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mb-4">The Executive Mandate</h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        Technology availability at NYPD is inseparable from public safety. Prior to this transformation, increasing operational risks were driven by aging, unsupported infrastructure. Incremental fixes were no longer sufficient.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        NYPD engaged Dell Technologies as a strategic partner to fully rearchitect the technology foundation. The objective: ensure continuous availability for systems today, while preparing for the operational demands of tomorrow.
+                    </p>
+                </div>
+                
+                <div class="bg-nypd-blue text-white p-10 rounded-2xl shadow-xl relative overflow-hidden h-full flex flex-col justify-center">
+                    <i data-lucide="shield" class="absolute -right-10 -bottom-10 opacity-10 w-64 h-64"></i>
+                    <i data-lucide="activity" class="mb-4 text-nypd-gold w-10 h-10"></i>
+                    <blockquote class="text-2xl md:text-3xl font-bold leading-tight mb-4 relative z-10">
+                        "NYPD must operate in a <span class="text-nypd-gold underline decoration-nypd-gold/50">Never Down</span> technology environment."
+                    </blockquote>
+                    <p class="text-blue-200 text-sm font-medium uppercase tracking-widest relative z-10">
+                        — Core Modernization Directive
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <div class="fade-in-section">
+            <section id="impact" class="scroll-mt-24">
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <h2 class="text-2xl font-bold text-slate-900">Transformation Impact & Fiscal Stewardship</h2>
+                        <div class="h-1 flex-1 bg-gradient-to-r from-blue-600 to-transparent rounded-full opacity-20"></div>
+                    </div>
+                    <p class="text-slate-600 max-w-4xl leading-relaxed text-lg">
+                        We have shifted decisively away from outdated platforms toward a modernized foundation engineered for continuous operation. Through strategic timing and disciplined execution, ITB is delivering exceptional operational value alongside massive cost avoidance for the City.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+                        <div class="p-3 bg-blue-50 text-blue-600 rounded-full mb-4"><i data-lucide="server" class="w-6 h-6"></i></div>
+                        <h3 class="text-4xl font-bold text-slate-800">>380</h3>
+                        <p class="text-sm text-slate-900 mt-2 font-bold">Hosts Modernized</p>
+                        <p class="text-xs text-slate-500 mt-1">Across 4 Data Centers<span class="cite">[cite: 22]</span></p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+                        <div class="p-3 bg-blue-50 text-blue-600 rounded-full mb-4"><i data-lucide="minimize-2" class="w-6 h-6"></i></div>
+                        <h3 class="text-4xl font-bold text-slate-800">49 Racks</h3>
+                        <p class="text-sm text-slate-900 mt-2 font-bold">Footprint Reduction</p>
+                        <p class="text-xs text-slate-500 mt-1">Lowering power & cooling<span class="cite">[cite: 24]</span></p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+                        <div class="p-3 bg-green-50 text-green-600 rounded-full mb-4"><i data-lucide="badge-dollar-sign" class="w-6 h-6"></i></div>
+                        <h3 class="text-4xl font-bold text-slate-800">$18M</h3>
+                        <p class="text-sm text-slate-900 mt-2 font-bold">Compute Cost Avoidance</p>
+                        <p class="text-xs text-slate-500 mt-1">Via disciplined procurement<span class="cite">[cite: 25]</span></p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col items-center text-center hover:shadow-md transition-shadow">
+                        <div class="p-3 bg-green-50 text-green-600 rounded-full mb-4"><i data-lucide="wallet" class="w-6 h-6"></i></div>
+                        <h3 class="text-4xl font-bold text-slate-800">$2M</h3>
+                        <p class="text-sm text-slate-900 mt-2 font-bold">Tablet Cost Avoidance</p>
+                        <p class="text-xs text-slate-500 mt-1">Via strategic timing (FAD)<span class="cite">[cite: 18, 19]</span></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="fade-in-section">
+            <section id="infrastructure" class="scroll-mt-24">
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <h2 class="text-2xl font-bold text-slate-900">Historic Compute Modernization</h2>
+                        <div class="h-1 flex-1 bg-gradient-to-r from-blue-600 to-transparent rounded-full opacity-20"></div>
+                    </div>
+                    <p class="text-slate-600 max-w-4xl leading-relaxed text-lg">
+                        ITB is leading the largest compute refresh in the history of the department, modernizing and consolidating more than 380 server hosts across four data centers into a unified, high performance infrastructure platform <span class="cite">[cite: 22]</span>. This transformation guarantees critical systems can operate with the speed and resilience required to support mission critical operations and AI driven capabilities <span class="cite">[cite: 23]</span>.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center gap-2">
+                            <i data-lucide="arrow-right-left" class="w-5 h-5 text-nypd-blue"></i>
+                            <h3 class="font-bold text-lg text-slate-800">Hardware Transition Strategy</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                                    <div class="text-red-800 font-bold mb-3 text-sm uppercase tracking-wide flex items-center gap-2"><i data-lucide="x-circle" class="w-4 h-4"></i> Decommissioning</div>
+                                    <ul class="text-sm text-slate-700 space-y-2">
+                                        <li>Aging HP DL560 & DL580s</li>
+                                        <li>Legacy Storage Arrays</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                                    <div class="text-blue-800 font-bold mb-3 text-sm uppercase tracking-wide flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4"></i> Deploying</div>
+                                    <ul class="text-sm text-slate-700 space-y-2">
+                                        <li>High-Density Dell PowerEdge</li>
+                                        <li>Unified Storage Architecture</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="trending-down" class="w-5 h-5 text-green-600 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <strong class="text-slate-800 text-sm">Massive Footprint Reduction</strong>
+                                        <p class="text-xs text-slate-600 mt-1">Reducing the data center footprint by ~49 racks, significantly improving space utilization while lowering power and cooling consumption <span class="cite">[cite: 24]</span>.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <i data-lucide="shield-check" class="w-5 h-5 text-green-600 shrink-0 mt-0.5"></i>
+                                    <div>
+                                        <strong class="text-slate-800 text-sm">Engineered Resilience</strong>
+                                        <p class="text-xs text-slate-600 mt-1">Establishing a zero-trust architecture that guarantees uptime and improves application performance <span class="cite">[cite: 26]</span>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col">
+                        <h3 class="font-bold text-lg text-slate-800 mb-2">Infrastructure Footprint Reduction</h3>
+                        <p class="text-sm text-slate-500 mb-6">Recovering prime data center real estate across storage and compute.</p>
+                        <div class="relative flex-1 w-full min-h-[250px]">
+                            <canvas id="overviewChart1"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="fade-in-section">
+            <section id="endpoints" class="scroll-mt-24">
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <h2 class="text-2xl font-bold text-slate-900">Field Operations: Edge & Support</h2>
+                        <div class="h-1 flex-1 bg-gradient-to-r from-blue-600 to-transparent rounded-full opacity-20"></div>
+                    </div>
+                    <p class="text-slate-600 max-w-4xl leading-relaxed text-lg">
+                        A true 'Never Down' environment must extend directly to the officers in the field. Beyond standard desktops, we are revolutionizing in-vehicle computing and automating backend support.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+                    <div class="lg:col-span-12 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col md:flex-row">
+                        <div class="md:w-1/3 bg-nypd-blue text-white p-8 flex flex-col justify-center relative overflow-hidden">
+                            <i data-lucide="car" class="absolute -right-6 -bottom-6 w-48 h-48 opacity-10"></i>
+                            <div class="inline-block px-3 py-1 bg-nypd-gold text-nypd-blue text-xs font-bold rounded-full mb-4 w-max uppercase tracking-wide">Deploying July 2026 <span class="cite">[cite: 20]</span></div>
+                            <h3 class="text-2xl font-bold mb-3 relative z-10">RMP Rugged Tablet Refresh</h3>
+                            <p class="text-blue-200 text-sm relative z-10 leading-relaxed">Modernizing in-vehicle technology by replacing devices approaching 10 years old that no longer meet performance demands <span class="cite">[cite: 3, 4]</span>.</p>
+                        </div>
+                        <div class="md:w-2/3 p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-slate-800 flex items-center gap-2 mb-2"><i data-lucide="cpu" class="w-5 h-5 text-blue-600"></i> AI-Ready Performance</h4>
+                                <p class="text-sm text-slate-600">Substantial gains in CPU, GPU, and NPU capability, creating headroom for advanced edge analytics and AI workloads <span class="cite">[cite: 7]</span>.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 flex items-center gap-2 mb-2"><i data-lucide="layout-dashboard" class="w-5 h-5 text-blue-600"></i> DAS 2.0 In-Vehicle</h4>
+                                <p class="text-sm text-slate-600">Provides access to enhanced DAS 2.0 capabilities, including real time visibility into incoming 911 and 311 jobs directly from the tablet <span class="cite">[cite: 9, 10]</span>.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 flex items-center gap-2 mb-2"><i data-lucide="sun" class="w-5 h-5 text-blue-600"></i> Enhanced Ergonomics</h4>
+                                <p class="text-sm text-slate-600">New 12-inch displays are materially lighter, with stronger outdoor visibility, glove/wet-touch interaction, and a rear strap for mobile carrying <span class="cite">[cite: 12, 13, 14]</span>.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 flex items-center gap-2 mb-2"><i data-lucide="shield-alert" class="w-5 h-5 text-blue-600"></i> Safer Mounting</h4>
+                                <p class="text-sm text-slate-600">Upgraded vehicle mounting improves flexibility and positioning while reducing the risk of injury associated with older tray configurations <span class="cite">[cite: 15, 16]</span>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                                    <i data-lucide="monitor" class="text-nypd-blue w-5 h-5"></i> Precinct Desktop Upgrades
+                                </h3>
+                                <p class="text-sm text-slate-500 mt-1">Legacy OptiPlex vs. Dell Pro Max Slim</p>
+                            </div>
+                        </div>
+                        <div class="relative h-64 w-full">
+                            <canvas id="desktopChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-6 text-white flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-lg text-white flex items-center gap-2 mb-2">
+                                <i data-lucide="activity" class="text-nypd-gold w-5 h-5"></i> Proactive Support Model
+                            </h3>
+                            <p class="text-sm text-slate-400 mb-6">Powered by Secure Connect Gateways, the system automatically generates service requests the moment a fault is predicted.</p>
+                        </div>
+                        
+                        <div class="flex items-center justify-center mb-6">
+                            <div class="relative w-48 h-48">
+                                <canvas id="supportChart"></canvas>
+                                <div class="absolute inset-0 flex items-center justify-center flex-col mt-2">
+                                    <span class="text-2xl font-bold text-white">85.3%</span>
+                                    <span class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold text-center">Automated<br>Tickets</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 border-t border-slate-700 pt-6">
+                            <div>
+                                <p class="text-2xl font-bold text-green-400">0</p>
+                                <p class="text-xs text-slate-400 mt-1 uppercase">Open Sev-1 Incidents</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-white">372</p>
+                                <p class="text-xs text-slate-400 mt-1 uppercase">ProSupport Plus Assets</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="fade-in-section">
+            <section id="future" class="scroll-mt-24 mb-16">
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <h2 class="text-2xl font-bold text-slate-900">The Road Ahead</h2>
+                        <div class="h-1 flex-1 bg-gradient-to-r from-blue-600 to-transparent rounded-full opacity-20"></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-4">
+                            <i data-lucide="zap" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Technical Quick Wins (1-6 Mos)</h3>
+                        <p class="text-sm text-slate-600 mb-4">Short-term operational optimizations requiring minimal cost but delivering high impact.</p>
+                        <ul class="text-sm space-y-2 text-slate-700">
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5"></i> <strong>Data Protection:</strong> Stabilize Computer Crimes backups and implement PPDM for SQL.</li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5"></i> <strong>Network:</strong> Configure NDFC instance for managing DAS SAN fabrics.</li>
+                            <li class="flex gap-2 items-start"><i data-lucide="check" class="w-4 h-4 text-green-500 mt-0.5"></i> <strong>PowerScale:</strong> Superna Ransomware implementation for core clusters.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="bg-nypd-blue text-white py-12 px-6 mt-12 border-t-4 border-nypd-gold text-center">
+        <div class="max-w-3xl mx-auto space-y-4">
+            <h2 class="text-2xl font-bold text-nypd-gold">When technology is never down, NYPD is always ready to serve New York City.</h2>
+            <p class="text-sm text-blue-200 font-light">
+                This roadmap does more than solve today’s challenges. It positions NYPD for the next decade of operational excellence, continuous modernization, and a hardened cybersecurity posture.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Scroll Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Chart Global Config
+        Chart.defaults.font.family = "'Inter', system-ui, -apple-system, sans-serif";
+        Chart.defaults.color = '#64748b';
+
+        // 1. Infrastructure Footprint Bar Chart
+        const ctx1 = document.getElementById('overviewChart1').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Storage (RUs)', 'Compute (RUs)'],
+                datasets: [
+                    { label: 'Legacy State', data: [1341, 1404], backgroundColor: '#94a3b8', borderRadius: 4 },
+                    { label: 'Dell Future State', data: [739, 758], backgroundColor: '#002855', borderRadius: 4 }
+                ]
+            },
+            options: { 
+                responsive: true, 
+                maintainAspectRatio: false, 
+                plugins: { 
+                    legend: { position: 'top', align: 'end' } 
+                },
+                scales: {
+                    y: { border: { display: false }, grid: { borderDash: [4, 4] } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 2. Desktop Performance Chart
+        const ctxDesktop = document.getElementById('desktopChart').getContext('2d');
+        new Chart(ctxDesktop, {
+            type: 'bar',
+            data: {
+                labels: ['System Boot', 'Load DAS', 'Load Cameras'],
+                datasets: [
+                    { label: 'Legacy OptiPlex', data: [260, 37, 22], backgroundColor: '#f87171', borderRadius: 4 },
+                    { label: 'Dell Pro Max', data: [12, 7, 9], backgroundColor: '#22c55e', borderRadius: 4 }
+                ]
+            },
+            options: { 
+                indexAxis: 'y', 
+                responsive: true, 
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } },
+                scales: { 
+                    x: { title: { display: true, text: 'Time in Seconds (Lower is Better)' }, grid: { borderDash: [4, 4] } },
+                    y: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 3. Proactive Support Doughnut Chart
+        const ctxSupport = document.getElementById('supportChart').getContext('2d');
+        new Chart(ctxSupport, {
+            type: 'doughnut',
+            data: {
+                labels: ['Automated Generation', 'Manual Tickets'],
+                datasets: [{
+                    data: [85.3, 14.7],
+                    backgroundColor: ['#f2a900', '#1e293b'],
+                    borderWidth: 0,
+                    cutout: '80%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: { label: function(context) { return ` ${context.label}: ${context.raw}%`; } }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

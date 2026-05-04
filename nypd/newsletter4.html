@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Field Brief — NYPD × Dell Technologies | Vol. 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,30..100&family=Manrope:wght@300..800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0A1628;
+    --ink-2: #122642;
+    --ink-3: #1A3358;
+    --paper: #F2EBDB;
+    --paper-2: #E8DFC9;
+    --paper-3: #D9CDB0;
+    --gold: #D4A93C;
+    --gold-deep: #A8842A;
+    --dell: #1B6EC2;
+    --dell-deep: #0F4D8F;
+    --crimson: #A4332B;
+    --rust: #B8542E;
+    --moss: #4A6B3F;
+    --line: rgba(10, 22, 40, 0.18);
+    --line-light: rgba(242, 235, 219, 0.18);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Manrope', system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.55;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== Type system ===== */
+  .display { font-family: 'Fraunces', Georgia, serif; font-variation-settings: "opsz" 144, "SOFT" 30; line-height: 0.95; letter-spacing: -0.02em; }
+  .display-italic { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 100; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .eyebrow { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; }
+
+  /* ===== Layout ===== */
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+  section { position: relative; }
+
+  /* ===== Top ribbon ===== */
+  .ribbon {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line-light);
+  }
+  .ribbon .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .ribbon .left { display: flex; align-items: center; gap: 14px; }
+  .ribbon .dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+  .ribbon .nav { display: flex; gap: 22px; }
+  .ribbon .nav a { color: var(--paper); text-decoration: none; opacity: 0.65; transition: opacity 0.2s; }
+  .ribbon .nav a:hover { opacity: 1; }
+
+  /* ===== Masthead / Cover ===== */
+  .cover {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 56px 0 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(212, 169, 60, 0.08) 0%, transparent 45%),
+      radial-gradient(circle at 80% 70%, rgba(27, 110, 194, 0.10) 0%, transparent 45%);
+    pointer-events: none;
+  }
+  .cover::after {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(242, 235, 219, 0.04) 1px, transparent 1px);
+    background-size: 80px 100%;
+    pointer-events: none;
+  }
+  .cover .wrap { position: relative; z-index: 2; }
+
+  .masthead {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 1px solid var(--line-light);
+    padding-bottom: 24px;
+    margin-bottom: 56px;
+  }
+  .masthead .title { display: flex; align-items: baseline; gap: 18px; }
+  .masthead .title .mark {
+    width: 44px; height: 44px;
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    display: grid; place-items: center;
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 600;
+    transform: translateY(8px);
+  }
+  .masthead h1 {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144, "SOFT" 0;
+    font-weight: 600;
+    font-size: 42px;
+    letter-spacing: -0.03em;
+  }
+  .masthead h1 em { font-style: italic; color: var(--gold); font-weight: 400; }
+  .masthead .meta { text-align: right; opacity: 0.7; }
+  .masthead .meta .line { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .masthead .meta .vol { font-family: 'Fraunces', serif; font-size: 18px; margin-top: 4px; }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 64px;
+    align-items: end;
+  }
+  .hero-headline {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-size: clamp(56px, 8vw, 112px);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-weight: 400;
+  }
+  .hero-headline em { font-style: italic; color: var(--gold); font-weight: 300; }
+  .hero-headline .underline {
+    display: inline-block;
+    border-bottom: 3px solid var(--gold);
+    padding-bottom: 4px;
+  }
+  .hero-deck {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 14;
+    font-size: 19px;
+    line-height: 1.5;
+    opacity: 0.85;
+    margin-top: 28px;
+    max-width: 520px;
+  }
+  .hero-side { padding-bottom: 8px; }
+  .hero-side .eyebrow { color: var(--gold); margin-bottom: 18px; }
+  .hero-side .stat-row { border-top: 1px solid var(--line-light); padding: 14px 0; display: flex; justify-content: space-between; align-items: baseline; }
+  .hero-side .stat-row:last-child { border-bottom: 1px solid var(--line-light); }
+  .hero-side .stat-row .num { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 500; }
+  .hero-side .stat-row .num em { font-style: italic; color: var(--gold); }
+  .hero-side .stat-row .lbl { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; max-width: 140px; text-align: right; }
+
+  /* ===== Section structure ===== */
+  .section-pad { padding: 110px 0 100px; }
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 64px;
+    align-items: start;
+  }
+  .section-head .label { display: flex; flex-direction: column; gap: 10px; }
+  .section-head .label .num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--gold-deep);
+  }
+  .section-head .label .eyebrow { color: var(--ink); opacity: 0.5; }
+  .section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 5vw, 68px);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    max-width: 850px;
+  }
+  .section-head h2 em { font-style: italic; color: var(--gold-deep); }
+  .section-head .deck {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 14;
+    font-size: 18px;
+    line-height: 1.55;
+    margin-top: 22px;
+    max-width: 720px;
+    color: var(--ink-2);
+  }
+
+  /* ===== By the Numbers strip ===== */
+  .numbers-strip {
+    background: var(--paper-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 60px 0;
+  }
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-left: 1px solid var(--line);
+  }
+  .num-cell {
+    padding: 28px 28px 24px;
+    border-right: 1px solid var(--line);
+    position: relative;
+  }
+  .num-cell .big {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+    font-size: 76px;
+    line-height: 1;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+  }
+  .num-cell .big .unit { font-size: 36px; color: var(--gold-deep); font-weight: 400; }
+  .num-cell .big em { font-style: italic; color: var(--gold-deep); }
+  .num-cell .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 14px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    opacity: 0.85;
+  }
+  .num-cell .src { font-size: 11px; color: var(--ink); opacity: 0.45; margin-top: 6px; font-style: italic; }
+
+  /* ===== Then / Now / Next ===== */
+  .tnn-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 40px 0 0;
+  }
+  .tnn-card {
+    padding: 32px 28px 36px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+  .tnn-card.then { background: #1A1410; color: var(--paper); border-color: transparent; }
+  .tnn-card.now { background: var(--paper); }
+  .tnn-card.next { background: var(--ink); color: var(--paper); border-color: transparent; }
+  .tnn-card:hover { transform: translateY(-4px); }
+  .tnn-card .stamp {
+    position: absolute; top: 24px; right: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .tnn-card h3 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .tnn-card.then h3 { color: var(--gold); }
+  .tnn-card.next h3 { color: var(--gold); }
+  .tnn-card ul { list-style: none; }
+  .tnn-card li {
+    padding: 12px 0;
+    border-bottom: 1px solid currentColor;
+    border-bottom-color: rgba(255,255,255,0.12);
+    font-size: 14.5px;
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+  }
+  .tnn-card.now li { border-bottom-color: var(--line); color: var(--ink-2); }
+  .tnn-card li:last-child { border-bottom: none; }
+  .tnn-card li::before {
+    content: "→";
+    color: var(--gold);
+    font-family: 'Fraunces', serif;
+    flex-shrink: 0;
+  }
+  .tnn-card.then li::before { content: "✕"; color: var(--rust); font-size: 12px; }
+
+  /* ===== Pull quotes ===== */
+  .pullquote {
+    margin: 80px 0;
+    padding: 48px 56px;
+    border-left: 4px solid var(--gold);
+    background: linear-gradient(to right, var(--paper-2), transparent);
+    position: relative;
+  }
+  .pullquote .qmark {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 120px;
+    line-height: 0.6;
+    color: var(--gold);
+    position: absolute;
+    top: 32px;
+    left: 24px;
+    opacity: 0.35;
+  }
+  .pullquote blockquote {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 60, "SOFT" 30;
+    font-style: italic;
+    font-size: clamp(24px, 3vw, 34px);
+    line-height: 1.25;
+    font-weight: 300;
+    color: var(--ink);
+    max-width: 900px;
+  }
+  .pullquote blockquote em { color: var(--gold-deep); font-style: italic; }
+  .pullquote cite {
+    display: block;
+    margin-top: 22px;
+    font-style: normal;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    opacity: 0.7;
+  }
+
+  /* ===== Storage section visuals ===== */
+  .storage-section { background: var(--paper); padding-top: 100px; }
+  .device-viz {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 32px;
+    align-items: center;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 56px 48px;
+    border-radius: 0;
+    margin: 60px 0 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .device-viz::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(242, 235, 219, 0.025) 1px, transparent 1px);
+    background-size: 40px 100%;
+    pointer-events: none;
+  }
+  .device-col { position: relative; z-index: 1; }
+  .device-col h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px;
+  }
+  .device-col .total {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 56px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    line-height: 1;
+  }
+  .device-col .total .unit { font-size: 18px; opacity: 0.6; font-style: normal; font-family: 'Manrope'; letter-spacing: 0.05em; text-transform: uppercase; margin-left: 6px; }
+  .device-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+  }
+  .device-pill {
+    padding: 6px 4px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+  }
+  .device-pill.legacy { border-color: rgba(196, 69, 54, 0.6); background: rgba(196, 69, 54, 0.12); color: #F4B7A8; }
+  .device-pill.modern { border-color: rgba(212, 169, 60, 0.6); background: rgba(212, 169, 60, 0.15); color: var(--gold); }
+  .device-pill.dell { border-color: rgba(27, 110, 194, 0.7); background: rgba(27, 110, 194, 0.18); color: #8FC0F0; }
+  .device-arrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 20px;
+    text-align: center;
+  }
+  .device-arrow .ratio {
+    display: block;
+    font-size: 64px;
+    line-height: 1;
+    font-weight: 500;
+    margin: 8px 0;
+  }
+  .device-arrow .ratio em { color: var(--gold); }
+  .device-arrow .arrow-line {
+    height: 1px; background: var(--gold);
+    width: 80px; margin: 14px auto;
+    position: relative;
+  }
+  .device-arrow .arrow-line::after {
+    content: "→"; position: absolute; right: -8px; top: -10px;
+    color: var(--gold); font-size: 18px;
+  }
+
+  /* ===== Rack reduction table ===== */
+  .rack-table {
+    margin-top: 40px;
+    background: var(--paper-2);
+    padding: 32px 36px;
+    border: 1px solid var(--line);
+  }
+  .rack-table h4 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    margin-bottom: 18px;
+    color: var(--ink);
+  }
+  .rack-bars { display: grid; gap: 14px; }
+  .rack-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 60px;
+    align-items: center;
+    gap: 18px;
+    font-size: 13px;
+  }
+  .rack-row .name { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .rack-row .bars { position: relative; height: 28px; display: flex; align-items: center; }
+  .rack-row .bar-old { background: var(--rust); height: 14px; opacity: 0.85; }
+  .rack-row .bar-new { background: var(--moss); height: 14px; opacity: 0.85; margin-top: 2px; }
+  .rack-row .bar-stack { display: flex; flex-direction: column; gap: 2px; width: 100%; }
+  .rack-row .delta {
+    text-align: right;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--moss);
+  }
+  .rack-row .delta.add { color: var(--rust); }
+  .rack-table .legend { margin-top: 18px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; display: flex; gap: 20px; }
+  .rack-table .legend span { display: flex; align-items: center; gap: 6px; }
+  .rack-table .legend .sw { width: 12px; height: 8px; }
+  .rack-table .legend .old { background: var(--rust); }
+  .rack-table .legend .new { background: var(--moss); }
+
+  /* ===== Compute section ===== */
+  .compute-section { background: var(--ink); color: var(--paper); padding: 110px 0; position: relative; overflow: hidden; }
+  .compute-section::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(ellipse at 90% 10%, rgba(27, 110, 194, 0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 10% 90%, rgba(212, 169, 60, 0.08) 0%, transparent 50%);
+  }
+  .compute-section .wrap { position: relative; z-index: 2; }
+  .compute-section .section-head .label .num { color: var(--gold); }
+  .compute-section .section-head .label .eyebrow { color: var(--paper); opacity: 0.55; }
+  .compute-section .section-head h2 em { color: var(--gold); }
+  .compute-section .section-head .deck { color: var(--paper); opacity: 0.75; }
+
+  .multipliers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin: 40px 0 64px;
+  }
+  .mult-card {
+    border: 1px solid var(--line-light);
+    padding: 36px 32px;
+    background: rgba(242, 235, 219, 0.02);
+    text-align: center;
+    backdrop-filter: blur(2px);
+    transition: all 0.3s ease;
+  }
+  .mult-card:hover {
+    background: rgba(242, 235, 219, 0.05);
+    border-color: var(--gold);
+    transform: translateY(-4px);
+  }
+  .mult-card .x {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-size: 144px;
+    line-height: 0.85;
+    color: var(--gold);
+    font-weight: 300;
+    letter-spacing: -0.05em;
+  }
+  .mult-card .x em { font-style: italic; }
+  .mult-card .x .sym { color: var(--paper); opacity: 0.5; font-style: italic; font-weight: 200; }
+  .mult-card .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 16px;
+    color: var(--paper);
+  }
+  .mult-card .desc {
+    margin-top: 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--paper);
+    opacity: 0.65;
+  }
+
+  .compute-stats {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 56px;
+    margin-top: 72px;
+    align-items: center;
+  }
+  .compute-stats .left h4 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: 22px;
+    color: var(--gold);
+  }
+  .compute-stats .left p {
+    font-size: 15px;
+    line-height: 1.6;
+    opacity: 0.78;
+    max-width: 540px;
+  }
+
+  .reduction-stack {
+    border-left: 1px solid var(--line-light);
+    padding-left: 32px;
+  }
+  .reduction-stack .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line-light);
+  }
+  .reduction-stack .row:last-child { border-bottom: none; }
+  .reduction-stack .row .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+  .reduction-stack .row .val {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--gold);
+  }
+  .reduction-stack .row .val .neg { color: #F4B7A8; }
+
+  /* ===== Desktop section ===== */
+  .desktop-section { padding: 110px 0; background: var(--paper); }
+
+  .desk-headline-num {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(140px, 18vw, 240px);
+    line-height: 0.85;
+    color: var(--ink);
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    margin: 24px 0 8px;
+  }
+  .desk-headline-num em { font-style: italic; color: var(--gold-deep); }
+  .desk-headline-num .sm { font-size: 0.4em; vertical-align: top; color: var(--gold-deep); font-style: italic; }
+  .desk-headline-sub {
+    font-family: 'Fraunces', serif;
+    font-variation-settings: "opsz" 14;
+    font-size: 18px;
+    max-width: 540px;
+    line-height: 1.5;
+    color: var(--ink-2);
+  }
+
+  .perf-bars {
+    margin-top: 64px;
+    display: grid;
+    gap: 4px;
+  }
+  .perf-row {
+    display: grid;
+    grid-template-columns: 220px 1fr 90px;
+    gap: 24px;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .perf-row:first-child {
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--line);
+    padding-top: 20px;
+  }
+  .perf-row .task {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .perf-row .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .perf-row .compare .old, .perf-row .compare .new {
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    background: var(--paper-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .perf-row .compare .old { background: rgba(164, 51, 43, 0.08); border-color: rgba(164, 51, 43, 0.25); color: var(--crimson); }
+  .perf-row .compare .new { background: rgba(74, 107, 63, 0.1); border-color: rgba(74, 107, 63, 0.3); color: var(--moss); }
+  .perf-row .compare .tag { font-size: 9px; opacity: 0.6; letter-spacing: 0.1em; text-transform: uppercase; }
+  .perf-row .delta {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 26px;
+    text-align: right;
+    color: var(--gold-deep);
+    font-weight: 500;
+  }
+
+  .desk-security {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--line);
+  }
+  .sec-cell {
+    padding: 32px 28px;
+    border-right: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .sec-cell:last-child { border-right: none; }
+  .sec-cell .eyebrow { color: var(--gold-deep); margin-bottom: 16px; }
+  .sec-cell h5 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .sec-cell p { font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+
+  /* ===== Tablet section ===== */
+  .tablet-section { padding: 110px 0; background: var(--ink-2); color: var(--paper); position: relative; }
+  .tablet-section .section-head .label .num { color: var(--gold); }
+  .tablet-section .section-head .label .eyebrow { color: var(--paper); opacity: 0.55; }
+  .tablet-section .section-head h2 em { color: var(--gold); }
+  .tablet-section .section-head .deck { color: var(--paper); opacity: 0.78; }
+
+  .tablet-feature-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 64px;
+    align-items: center;
+    margin-top: 48px;
+  }
+  .tablet-illustration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px 0;
+  }
+
+  .tablet-features { display: grid; gap: 14px; }
+  .tablet-feature {
+    border-left: 2px solid var(--gold);
+    padding: 4px 0 4px 22px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .tablet-feature .num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 32px;
+    color: var(--gold);
+    font-weight: 400;
+    flex-shrink: 0;
+    width: 60px;
+  }
+  .tablet-feature .body {
+    font-size: 14.5px;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+  .tablet-feature .body strong {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 4px;
+    color: var(--paper);
+  }
+
+  .savings-callout {
+    margin-top: 80px;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 40px 48px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 32px;
+    align-items: center;
+  }
+  .savings-callout .icon { font-family: 'Fraunces', serif; font-style: italic; font-size: 80px; line-height: 0.8; font-weight: 400; }
+  .savings-callout .body p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.3;
+    font-weight: 400;
+    max-width: 600px;
+  }
+  .savings-callout .body .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.7;
+  }
+  .savings-callout .ts {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: right;
+    opacity: 0.7;
+  }
+  .savings-callout .ts .dt { font-family: 'Fraunces', serif; font-style: italic; font-size: 24px; display: block; margin-top: 4px; }
+
+  /* ===== Quick wins section ===== */
+  .qw-section { padding: 110px 0; background: var(--paper); }
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 48px;
+    border: 1px solid var(--line);
+  }
+  .pillar {
+    padding: 36px 28px;
+    border-right: 1px solid var(--line);
+    background: var(--paper);
+    transition: background 0.3s;
+    position: relative;
+  }
+  .pillar:last-child { border-right: none; }
+  .pillar:hover { background: var(--paper-2); }
+  .pillar .num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--gold-deep);
+    margin-bottom: 12px;
+  }
+  .pillar h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .pillar h4 em { font-style: italic; color: var(--gold-deep); }
+  .pillar .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.5;
+    margin-bottom: 22px;
+  }
+  .pillar ul {
+    list-style: none;
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+  }
+  .pillar li {
+    padding: 10px 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    gap: 8px;
+  }
+  .pillar li:last-child { border-bottom: none; }
+  .pillar li::before {
+    content: "—";
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .pillar .cost {
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--moss);
+    padding: 6px 10px;
+    background: rgba(74, 107, 63, 0.1);
+    display: inline-block;
+  }
+
+  /* ===== Closing / Looking ahead ===== */
+  .closing {
+    padding: 120px 0;
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  .closing::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; width: 50%; height: 100%;
+    background-image: radial-gradient(circle at 70% 50%, rgba(212, 169, 60, 0.08) 0%, transparent 60%);
+  }
+  .closing .wrap { position: relative; z-index: 2; }
+  .closing h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(56px, 7vw, 96px);
+    line-height: 0.95;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    max-width: 980px;
+    margin-bottom: 48px;
+  }
+  .closing h2 em { font-style: italic; color: var(--gold); }
+
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 32px;
+    border-top: 1px solid var(--line-light);
+  }
+  .tl-cell {
+    padding: 28px 24px 0;
+    border-right: 1px solid var(--line-light);
+    position: relative;
+  }
+  .tl-cell:last-child { border-right: none; }
+  .tl-cell::before {
+    content: "";
+    position: absolute;
+    top: -5px; left: 0;
+    width: 9px; height: 9px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .tl-cell .when {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .tl-cell h5 {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .tl-cell p { font-size: 13px; line-height: 1.5; opacity: 0.75; }
+
+  /* ===== Colophon ===== */
+  .colophon {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px 0 36px;
+    border-top: 1px solid var(--line-light);
+  }
+  .colophon .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .colophon .right { display: flex; gap: 24px; }
+
+  /* ===== Decorative elements ===== */
+  .rule {
+    height: 1px;
+    background: var(--line);
+    margin: 80px 0;
+  }
+  .rule-double {
+    height: 7px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 80px 0;
+  }
+  .corner-mark {
+    position: absolute;
+    top: 24px; right: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  /* ===== Reveal animation ===== */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .section-head { grid-template-columns: 1fr; gap: 16px; }
+    .numbers-grid { grid-template-columns: repeat(2, 1fr); }
+    .num-cell { border-bottom: 1px solid var(--line); }
+    .tnn-grid { grid-template-columns: 1fr; }
+    .multipliers { grid-template-columns: 1fr; }
+    .compute-stats { grid-template-columns: 1fr; }
+    .desk-security { grid-template-columns: 1fr; }
+    .sec-cell { border-right: none; border-bottom: 1px solid var(--line); }
+    .tablet-feature-grid { grid-template-columns: 1fr; }
+    .pillars { grid-template-columns: 1fr 1fr; }
+    .pillar:nth-child(2) { border-right: none; }
+    .pillar:nth-child(1), .pillar:nth-child(2) { border-bottom: 1px solid var(--line); }
+    .timeline { grid-template-columns: 1fr 1fr; }
+    .device-viz { grid-template-columns: 1fr; gap: 24px; padding: 36px 24px; }
+    .perf-row { grid-template-columns: 1fr; gap: 12px; }
+    .perf-row .compare { grid-template-columns: 1fr; }
+    .perf-row .delta { text-align: left; }
+    .savings-callout { grid-template-columns: 1fr; gap: 16px; }
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 0 20px; }
+    .masthead { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .masthead .meta { text-align: left; }
+    .ribbon .nav { display: none; }
+    .numbers-grid { grid-template-columns: 1fr; }
+    .num-cell .big { font-size: 56px; }
+    .pillars { grid-template-columns: 1fr; }
+    .pillar { border-right: none !important; border-bottom: 1px solid var(--line); }
+    .pillar:last-child { border-bottom: none; }
+    .timeline { grid-template-columns: 1fr; }
+    .tl-cell { border-right: none; border-bottom: 1px solid var(--line-light); padding: 28px 0 24px; }
+    .device-grid { grid-template-columns: repeat(5, 1fr); }
+    .pullquote { padding: 36px 28px 36px 36px; }
+    .pullquote .qmark { font-size: 80px; left: 12px; }
+    .section-pad { padding: 80px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP RIBBON -->
+<div class="ribbon">
+  <div class="wrap">
+    <div class="left">
+      <span class="dot"></span>
+      <span class="eyebrow">The Field Brief · Internal Distribution</span>
+    </div>
+    <nav class="nav eyebrow">
+      <a href="#storage">Storage</a>
+      <a href="#compute">Compute</a>
+      <a href="#desktop">Desktop</a>
+      <a href="#tablet">RMP</a>
+      <a href="#quickwins">Quick Wins</a>
+    </nav>
+  </div>
+</div>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="wrap">
+    <div class="masthead">
+      <div class="title">
+        <div class="mark">F</div>
+        <div>
+          <h1>The Field <em>Brief</em></h1>
+          <div class="eyebrow" style="opacity: 0.5; margin-top: 4px;">NYPD Information Technology Bureau × Dell Technologies</div>
+        </div>
+      </div>
+      <div class="meta">
+        <div class="line">Vol. 01 · Issue 01</div>
+        <div class="vol">Q1 / 2026</div>
+      </div>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow" style="color: var(--gold); margin-bottom: 18px;">— A Modernization Brief</div>
+        <h2 class="hero-headline">From <em>Then</em>,<br>To <span class="underline">Now</span>,<br>To <em>Next.</em></h2>
+        <p class="hero-deck">A field-level look at how NYPD ITB and Dell Technologies are quietly executing one of the largest infrastructure modernizations in city government — replacing decade-old systems with platforms built for AI-era policing, while reclaiming racks, cores, watts, and dollars along the way.</p>
+      </div>
+      <aside class="hero-side">
+        <div class="eyebrow">In This Issue</div>
+        <div class="stat-row"><span class="num"><em>01</em></span><span class="lbl">Storage Modernization</span></div>
+        <div class="stat-row"><span class="num"><em>02</em></span><span class="lbl">Compute Transformation</span></div>
+        <div class="stat-row"><span class="num"><em>03</em></span><span class="lbl">Desktop Refresh</span></div>
+        <div class="stat-row"><span class="num"><em>04</em></span><span class="lbl">RMP Tablet Refresh</span></div>
+        <div class="stat-row"><span class="num"><em>05</em></span><span class="lbl">Quick Wins · Field Notes</span></div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<!-- BY THE NUMBERS -->
+<section class="numbers-strip">
+  <div class="wrap">
+    <div class="eyebrow" style="margin-bottom: 28px; color: var(--ink-2);">— By The Numbers · The Modernization at a Glance</div>
+    <div class="numbers-grid">
+      <div class="num-cell">
+        <div class="big"><em>~$35</em><span class="unit">M</span></div>
+        <div class="lbl">Combined Cost Avoidance &amp; TLA Savings</div>
+        <div class="src">$18M compute · $17M storage software · $2M tablets</div>
+      </div>
+      <div class="num-cell">
+        <div class="big">49<span class="unit"> racks</span></div>
+        <div class="lbl">Data Center Footprint Recovered</div>
+        <div class="src">Across 1PP, MDC, PAQ, PDC &amp; PSAC 2</div>
+      </div>
+      <div class="num-cell">
+        <div class="big">11,230</div>
+        <div class="lbl">CPU Cores Reduced</div>
+        <div class="src">Lower vSphere license count, lower draw</div>
+      </div>
+      <div class="num-cell">
+        <div class="big"><em>3:1</em></div>
+        <div class="lbl">Storage Device Consolidation</div>
+        <div class="src">From 40 disparate arrays to a unified core</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 01 — STORAGE -->
+<section id="storage" class="storage-section section-pad">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label">
+        <span class="num">01</span>
+        <span class="eyebrow">Storage Modernization</span>
+      </div>
+      <div>
+        <h2>Forty arrays, four platforms, one <em>simplified core.</em></h2>
+        <p class="deck">For a decade, NYPD's most mission-critical applications — DAS, Arrest Processing, LPR, AVL, RTCC — ran across a sprawl of VMAX, Unity, VNX, XtremIO, Isilon, Data Domain, and fibre-channel directors, each with its own management plane, capacity ceiling, and security posture. The Dell TLA refresh consolidates roughly 40% of that environment that is past useful life onto a high-end PowerMax, Isilon, and Data Domain core — built for Zero Trust, sized for the next decade.</p>
+      </div>
+    </div>
+
+    <!-- Then / Now / Next -->
+    <div class="tnn-grid">
+      <div class="tnn-card then">
+        <div class="stamp">Then · 5–10 yrs</div>
+        <h3>The Sprawl</h3>
+        <ul>
+          <li>5 VMAX arrays (purchased 2015)</li>
+          <li>11 Unity arrays (2019–2020)</li>
+          <li>6 VNX arrays (≤ 2018)</li>
+          <li>8 XtremIO arrays (2015)</li>
+          <li>4 Isilon · 2 Data Domain · 4 FC directors</li>
+          <li>Multiple end-of-support dates already passed</li>
+        </ul>
+      </div>
+      <div class="tnn-card now">
+        <div class="stamp">Now · In motion</div>
+        <h3>The Refresh</h3>
+        <ul>
+          <li>3 PowerMax + 1 PowerMax expansion</li>
+          <li>8 Isilon arrays</li>
+          <li>4 Data Domain + 2 expansions</li>
+          <li>2 Fibre channel directors</li>
+          <li>Bundled 5-year support, fixed-price maintenance</li>
+          <li>14-month implementation underway</li>
+        </ul>
+      </div>
+      <div class="tnn-card next">
+        <div class="stamp">Next · Future state</div>
+        <h3>The Posture</h3>
+        <ul>
+          <li>Zero Trust capable, STIG-hardened, FIPS 140</li>
+          <li>Immutable hardware root of trust</li>
+          <li>AI-driven anomaly &amp; ransomware detection</li>
+          <li>Cyber recovery vaults · air-gap isolation</li>
+          <li>&gt; 99.9999% data availability SLA</li>
+          <li>Headroom for analytics, AI, video evidence</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Device consolidation viz -->
+    <div class="device-viz">
+      <div class="device-col">
+        <h4>Previous · 40 Devices</h4>
+        <div class="total"><em>40</em> <span class="unit">arrays &amp; directors</span></div>
+        <div class="device-grid">
+          <div class="device-pill legacy">VMAX</div>
+          <div class="device-pill legacy">VMAX</div>
+          <div class="device-pill legacy">VMAX</div>
+          <div class="device-pill legacy">VMAX</div>
+          <div class="device-pill legacy">VMAX</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">UNITY</div>
+          <div class="device-pill legacy">VNX</div>
+          <div class="device-pill legacy">VNX</div>
+          <div class="device-pill legacy">VNX</div>
+          <div class="device-pill legacy">VNX</div>
+          <div class="device-pill legacy">VNX</div>
+          <div class="device-pill legacy">VNX</div>
+          <div class="device-pill legacy">XTRM</div>
+          <div class="device-pill legacy">XTRM</div>
+          <div class="device-pill legacy">XTRM</div>
+          <div class="device-pill legacy">XTRM</div>
+          <div class="device-pill legacy">XTRM</div>
+          <div class="device-pill legacy">XTRM</div>
+          <div class="device-pill legacy">XTRM</div>
+          <div class="device-pill legacy">XTRM</div>
+          <div class="device-pill modern">ISILON</div>
+          <div class="device-pill modern">ISILON</div>
+          <div class="device-pill modern">ISILON</div>
+          <div class="device-pill modern">ISILON</div>
+          <div class="device-pill modern">DD</div>
+          <div class="device-pill modern">DD</div>
+          <div class="device-pill modern">FC</div>
+          <div class="device-pill modern">FC</div>
+          <div class="device-pill modern">FC</div>
+          <div class="device-pill modern">FC</div>
+        </div>
+      </div>
+
+      <div class="device-arrow">
+        <div style="opacity:0.7; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em;">CONSOLIDATION</div>
+        <div class="ratio"><em>3:1</em></div>
+        <div class="arrow-line"></div>
+        <div style="font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; opacity: 0.85;">unified<br>core</div>
+      </div>
+
+      <div class="device-col">
+        <h4>Future State · 20 Devices</h4>
+        <div class="total"><em>20</em> <span class="unit">arrays &amp; directors</span></div>
+        <div class="device-grid">
+          <div class="device-pill dell">PWRMX</div>
+          <div class="device-pill dell">PWRMX</div>
+          <div class="device-pill dell">PWRMX</div>
+          <div class="device-pill dell">PWRMX+</div>
+          <div class="device-pill dell">ISILON</div>
+          <div class="device-pill dell">ISILON</div>
+          <div class="device-pill dell">ISILON</div>
+          <div class="device-pill dell">ISILON</div>
+          <div class="device-pill dell">ISILON</div>
+          <div class="device-pill dell">ISILON</div>
+          <div class="device-pill dell">ISILON</div>
+          <div class="device-pill dell">ISILON</div>
+          <div class="device-pill dell">DD</div>
+          <div class="device-pill dell">DD</div>
+          <div class="device-pill dell">DD</div>
+          <div class="device-pill dell">DD</div>
+          <div class="device-pill dell">DD+</div>
+          <div class="device-pill dell">DD+</div>
+          <div class="device-pill dell">FC</div>
+          <div class="device-pill dell">FC</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Storage efficiency stats -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-left: 1px solid var(--line); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+      <div class="num-cell" style="background: var(--paper);">
+        <div class="big"><em>45</em><span class="unit">%</span></div>
+        <div class="lbl">Storage Rack-Unit Reduction</div>
+        <div class="src">1,341 RUs → 739 RUs</div>
+      </div>
+      <div class="num-cell" style="background: var(--paper);">
+        <div class="big"><em>68</em><span class="unit">%</span></div>
+        <div class="lbl">Storage Footprint Reduction</div>
+        <div class="src">3:1 device consolidation</div>
+      </div>
+      <div class="num-cell" style="background: var(--paper);">
+        <div class="big"><em>~70</em><span class="unit">%</span></div>
+        <div class="lbl">Power &amp; Cooling Savings</div>
+        <div class="src">Newer, denser, more efficient</div>
+      </div>
+      <div class="num-cell" style="background: var(--paper);">
+        <div class="big">99.9999<span class="unit">%</span></div>
+        <div class="lbl">Data Availability Target</div>
+        <div class="src">Mission-critical SLA</div>
+      </div>
+    </div>
+
+    <!-- Pull quote -->
+    <div class="pullquote">
+      <div class="qmark">"</div>
+      <blockquote>
+        Without this refresh, the Department risks outages to critical public safety systems from unsupported hardware. Infrastructure past end of life poses a serious cybersecurity and ransomware risk — one that <em>directly jeopardizes officers and their ability to fight crime effectively.</em>
+      </blockquote>
+      <cite>— NYPD ITB · Storage Refresh Certificate to Proceed</cite>
+    </div>
+
+    <!-- TLA Savings -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 48px;">
+      <div>
+        <div class="eyebrow" style="color: var(--gold-deep); margin-bottom: 18px;">— TLA Savings vs. Business as Usual</div>
+        <h3 style="font-family: 'Fraunces', serif; font-size: 42px; font-weight: 400; line-height: 1; margin-bottom: 18px; letter-spacing: -0.02em;">A <em style="font-style: italic; color: var(--gold-deep);">$17.4M</em> citywide compounding effect.</h3>
+        <p style="font-size: 15px; line-height: 1.6; color: var(--ink-2); max-width: 480px;">Joining the OTI city-wide Dell TLA initiative collapses what would have been a <span class="mono" style="font-size: 13px;">$50.5M</span> 5-year software spend down to <span class="mono" style="font-size: 13px;">$33.1M</span> — a $17.4M cumulative savings without changing the technical scope.</p>
+      </div>
+      <div style="background: var(--ink); color: var(--paper); padding: 36px 32px;">
+        <div class="eyebrow" style="color: var(--gold); margin-bottom: 22px;">5-Year Software Cost · Comparison</div>
+        <div style="display: grid; gap: 18px;">
+          <div style="border-bottom: 1px solid var(--line-light); padding-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; opacity: 0.7;">BUSINESS AS USUAL</span>
+              <span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px;">$50.5M</span>
+            </div>
+            <div style="height: 6px; background: var(--rust); width: 100%;"></div>
+          </div>
+          <div style="border-bottom: 1px solid var(--line-light); padding-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; opacity: 0.7;">DELL TLA</span>
+              <span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 24px;">$33.1M</span>
+            </div>
+            <div style="height: 6px; background: var(--gold); width: 65.6%;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 4px;">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--gold);">— SAVINGS</span>
+            <span style="font-family: 'Fraunces', serif; font-style: italic; font-size: 36px; color: var(--gold);">$17.4M</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02 — COMPUTE -->
+<section id="compute" class="compute-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label">
+        <span class="num">02</span>
+        <span class="eyebrow">Compute Transformation</span>
+      </div>
+      <div>
+        <h2>The largest compute refresh <em>in NYPD history.</em></h2>
+        <p class="deck">More than 380 server hosts across four data centers — the workhorses behind every DAS query, every license-plate read, every dispatch — are being modernized and consolidated onto Dell PowerEdge 17G. The result: a denser, faster, more secure platform with the headroom NYPD will need for AI-driven analytics, while reclaiming racks, cooling, and dollars in the process.</p>
+      </div>
+    </div>
+
+    <!-- Performance multipliers -->
+    <div class="multipliers">
+      <div class="mult-card">
+        <div class="x"><em>2.4</em><span class="sym">×</span></div>
+        <div class="lbl">CPU Throughput</div>
+        <div class="desc">Per-server SPEC benchmark gain over the most-deployed DL560 Gen10 — accomplished with 2 sockets instead of 4.</div>
+      </div>
+      <div class="mult-card">
+        <div class="x"><em>2.2</em><span class="sym">×</span></div>
+        <div class="lbl">Memory Performance</div>
+        <div class="desc">DDR5 at 6,400 MT/s replaces DDR4 at 2,933 MT/s — every workload gets faster RAM.</div>
+      </div>
+      <div class="mult-card">
+        <div class="x"><em>4</em><span class="sym">×</span></div>
+        <div class="lbl">PCIe Bandwidth</div>
+        <div class="desc">PCIe Gen5 unlocks the next generation of NICs, NVMe, and accelerators on a single platform.</div>
+      </div>
+    </div>
+
+    <!-- Reduction stack -->
+    <div class="compute-stats">
+      <div class="left">
+        <div class="eyebrow" style="color: var(--gold); margin-bottom: 14px;">— What It Adds Up To</div>
+        <h4>Higher density,<br>fewer boxes,<br><span style="color: var(--paper);">measurable reclaim.</span></h4>
+        <p>Strategic consolidation across NYPD Proper and the SAS environment removes 115 servers and 11,230 cores from the floor — directly cutting power, cooling, and VMware license count, while delivering more performance per watt than the systems being retired.</p>
+      </div>
+      <div class="reduction-stack">
+        <div class="row">
+          <span class="lbl">Server Reduction</span>
+          <span class="val">– <em>115</em></span>
+        </div>
+        <div class="row">
+          <span class="lbl">CPU Cores Removed</span>
+          <span class="val">– <em>11,230</em></span>
+        </div>
+        <div class="row">
+          <span class="lbl">Racks Recovered</span>
+          <span class="val">– <em>49</em></span>
+        </div>
+        <div class="row">
+          <span class="lbl">Cost Avoidance</span>
+          <span class="val">~ <em>$18M</em></span>
+        </div>
+        <div class="row">
+          <span class="lbl">Compute RU Footprint</span>
+          <span class="val"><em>– 46%</em></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rack reduction by data center -->
+    <div class="rack-table" style="background: rgba(242, 235, 219, 0.04); border-color: var(--line-light); margin-top: 64px;">
+      <h4 style="color: var(--paper);">Rack Reclaim by Data Center</h4>
+      <div class="rack-bars">
+        <div class="rack-row">
+          <span class="name" style="color: var(--paper); opacity: 0.85;">1 Police Plaza</span>
+          <div class="bars">
+            <div class="bar-stack">
+              <div class="bar-old" style="width: 90%;"></div>
+              <div class="bar-new" style="width: 73%;"></div>
+            </div>
+          </div>
+          <span class="delta" style="color: var(--gold);">–5</span>
+        </div>
+        <div class="rack-row">
+          <span class="name" style="color: var(--paper); opacity: 0.85;">MDC 11 · MetroTech</span>
+          <div class="bars">
+            <div class="bar-stack">
+              <div class="bar-old" style="width: 73%;"></div>
+              <div class="bar-new" style="width: 7%;"></div>
+            </div>
+          </div>
+          <span class="delta" style="color: var(--gold);">–20</span>
+        </div>
+        <div class="rack-row">
+          <span class="name" style="color: var(--paper); opacity: 0.85;">PAQ</span>
+          <div class="bars">
+            <div class="bar-stack">
+              <div class="bar-old" style="width: 10%;"></div>
+              <div class="bar-new" style="width: 23%;"></div>
+            </div>
+          </div>
+          <span class="delta add">+4</span>
+        </div>
+        <div class="rack-row">
+          <span class="name" style="color: var(--paper); opacity: 0.85;">PDC</span>
+          <div class="bars">
+            <div class="bar-stack">
+              <div class="bar-old" style="width: 97%;"></div>
+              <div class="bar-new" style="width: 53%;"></div>
+            </div>
+          </div>
+          <span class="delta" style="color: var(--gold);">–13</span>
+        </div>
+        <div class="rack-row">
+          <span class="name" style="color: var(--paper); opacity: 0.85;">PSAC 2 · Bronx</span>
+          <div class="bars">
+            <div class="bar-stack">
+              <div class="bar-old" style="width: 50%;"></div>
+              <div class="bar-new" style="width: 0%;"></div>
+            </div>
+          </div>
+          <span class="delta" style="color: var(--gold);">–15</span>
+        </div>
+        <div class="rack-row" style="margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--line-light);">
+          <span class="name" style="color: var(--gold); font-weight: 700;">NET CHANGE</span>
+          <div class="bars"></div>
+          <span class="delta" style="color: var(--gold); font-size: 26px;">–49</span>
+        </div>
+      </div>
+      <div class="legend" style="color: var(--paper); opacity: 0.7;">
+        <span><span class="sw old"></span>Decommissioned</span>
+        <span><span class="sw new"></span>Added</span>
+      </div>
+    </div>
+
+    <!-- Pull quote -->
+    <div class="pullquote" style="background: linear-gradient(to right, rgba(212, 169, 60, 0.12), transparent); border-left-color: var(--gold);">
+      <div class="qmark" style="color: var(--gold);">"</div>
+      <blockquote style="color: var(--paper);">
+        This is the largest compute refresh in the history of the Department. <em>Through higher-density infrastructure and disciplined procurement,</em> ITB will reduce the data center footprint by approximately 49 racks while delivering an estimated $18M cost avoidance.
+      </blockquote>
+      <cite style="color: var(--paper); opacity: 0.7;">— NYPD ITB · Projects in Flight</cite>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03 — DESKTOP -->
+<section id="desktop" class="desktop-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label">
+        <span class="num">03</span>
+        <span class="eyebrow">Desktop Refresh</span>
+      </div>
+      <div>
+        <h2>From <em>four minutes</em> to twelve seconds.</h2>
+        <p class="deck">A side-by-side test at the 47th Precinct compared an OptiPlex 7010 — the workhorse on countless precinct desks — against a Dell Pro Max Slim. Same network, same software, same officer. The numbers explain themselves.</p>
+      </div>
+    </div>
+
+    <!-- Hero number -->
+    <div style="border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); padding: 32px 0; margin: 32px 0;">
+      <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center;">
+        <div>
+          <div class="eyebrow" style="color: var(--gold-deep);">— Boot Time · 47th Precinct Test</div>
+          <div class="desk-headline-num"><em>12</em><span class="sm">s</span></div>
+          <div class="eyebrow" style="color: var(--ink); opacity: 0.7;">Down from 4 minutes 20 seconds on the legacy OptiPlex 7010</div>
+        </div>
+        <div style="border-left: 1px solid var(--line); padding-left: 32px;">
+          <p class="desk-headline-sub">Dell Pro Max Slim is a workstation-class small-form-factor system built on Intel® Core Ultra, DDR5 memory, NVMe Gen4 SSDs, and TPM 2.0 with SafeBIOS — the security and performance baseline for Windows 11 and AI-era workflows.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance comparison rows -->
+    <div class="perf-bars">
+      <div class="perf-row">
+        <span class="task">Load Old DAS</span>
+        <div class="compare">
+          <div class="old"><span class="tag">7010</span><strong>3:10</strong></div>
+          <div class="new"><span class="tag">Pro Max Slim</span><strong>0:10</strong></div>
+        </div>
+        <span class="delta">19× faster</span>
+      </div>
+      <div class="perf-row">
+        <span class="task">Load DAS 2.0</span>
+        <div class="compare">
+          <div class="old"><span class="tag">7010</span><strong>37s</strong></div>
+          <div class="new"><span class="tag">Pro Max Slim</span><strong>7s</strong></div>
+        </div>
+        <span class="delta">5.3× faster</span>
+      </div>
+      <div class="perf-row">
+        <span class="task">Load 6 Cameras</span>
+        <div class="compare">
+          <div class="old"><span class="tag">7010</span><strong>22s</strong></div>
+          <div class="new"><span class="tag">Pro Max Slim</span><strong>9s</strong></div>
+        </div>
+        <span class="delta">2.4× faster</span>
+      </div>
+      <div class="perf-row">
+        <span class="task">Run a License Plate</span>
+        <div class="compare">
+          <div class="old"><span class="tag">7010</span><strong>7s</strong></div>
+          <div class="new"><span class="tag">Pro Max Slim</span><strong>3s</strong></div>
+        </div>
+        <span class="delta">2.3× faster</span>
+      </div>
+      <div class="perf-row">
+        <span class="task">Open Task Manager</span>
+        <div class="compare">
+          <div class="old"><span class="tag">7010</span><strong>20s</strong></div>
+          <div class="new"><span class="tag">Pro Max Slim</span><strong>&lt; 1s</strong></div>
+        </div>
+        <span class="delta">~ 20× faster</span>
+      </div>
+      <div class="perf-row">
+        <span class="task">Network Speed (Fast.com)</span>
+        <div class="compare">
+          <div class="old"><span class="tag">7010</span><strong>2.5 Mbps</strong></div>
+          <div class="new"><span class="tag">Pro Max Slim</span><strong>790 Mbps</strong></div>
+        </div>
+        <span class="delta">316× faster</span>
+      </div>
+      <div class="perf-row">
+        <span class="task">Idle CPU · Disk</span>
+        <div class="compare">
+          <div class="old"><span class="tag">7010</span><strong>10–30% · 100%</strong></div>
+          <div class="new"><span class="tag">Pro Max Slim</span><strong>0% · 0%</strong></div>
+        </div>
+        <span class="delta">headroom</span>
+      </div>
+    </div>
+
+    <!-- Security upgrade -->
+    <div class="desk-security">
+      <div class="sec-cell">
+        <div class="eyebrow">— Platform Trust</div>
+        <h5>TPM 1.2 → TPM 2.0 with SafeID</h5>
+        <p>Standardizes the fleet on the foundation Microsoft assumes for BitLocker, Windows Hello for Business, Credential Guard, and future compliance baselines.</p>
+      </div>
+      <div class="sec-cell">
+        <div class="eyebrow">— Below-the-OS</div>
+        <h5>SafeBIOS &amp; Self-Encrypting Drives</h5>
+        <p>Off-host BIOS verification, BIOS resilience &amp; recovery, supply-chain tamper alerts, and Opal/FIPS SEDs for hardware-anchored data protection.</p>
+      </div>
+      <div class="sec-cell">
+        <div class="eyebrow">— Headroom</div>
+        <h5>Intel Core Ultra · DDR5 · NPU</h5>
+        <p>Multi-generation CPU jump, up to 128 GB DDR5, PCIe Gen4 NVMe, and a dedicated NPU for AI-assisted applications coming over the next 4–5 years.</p>
+      </div>
+    </div>
+
+    <!-- Pull quote -->
+    <div class="pullquote">
+      <div class="qmark">"</div>
+      <blockquote>
+        This isn't a cosmetic refresh. It's an investment in <em>endpoint resilience and productivity</em> that lowers security and compliance risk at the device layer, reduces user downtime, and provides a platform capable of supporting AI-enhanced policing tools.
+      </blockquote>
+      <cite>— Dell Technologies · NYPD Desktop Refresh Comparison</cite>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04 — RMP TABLET -->
+<section id="tablet" class="tablet-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label">
+        <span class="num">04</span>
+        <span class="eyebrow">RMP Rugged Tablet Refresh</span>
+      </div>
+      <div>
+        <h2>The patrol car gets <em>a new dashboard.</em></h2>
+        <p class="deck">A decade is a long time in the life of a tablet. The current in-vehicle units are approaching ten years old and no longer match modern OS requirements, performance demands, or the realities of life on patrol. The new generation rugged tablet — paired with an upgraded vehicle mount — modernizes the most-used computer in the Department.</p>
+      </div>
+    </div>
+
+    <div class="tablet-feature-grid">
+      <!-- SVG Tablet evolution -->
+      <div class="tablet-illustration">
+        <svg viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg" style="width: 180px; height: auto;">
+          <defs>
+            <linearGradient id="oldscreen" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#3a3a3a"/>
+              <stop offset="1" stop-color="#1a1a1a"/>
+            </linearGradient>
+          </defs>
+          <!-- old tablet -->
+          <rect x="20" y="40" width="180" height="220" rx="8" fill="#2a2a2a" stroke="#555"/>
+          <rect x="32" y="55" width="156" height="180" rx="3" fill="url(#oldscreen)"/>
+          <text x="110" y="155" font-family="JetBrains Mono" font-size="10" fill="#666" text-anchor="middle" letter-spacing="2">CIRCA 2016</text>
+          <circle cx="110" cy="248" r="4" fill="#444"/>
+          <text x="110" y="20" font-family="JetBrains Mono" font-size="9" fill="#D4A93C" text-anchor="middle" letter-spacing="2">— LEGACY</text>
+        </svg>
+
+        <div style="font-family: 'Fraunces', serif; font-style: italic; font-size: 32px; color: var(--gold);">→</div>
+
+        <svg viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg" style="width: 200px; height: auto;">
+          <defs>
+            <linearGradient id="newscreen" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#0F4D8F"/>
+              <stop offset="1" stop-color="#1A3358"/>
+            </linearGradient>
+          </defs>
+          <!-- new tablet, slightly bigger to convey 12" -->
+          <rect x="10" y="20" width="200" height="240" rx="14" fill="#1a1a1a" stroke="#D4A93C" stroke-width="1"/>
+          <rect x="22" y="32" width="176" height="216" rx="6" fill="url(#newscreen)"/>
+          <!-- DAS 2.0 mock UI -->
+          <rect x="32" y="44" width="156" height="20" rx="2" fill="rgba(212, 169, 60, 0.85)"/>
+          <text x="110" y="58" font-family="JetBrains Mono" font-size="9" fill="#0A1628" text-anchor="middle" font-weight="700" letter-spacing="2">DAS 2.0 LIVE</text>
+          <rect x="32" y="74" width="74" height="48" rx="2" fill="rgba(242, 235, 219, 0.12)"/>
+          <rect x="114" y="74" width="74" height="48" rx="2" fill="rgba(242, 235, 219, 0.12)"/>
+          <rect x="32" y="130" width="156" height="14" rx="2" fill="rgba(242, 235, 219, 0.18)"/>
+          <rect x="32" y="150" width="120" height="10" rx="2" fill="rgba(242, 235, 219, 0.10)"/>
+          <rect x="32" y="166" width="100" height="10" rx="2" fill="rgba(242, 235, 219, 0.10)"/>
+          <rect x="32" y="182" width="156" height="58" rx="2" fill="rgba(212, 169, 60, 0.18)"/>
+          <text x="110" y="218" font-family="JetBrains Mono" font-size="9" fill="#D4A93C" text-anchor="middle" letter-spacing="2">911 / 311 FEED</text>
+          <text x="110" y="12" font-family="JetBrains Mono" font-size="9" fill="#D4A93C" text-anchor="middle" letter-spacing="2">— NEXT-GEN</text>
+        </svg>
+      </div>
+
+      <div class="tablet-features">
+        <div class="tablet-feature">
+          <span class="num">01</span>
+          <div class="body">
+            <strong>DAS 2.0 in the vehicle</strong>
+            Real-time visibility into 911 / 311 jobs and advanced operational analytics — directly from the patrol seat.
+          </div>
+        </div>
+        <div class="tablet-feature">
+          <span class="num">02</span>
+          <div class="body">
+            <strong>12-inch display, materially lighter</strong>
+            Easier to handle on dismounts, with stronger outdoor visibility, glove and wet-touch interaction, and an integrated rear strap.
+          </div>
+        </div>
+        <div class="tablet-feature">
+          <span class="num">03</span>
+          <div class="body">
+            <strong>CPU · GPU · NPU headroom</strong>
+            Substantial gains across all three — built for the next wave of edge analytics and AI-enabled field tools.
+          </div>
+        </div>
+        <div class="tablet-feature">
+          <span class="num">04</span>
+          <div class="body">
+            <strong>Upgraded vehicle mount</strong>
+            Better positioning and flexibility, designed to reduce the injury risk associated with older in-vehicle tray configurations.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Savings callout -->
+    <div class="savings-callout">
+      <div class="icon"><em>$2M</em></div>
+      <div class="body">
+        <div class="lbl">— Fiscal Stewardship</div>
+        <p>By executing this procurement at the right time, ITB FAD avoided approximately <strong>$2 million</strong> in increased costs — modernizing a critical capability while delivering meaningful savings back to the City.</p>
+      </div>
+      <div class="ts">
+        <div>Deployment Begins</div>
+        <div class="dt">July 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 05 — QUICK WINS -->
+<section id="quickwins" class="qw-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="label">
+        <span class="num">05</span>
+        <span class="eyebrow">Field Notes · Quick Wins</span>
+      </div>
+      <div>
+        <h2>The work between the <em>capital projects.</em></h2>
+        <p class="deck">Alongside the headline refreshes, NYPD and Dell residents are running a backlog of low-cost, high-impact "quick wins" surfaced during the joint Technical Assessment. Most cost zero dollars and take 1–6 months. They're organized around four operating principles — Never Down, Stability, Simplification &amp; Autonomy, and Management — and they keep the environment hardened while the bigger transformations land.</p>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="num">i.</div>
+        <h4>Never <em>Down</em></h4>
+        <div class="lbl">— Resilience &amp; Continuity</div>
+        <ul>
+          <li>Cross-replication of VM backups across DR Data Domains</li>
+          <li>Increase Fibre Channel ports — separate production &amp; backup traffic</li>
+          <li>Migrate remaining VMAX into PowerMax</li>
+          <li>Apply Cyber Security features in CloudIQ</li>
+          <li>Superna auditing &amp; ransomware protection on PowerScale</li>
+        </ul>
+        <div class="cost">Cost: $0</div>
+      </div>
+      <div class="pillar">
+        <div class="num">ii.</div>
+        <h4><em>Stability</em></h4>
+        <div class="lbl">— Hardening What's Live</div>
+        <ul>
+          <li>Stabilize Computer Crimes backups on Gen5A</li>
+          <li>Validate config with small-share test before scaling</li>
+          <li>Work forward from 2003 on DD1, backward from 2025 on DD2</li>
+          <li>Upgrade core PowerScale clusters to OneFS 9.10.x</li>
+        </ul>
+        <div class="cost">Cost: $0</div>
+      </div>
+      <div class="pillar">
+        <div class="num">iii.</div>
+        <h4>Simplify <em>&amp; Automate</em></h4>
+        <div class="lbl">— Less Toil, More Signal</div>
+        <ul>
+          <li>Evaluate SQL backups with PPDM</li>
+          <li>Agent install on SQL servers, configure backup policy</li>
+          <li>Run backups, record performance with DBA team</li>
+          <li>Evaluate restore functionality before scaling</li>
+        </ul>
+        <div class="cost">Cost: $0</div>
+      </div>
+      <div class="pillar">
+        <div class="num">iv.</div>
+        <h4><em>Management</em></h4>
+        <div class="lbl">— Single Pane of Glass</div>
+        <ul>
+          <li>DAS update of DCNM</li>
+          <li>Install &amp; configure centralized NDFC instance</li>
+          <li>One management plane across all DAS SAN fabrics</li>
+          <li>Reduce per-fabric tooling overhead</li>
+        </ul>
+        <div class="cost">Cost: $0</div>
+      </div>
+    </div>
+
+    <!-- Mini stat strip -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 48px; border: 1px solid var(--line);">
+      <div style="padding: 24px 28px; border-right: 1px solid var(--line);">
+        <div class="eyebrow" style="color: var(--gold-deep); margin-bottom: 12px;">— Quick Wins Identified</div>
+        <div style="font-family: 'Fraunces', serif; font-style: italic; font-size: 56px; line-height: 1; color: var(--ink);">11</div>
+      </div>
+      <div style="padding: 24px 28px; border-right: 1px solid var(--line);">
+        <div class="eyebrow" style="color: var(--gold-deep); margin-bottom: 12px;">— Typical Time Window</div>
+        <div style="font-family: 'Fraunces', serif; font-style: italic; font-size: 32px; line-height: 1; color: var(--ink); margin-top: 14px;">1–6 months</div>
+      </div>
+      <div style="padding: 24px 28px;">
+        <div class="eyebrow" style="color: var(--gold-deep); margin-bottom: 12px;">— Combined Capital Cost</div>
+        <div style="font-family: 'Fraunces', serif; font-style: italic; font-size: 56px; line-height: 1; color: var(--moss);">$0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING / LOOKING AHEAD -->
+<section class="closing">
+  <div class="wrap">
+    <div class="eyebrow" style="color: var(--gold); margin-bottom: 20px;">— Looking Ahead</div>
+    <h2>The next twelve months are<br>about <em>delivery.</em></h2>
+
+    <div class="timeline">
+      <div class="tl-cell">
+        <div class="when">Q2 2026</div>
+        <h5>Storage Hardware Lands</h5>
+        <p>PowerMax, Isilon, and Data Domain platforms install in 1PP and PDC for HA and DR.</p>
+      </div>
+      <div class="tl-cell">
+        <div class="when">Q2–Q3 2026</div>
+        <h5>Data Migration Begins</h5>
+        <p>Block and file workloads move off VNX, Unity, XtremIO, and VMAX in coordinated waves.</p>
+      </div>
+      <div class="tl-cell">
+        <div class="when">July 2026</div>
+        <h5>RMP Tablets Roll Out</h5>
+        <p>New rugged tablets and upgraded vehicle mounts begin field deployment to UMOS.</p>
+      </div>
+      <div class="tl-cell">
+        <div class="when">Q3–Q4 2026</div>
+        <h5>Compute Cutover</h5>
+        <p>Dell PowerEdge 17G servers replace HPE DL560s; legacy environment decommissioned.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 96px; padding-top: 48px; border-top: 1px solid var(--line-light); display: grid; grid-template-columns: 2fr 1fr; gap: 48px; align-items: end;">
+      <div>
+        <div class="eyebrow" style="color: var(--gold); margin-bottom: 18px;">— Editor's Note</div>
+        <p style="font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 14; font-size: 19px; line-height: 1.55; max-width: 720px; opacity: 0.9;">The story across these five projects is the same one, told in different rooms: NYPD ITB is replacing a decade of accumulated complexity with a smaller, faster, more secure platform — and they're doing it while finding savings, recovering racks, and giving officers in the field tools that match the work. The next issue of The Field Brief picks up at cutover.</p>
+      </div>
+      <div style="text-align: right;">
+        <div class="eyebrow" style="color: var(--gold); margin-bottom: 8px;">— End of Issue</div>
+        <div style="font-family: 'Fraunces', serif; font-style: italic; font-size: 56px; line-height: 1; color: var(--paper);">— 30 —</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOPHON -->
+<footer class="colophon">
+  <div class="wrap">
+    <div class="left">The Field Brief · Vol. 01 · Issue 01 · Q1 2026</div>
+    <div class="right">
+      <span>NYPD ITB</span>
+      <span>×</span>
+      <span>Dell Technologies</span>
+      <span>·</span>
+      <span>Internal Distribution Only</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal-on-scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.section-head, .tnn-card, .num-cell, .mult-card, .pillar, .tl-cell, .pullquote, .savings-callout, .device-viz, .rack-table').forEach(el => {
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

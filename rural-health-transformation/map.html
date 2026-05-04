@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RHTP Funding Map & Strategy - Dell Technologies</title>
+    <title>RHTP Distribution Analysis - Dell Internal Reference</title>
     
     <!-- Scripts & Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -80,7 +80,7 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-server text-2xl"></i>
-                    <span class="font-bold text-xl tracking-tight">SLG Strategy: RHTP Intelligence</span>
+                    <span class="font-bold text-xl tracking-tight">SLG Reference: RHTP Distribution Analysis</span>
                 </div>
                 <div class="flex items-center gap-4">
                     <div class="hidden md:block text-sm font-medium bg-dellDark/50 px-4 py-1.5 rounded-full border border-white/10">
@@ -100,7 +100,8 @@
         <!-- Header -->
         <div>
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Rural Health Transformation Program (RHTP)</h1>
-            <p class="mt-2 text-lg text-slate-600">State-by-State Distribution Analysis & Dell Infrastructure Sales Targets</p>
+            <p class="mt-2 text-lg text-slate-600">State-by-State Distribution and Implementation Analysis</p>
+            <p class="mt-2 text-sm text-slate-500 italic max-w-3xl">Internal market-context reference for Dell account teams, product planners, and public sector strategy. Not a sales plan. Sourced from CMS state project abstracts, KFF, NASHP, and state agency publications.</p>
         </div>
 
         <!-- Dashboard Top Row: Stats & Aggregates -->
@@ -110,35 +111,35 @@
             <div class="md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-center">
                 <h3 class="text-lg font-bold text-slate-800 mb-3"><i class="fa-solid fa-magnifying-glass-chart text-dellBlue mr-2"></i>Analysis Methodology</h3>
                 <p class="text-sm text-slate-600 mb-4">
-                    Rather than focusing strictly on the receiving entity (e.g., DOH vs. University), our model now maps each state's procurement flow to one of four <strong>Strategic Distribution Archetypes</strong> to dictate sales engagement.
+                    Per Section 3 of the report, states distribute RHTP funds through one of <strong>three Distribution Archetypes</strong>. Many states use hybrids, but one archetype typically dominates. Two <strong>cross-cutting indicators</strong> are layered on top.
                 </p>
                 <div class="space-y-3">
                     <div class="flex items-start">
                         <div class="w-3 h-3 rounded-full bg-blue-500 mt-1 mr-3 shadow-sm flex-shrink-0"></div>
-                        <p class="text-xs text-slate-600 leading-tight"><strong>Centralized:</strong> State retains funds; enterprise stack target.</p>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Centralized Procurement:</strong> State retains funds; enterprise-scale RFPs.</p>
                     </div>
                     <div class="flex items-start">
                         <div class="w-3 h-3 rounded-full bg-emerald-500 mt-1 mr-3 shadow-sm flex-shrink-0"></div>
-                        <p class="text-xs text-slate-600 leading-tight"><strong>Regional:</strong> Hub-and-spoke; target CINs/Collaboratives.</p>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Regional Coalition:</strong> Funds split across regional non-profits or hospital collaboratives.</p>
                     </div>
                     <div class="flex items-start">
                         <div class="w-3 h-3 rounded-full bg-amber-500 mt-1 mr-3 shadow-sm flex-shrink-0"></div>
-                        <p class="text-xs text-slate-600 leading-tight"><strong>Sub-Grant:</strong> Decentralized portal; high-velocity channel sales.</p>
-                    </div>
-                    <div class="flex items-start">
-                        <div class="w-3 h-3 rounded-full bg-purple-500 mt-1 mr-3 shadow-sm flex-shrink-0"></div>
-                        <p class="text-xs text-slate-600 leading-tight"><strong>Tribal:</strong> Direct allocations; target Tribal Health Orgs.</p>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Competitive Sub-Grant:</strong> State acts as pass-through; many smaller awards.</p>
                     </div>
                     <div class="flex items-start mt-2 pt-2 border-t border-slate-100">
                         <span class="text-sm mr-2">🎓</span>
-                        <p class="text-xs text-slate-600 leading-tight"><strong>Higher Ed:</strong> Identifies states allocating material funds to University partnerships or medical schools.</p>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Higher Ed:</strong> Material allocation to medical schools or academic medical centers.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-sm mr-2 text-purple-600"><i class="fa-solid fa-handshake"></i></span>
+                        <p class="text-xs text-slate-600 leading-tight"><strong>Tribal Allocation:</strong> Direct allocations to Tribal Health Organizations (state-level decision; no statutory set-aside).</p>
                     </div>
                 </div>
             </div>
 
             <!-- Viz 1: Archetype Distribution -->
             <div class="md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4 text-center">National Archetype Distribution</h3>
+                <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4 text-center">Archetype Distribution (49 States)</h3>
                 <div class="chart-container">
                     <canvas id="archetypeChart"></canvas>
                 </div>
@@ -146,7 +147,7 @@
 
             <!-- Viz 2: Procurement Insight -->
             <div class="md:col-span-4 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4 text-center">Projected Tech Investment Focus</h3>
+                <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4 text-center">Tech Investment Categories</h3>
                 <div class="chart-container">
                     <canvas id="complexityChart"></canvas>
                 </div>
@@ -200,10 +201,13 @@
                                 <div class="relative z-10 flex justify-between items-start">
                                     <div>
                                         <h2 id="detailName" class="text-3xl font-bold mb-1">State Name</h2>
+                                        <p id="detailAward" class="text-emerald-300 font-semibold text-sm mb-1">FY26 Award: —</p>
+                                        <p id="detailLeadAgency" class="text-slate-300 text-xs mb-2">Lead Agency: —</p>
                                         <div class="flex flex-wrap gap-2 mt-2">
                                             <span id="detailArchetype" class="inline-block text-xs px-2.5 py-1 rounded border font-bold shadow-sm">Archetype</span>
                                             <span id="detailTech" class="inline-block bg-slate-700 text-slate-100 text-xs px-2.5 py-1 rounded border border-slate-600 font-medium shadow-sm">Tech Focus</span>
                                             <span id="detailHigherEd" class="hidden bg-stone-100 text-stone-700 text-xs px-2.5 py-1 rounded border border-stone-300 font-bold shadow-sm"><i class="fa-solid fa-graduation-cap mr-1"></i> Higher Ed Partner</span>
+                                            <span id="detailTribal" class="hidden bg-purple-100 text-purple-700 text-xs px-2.5 py-1 rounded border border-purple-300 font-bold shadow-sm"><i class="fa-solid fa-handshake mr-1"></i> Tribal Allocation</span>
                                         </div>
                                     </div>
                                     <span id="detailAbbr" class="text-4xl font-black text-slate-600 opacity-50">ST</span>
@@ -212,18 +216,18 @@
 
                             <div class="p-6 flex-grow flex flex-col space-y-6 custom-scroll overflow-y-auto">
                                 
-                                <!-- Primary Route Section -->
+                                <!-- Plan Summary Section -->
                                 <div>
-                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Likely Funding Route</h4>
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Plan Summary</h4>
                                     <p id="detailRoute" class="text-slate-700 text-sm leading-relaxed border-l-4 border-dellBlue pl-4 bg-slate-50 py-3 pr-3 rounded-r-md">
-                                        Route description goes here.
+                                        Plan summary goes here.
                                     </p>
                                 </div>
 
                                 <!-- Confidence Meter -->
                                 <div class="bg-white p-4 rounded-lg border border-slate-100 shadow-sm">
                                     <div class="flex justify-between items-end mb-2">
-                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Analysis Basis</h4>
+                                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Source Basis</h4>
                                         <span id="detailConfidence" class="text-xs font-bold text-amber-600 px-2 py-0.5 bg-amber-50 rounded-full">Derived Context</span>
                                     </div>
                                     <div class="w-full bg-slate-100 rounded-full h-2">
@@ -232,13 +236,13 @@
                                     <p id="confidenceText" class="text-xs text-slate-500 mt-2 italic">Based on historical structure.</p>
                                 </div>
 
-                                <!-- Dell/Procurement Context -->
+                                <!-- Procurement Context -->
                                 <div class="bg-dellLight/50 p-5 rounded-lg border border-dellBlue/20 mt-auto shadow-sm">
                                     <h4 class="text-xs font-bold text-dellDark uppercase tracking-wider mb-2 flex items-center">
-                                        <i class="fa-solid fa-bullseye mr-2 text-dellBlue"></i> Dell Strategic Insight
+                                        <i class="fa-solid fa-circle-info mr-2 text-dellBlue"></i> Procurement Context
                                     </h4>
                                     <p id="detailProcurement" class="text-slate-800 text-sm font-medium leading-relaxed">
-                                        Procurement insight text.
+                                        Procurement context text.
                                     </p>
                                 </div>
 
@@ -253,55 +257,56 @@
         <section class="w-full">
             <div class="flex items-center gap-2 mb-6 mt-4">
                 <i class="fa-solid fa-network-wired text-dellBlue text-xl"></i>
-                <h2 class="text-2xl font-bold text-slate-800">Distribution Archetypes Defined</h2>
+                <h2 class="text-2xl font-bold text-slate-800">Distribution Archetypes & Cross-Cutting Themes</h2>
             </div>
+            <p class="text-sm text-slate-600 mb-6 max-w-3xl">Per the report, every state's distribution model maps to one of three archetypes. Tribal allocations and Higher Ed partnerships are cross-cutting themes that layer on top of any archetype.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
-                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-blue-500 cursor-pointer">
+                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-blue-500">
                     <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 mb-4">
                         <i class="fa-solid fa-building-columns text-xl"></i>
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">Centralized Command</h3>
-                    <p class="text-sm text-slate-600 mb-4 h-16">The State Department of Health retains funds and issues large-scale RFPs for statewide systems.</p>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Centralized Procurement</h3>
+                    <p class="text-sm text-slate-600 mb-4 h-16">State agency retains funds and issues enterprise-scale RFPs for statewide systems.</p>
                     <div class="bg-slate-50 rounded p-3 text-sm border border-slate-100">
-                        <span class="font-bold text-slate-700 block mb-1">Dell Strategy:</span> 
-                        Sell enterprise stacks directly to the State CIO/CTO.
+                        <span class="font-bold text-slate-700 block mb-1">Examples (per report):</span>
+                        Rhode Island, Vermont, Indiana (MOCC component).
                     </div>
                 </div>
 
-                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-emerald-500 cursor-pointer">
+                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-emerald-500">
                     <div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600 mb-4">
                         <i class="fa-solid fa-diagram-project text-xl"></i>
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">Regional Coalition</h3>
-                    <p class="text-sm text-slate-600 mb-4 h-16">The State divides funds among regional non-profits, CINs, or hospital collaboratives.</p>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Regional Coalition Pass-Through</h3>
+                    <p class="text-sm text-slate-600 mb-4 h-16">State divides funds among regional non-profits, hospital collaboratives, or multi-county coalitions.</p>
                     <div class="bg-slate-50 rounded p-3 text-sm border border-slate-100">
-                        <span class="font-bold text-slate-700 block mb-1">Dell Strategy:</span> 
-                        Align with and sell to the lead agency of the regional hub.
+                        <span class="font-bold text-slate-700 block mb-1">Examples (per report):</span>
+                        Pennsylvania, Indiana (60% regional), North Carolina.
                     </div>
                 </div>
 
-                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-amber-500 cursor-pointer">
+                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-amber-500">
                     <div class="w-12 h-12 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 mb-4">
                         <i class="fa-solid fa-hand-holding-dollar text-xl"></i>
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">Competitive Sub-Grant</h3>
-                    <p class="text-sm text-slate-600 mb-4 h-16">The State acts as a pass-through entity, managing a portal for hundreds of small clinic grants.</p>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Competitive Sub-Grant Portal</h3>
+                    <p class="text-sm text-slate-600 mb-4 h-16">State acts as pass-through, managing an application portal for many smaller awards to clinics and providers.</p>
                     <div class="bg-slate-50 rounded p-3 text-sm border border-slate-100">
-                        <span class="font-bold text-slate-700 block mb-1">Dell Strategy:</span> 
-                        Execute a high-velocity, channel-driven sales approach.
+                        <span class="font-bold text-slate-700 block mb-1">Examples (per report):</span>
+                        Oklahoma ($50K–$250K microgrants), South Carolina, New Jersey.
                     </div>
                 </div>
 
-                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-purple-500 cursor-pointer">
+                <div class="glass-card rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 border-l-4 border-l-purple-500">
                     <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 mb-4">
-                        <i class="fa-solid fa-campground text-xl"></i>
+                        <i class="fa-solid fa-handshake text-xl"></i>
                     </div>
-                    <h3 class="font-bold text-lg mb-2 text-slate-800">Tribal Sovereignty Shift</h3>
-                    <p class="text-sm text-slate-600 mb-4 h-16">Bypassing state bureaucracy in favor of direct, massive allocations to Tribal Nations.</p>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Cross-Cutting: Tribal & Higher Ed</h3>
+                    <p class="text-sm text-slate-600 mb-4 h-16">Direct Tribal allocations (WA $20M/yr, WI $27.5M) and academic medical center partnerships layer on top of archetypes.</p>
                     <div class="bg-slate-50 rounded p-3 text-sm border border-slate-100">
-                        <span class="font-bold text-slate-700 block mb-1">Dell Strategy:</span> 
-                        Target highly-capitalized Tribal Health Organizations (THOs).
+                        <span class="font-bold text-slate-700 block mb-1">Note:</span>
+                        P.L. 119-21 includes no statutory tribal set-aside; all tribal allocations are state-level decisions.
                     </div>
                 </div>
 
@@ -309,14 +314,17 @@
         </section>
 
         <!-- ROW 3: Top 10 List Section -->
-        <section class="w-full pb-12">
+        <section class="w-full">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 mt-4 gap-4">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-crosshairs text-dellBlue text-xl"></i>
-                    <h2 class="text-2xl font-bold text-slate-800">Top 10 State Targets</h2>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-dellBlue text-xl"></i>
+                        <h2 class="text-2xl font-bold text-slate-800">Concentrated Procurement Watchlist</h2>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-1">States where a single contract or small set of state-level procurements may anchor large RHTP-funded technology spend.</p>
                 </div>
                 <div class="flex gap-2">
-                    <span class="text-sm text-slate-500 italic bg-white border border-slate-200 shadow-sm px-3 py-1 rounded-full"><i class="fa-solid fa-arrow-down-short-wide mr-1"></i> Ranked by Dell Enterprise Infra Potential</span>
+                    <span class="text-sm text-slate-500 italic bg-white border border-slate-200 shadow-sm px-3 py-1 rounded-full"><i class="fa-solid fa-circle-info mr-1"></i> Internal market context, not a sales ranking</span>
                 </div>
             </div>
 
@@ -325,10 +333,10 @@
                     <table class="w-full text-left border-collapse min-w-[900px]">
                         <thead>
                             <tr class="bg-slate-100/50 text-slate-600 border-b border-slate-200 text-sm uppercase tracking-wider">
-                                <th class="py-4 px-6 font-bold">Rank & State</th>
+                                <th class="py-4 px-6 font-bold">State</th>
                                 <th class="py-4 px-6 font-bold">FY26 Award</th>
                                 <th class="py-4 px-6 font-bold">Primary Archetype</th>
-                                <th class="py-4 px-6 font-bold w-1/2">Dell Strategic Angle & Required Pivot</th>
+                                <th class="py-4 px-6 font-bold w-1/2">Plan Notes & Procurement Context</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
@@ -347,7 +355,7 @@
                                     </span>
                                 </td>
                                 <td class="py-5 px-6 text-sm text-slate-700 leading-relaxed">
-                                    <strong class="text-red-600"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Pivot Required:</strong> 80 rural hospital districts receiving direct endpoint/infra funding. Target CIN/ACO hubs winning massive RFPs for RPM and cyber stacks (not the state CIO).
+                                    Largest Year-1 award. "Rural Texas Strong" framework includes "Lone Star Advanced AI and Telehealth" and "Rural Texas Patients in the Driver's Seat." Approximately <strong>163 rural hospitals</strong> surveyed; named priorities are cybersecurity hardening and statewide RPM networks. Per-rural-resident funding is the lowest in the country (~$66) — implies broad distribution rather than concentrated state procurement.
                                 </td>
                             </tr>
                             
@@ -362,11 +370,11 @@
                                 <td class="py-4 px-6 font-semibold text-slate-700">$206.9M</td>
                                 <td class="py-4 px-6">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
-                                        Centralized Command
+                                        Centralized (hybrid)
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
-                                    Building a centralized Medical Operations Coordination Center (MOCC). Represents a massive centralized IT and logistics contract with a $56.2M budget.
+                                    Defined 40/60 split: 40% statewide initiatives, 60% regional grants across 8 regions. The state-level Medical Operations Coordination Center (MOCC) is budgeted at ~$56.2M as a centralized patient-transfer coordination system — a single significant procurement.
                                 </td>
                             </tr>
 
@@ -378,14 +386,14 @@
                                         <span class="font-bold text-slate-800">Vermont</span>
                                     </div>
                                 </td>
-                                <td class="py-4 px-6 font-semibold text-slate-700">$195.0M</td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$195.1M</td>
                                 <td class="py-4 px-6">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
-                                        Centralized Command
+                                        Centralized Procurement
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
-                                    "Clinically Integrated Network of Shared Services." Core strategy revolves around centralized hosting for Shared EHRs, HR systems, and AI transcription.
+                                    "Clinically Integrated Network of Shared Services" funds a shared EHR for participating providers, a statewide closed-loop referral platform, and workforce housing. Vermont's plan leans more than most toward enterprise shared-services procurement.
                                 </td>
                             </tr>
 
@@ -397,14 +405,14 @@
                                         <span class="font-bold text-slate-800">Rhode Island</span>
                                     </div>
                                 </td>
-                                <td class="py-4 px-6 font-semibold text-slate-700">$156.1M</td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$156.2M</td>
                                 <td class="py-4 px-6">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
-                                        Centralized Command
+                                        Centralized Procurement
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
-                                    Boutique lab for high-cost interventions. Massive, winner-take-all contract potential for a State-Sponsored EHR and centralized data hub infrastructure.
+                                    Highest per-rural-resident award in the country (~$6,305). Application references a state-sponsored EHR concept and a centralized rural health data hub. The Rhode Island Health Center Association is designated as oversight body for community health center allocations.
                                 </td>
                             </tr>
 
@@ -419,11 +427,11 @@
                                 <td class="py-4 px-6 font-semibold text-slate-700">$190.0M</td>
                                 <td class="py-4 px-6">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
-                                        Centralized Command
+                                        Centralized Procurement
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
-                                    Explicitly funding a "Rural AI Hub." Premier opportunity for High-Performance Computing (HPC) and AI-as-a-Service architecture.
+                                    Plan includes a "Rural AI Hub" concept for centralized analytics services, plus capital grants to retrofit rural hospitals for PACE (Program of All-Inclusive Care for the Elderly). The AI Hub's hosting model — academic, state-hosted, or commercial cloud — is not yet publicly specified.
                                 </td>
                             </tr>
 
@@ -445,7 +453,7 @@
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
-                                    Funding centralized "Regional shared-service hubs" to manage EHR and cybersecurity. Massive play for Managed Service Providers (MSPs).
+                                    Building a new School of Healthcare Sciences to anchor rural workforce training. Plan includes regional shared-service IT hubs for clusters of hospitals and digital obstetric regionalization, including telerobotic ultrasound. ADECA leads, partnering with Finance and Medicaid.
                                 </td>
                             </tr>
 
@@ -457,14 +465,14 @@
                                         <span class="font-bold text-slate-800">Arkansas</span>
                                     </div>
                                 </td>
-                                <td class="py-4 px-6 font-semibold text-slate-700">$208.7M</td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$208.8M</td>
                                 <td class="py-4 px-6">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 shadow-sm">
-                                        Centralized Command
+                                        Centralized Procurement
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
-                                    Enterprise-grade data infrastructure play. Procuring centrally for a statewide telehealth platform and data lake known as "ROADMAP."
+                                    Plan organized around three initiatives: HEART (nutrition / Farm-to-School), PACT (funds to Clinically Integrated Networks for facility upgrades and M&A stabilization), and THRIVE (digital infrastructure including a referenced "ROADMAP" data system). Lead agency is DFA (Finance and Administration).
                                 </td>
                             </tr>
 
@@ -476,14 +484,14 @@
                                         <span class="font-bold text-slate-800">Louisiana</span>
                                     </div>
                                 </td>
-                                <td class="py-4 px-6 font-semibold text-slate-700">$208.3M</td>
+                                <td class="py-4 px-6 font-semibold text-slate-700">$208.4M</td>
                                 <td class="py-4 px-6">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 shadow-sm">
                                         Competitive Sub-Grant
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
-                                    "Rural Tech Catalyst Fund" acts as a direct voucher program for rural hospitals to buy IT endpoint products. High-velocity channel sales required.
+                                    LDH plan includes the Rural Tech Catalyst Fund (RTCF-LA) — a dedicated allocation for rural provider technology acquisition — alongside "Rural HERO" workforce incentives and tele-EMS pilots.
                                 </td>
                             </tr>
 
@@ -502,7 +510,7 @@
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
-                                    Funding a "Rural Technical Assistance Center" and Hub-and-Spoke networks for HIE/cyber. Requires complex databases for workforce mapping.
+                                    HCAI plan follows a hub-and-spoke model anchored by larger hospitals. A new "Rural Technical Assistance Center" will support smaller providers on HIE and cybersecurity implementation; a "Statewide Workforce Mapping Tool" procurement is included.
                                 </td>
                             </tr>
 
@@ -516,16 +524,88 @@
                                 </td>
                                 <td class="py-4 px-6 font-semibold text-slate-700">$209.9M</td>
                                 <td class="py-4 px-6">
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">
-                                        Regional Coalition
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 shadow-sm">
+                                        Competitive Sub-Grant
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 text-sm text-slate-600 leading-relaxed">
-                                    Competitive RFA approach requiring providers to form legal entities. Features $5M direct subsidy for HIE onboarding and connectivity solutions.
+                                    AHCA plan uses a competitive RFA approach across ~15 distinct initiatives. Allocations include ~$5M for Health Information Exchange / Encounter Notification Service onboarding, a 10% cap on Tech Catalyst funding, and a 20% renovation cap (consistent with federal capital-use restrictions).
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ROW 4: Program Context & Caveats (NEW) -->
+        <section class="w-full pb-12">
+            <div class="flex items-center gap-2 mb-6 mt-4">
+                <i class="fa-solid fa-circle-info text-dellBlue text-xl"></i>
+                <h2 class="text-2xl font-bold text-slate-800">Program Context & Caveats</h2>
+            </div>
+            <p class="text-sm text-slate-600 mb-6 max-w-3xl">Key structural facts from the report that shape how RHTP funds will (and will not) move. Important to internalize before external conversations.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-handshake-angle text-dellBlue"></i>
+                        <h3 class="font-bold text-slate-800">Cooperative Agreement, Not Block Grant</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">CMS retains ongoing oversight authority. States must submit revised budgets reflecting actual award amounts for CMS approval. Sub-award structures can be modified by states (with CMS approval) throughout the program period.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-arrows-split-up-and-left text-dellBlue"></i>
+                        <h3 class="font-bold text-slate-800">50/50 Allocation Formula</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed"><strong>Bucket A (Baseline, $25B):</strong> Distributed equally among approved states regardless of size. <strong>Bucket B (Formula, $25B):</strong> CMS-scored factors. Per KFF, only ~25% of total fund is distributed exclusively on rural-need measures, and only ~5% is tied to rural population.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+                        <h3 class="font-bold text-slate-800">Not a Medicaid Offset</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">CMS and state agencies have explicitly stated RHTP funds <strong>cannot</strong> supplant Medicaid revenue losses. Per KFF, the reconciliation law reduces federal Medicaid by ~$911B over 10 years (~$137B in rural areas) — substantially larger than the $50B RHTP allocation.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-ban text-amber-600"></i>
+                        <h3 class="font-bold text-slate-800">Capital Use Restrictions</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">No new construction, no major building expansion, no land acquisition. Capital use is limited to minor alterations or renovations of existing facilities. Cost allocation required for dual-use infrastructure (e.g., connectivity serving both RHTP and general operations).</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-calendar-day text-dellBlue"></i>
+                        <h3 class="font-bold text-slate-800">Year-1 Obligation Deadline</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">Per NASHP, states have until <strong>September 30, 2027</strong> to obligate Year-1 funds. Most states are still in procurement-setup mode in early-to-mid 2026. Engagement timing should be calibrated to each state's procurement cycle.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-chart-line text-dellBlue"></i>
+                        <h3 class="font-bold text-slate-800">Per-Rural-Resident Variation</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 leading-relaxed">Funding intensity varies by ~95x: Rhode Island ~$6,305 per rural resident, Texas ~$66. Small-state baseline allocation drives this. Population scale alone is a poor predictor of opportunity.</p>
+                </div>
+
+            </div>
+
+            <!-- Verification footnote -->
+            <div class="mt-8 p-5 bg-amber-50 border border-amber-200 rounded-xl">
+                <div class="flex items-start gap-3">
+                    <i class="fa-solid fa-flag text-amber-600 mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-amber-900 mb-1">Verification Flags</h4>
+                        <p class="text-sm text-amber-900 leading-relaxed">Per the report, award amounts for <strong>Kentucky, Missouri, Nebraska, and Delaware</strong> should be confirmed against CMS state project abstracts before being cited externally. Several state-level program details (particularly New Mexico) are less publicly documented and should be treated as tentative.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -535,58 +615,157 @@
     <!-- Application Logic -->
     <script>
         // --- Data Source: Rural Health Funding Landscape ---
-        // Refactored to map states by their Primary Distribution Archetype
+        // Aligned with the report's three Distribution Archetypes (centralized, regional, subgrant).
+        // Tribal allocations are tracked as a cross-cutting flag, not as a fourth archetype, per Section 5.1 of the report.
+        // Note: Maryland is not covered in the state-by-state section of the current report and is omitted here.
         const stateData = [
-            { abbr: "AL", name: "Alabama", archetype: "regional", techFocus: "Cloud & Edge", higherEd: true, confidence: "high", route: "Building 'Regional shared-service hubs' to manage EHR and cybersecurity for clusters of independent hospitals. Also funding a new School of Healthcare Sciences.", insight: "Position VxRail and PowerEdge for modernizing legacy on-prem hospital servers via these regional hubs." },
-            { abbr: "AK", name: "Alaska", archetype: "tribal", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Heavy reliance on Tribal Health Organizations (THOs) bypassing state bureaucracy. Investments in medical transport and remote monitoring in villages.", insight: "Focus on Latitude Rugged devices and edge gateways for extreme remote connectivity." },
-            { abbr: "AZ", name: "Arizona", archetype: "centralized", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "AHCCCS (Medicaid) utilizing Managed Care Organizations to distribute funds centrally for workforce pipelines and data integration via Northern Arizona University.", insight: "Target AI-ready workstations and high-compute servers for university-led population health research." },
-            { abbr: "AR", name: "Arkansas", archetype: "centralized", techFocus: "Cybersecurity", confidence: "high", route: "Centralized procurement via Dept of Finance for a statewide telehealth platform or data lake ('ROADMAP').", insight: "Lead with Zero-Trust infrastructure and PowerProtect backup/recovery solutions." },
-            { abbr: "CA", name: "California", archetype: "regional", techFocus: "Data & AI", confidence: "high", route: "Funding a 'Rural Technical Assistance Center' and Hub-and-Spoke networks for HIE/cyber, anchored by larger hospitals.", insight: "Strong focus on statewide data reporting; position APEX storage and data lake solutions." },
-            { abbr: "CO", name: "Colorado", archetype: "subgrant", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Providing capital grants to providers joining the Hospital Transformation Program (HTP) to upgrade endpoints and behavioral health wings.", insight: "Partner with non-profits to supply standardized OptiPlex and Latitude telehealth carts." },
-            { abbr: "CT", name: "Connecticut", archetype: "subgrant", techFocus: "Cybersecurity", confidence: "medium", route: "Targeted grants focusing on 'treatment barriers' and patient-centered care. High probability of sub-grants.", insight: "Focus on endpoint security and compliance solutions for FQHCs." },
-            { abbr: "DE", name: "Delaware", archetype: "centralized", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Massive capital investments from the state level for 'Hope Centers' and centralized HIE Expansion, alongside massive allocations to University medical programs.", insight: "Position analytics dashboards and backend storage for state-level health planning." },
-            { abbr: "FL", name: "Florida", archetype: "regional", techFocus: "Cloud & Edge", confidence: "high", route: "Competitive RFA approach requiring providers to form legal entities and regional partnerships to apply for tech funds.", insight: "Target individual County Health Departments with standardized edge server deployments." },
-            { abbr: "GA", name: "Georgia", archetype: "regional", techFocus: "Cybersecurity", confidence: "high", route: "DCH manages the GREAT Health program, funding initiatives like Treat-vs-Transport telehealth pilots for regional EMS systems.", insight: "Urgent need for immutable backups, endpoint detection (MDR), and ransomware recovery (PowerProtect)." },
-            { abbr: "HI", name: "Hawaii", archetype: "centralized", techFocus: "Telehealth & Endpoints", higherEd: true, confidence: "medium", route: "State Executive Office distributing funds directly for air ambulance/inter-island transport subsidies and telemedicine, funding JABSOM medical school.", insight: "Logistics, mobile connectivity, and rugged edge endpoints for inter-island care." },
-            { abbr: "ID", name: "Idaho", archetype: "subgrant", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Pursuing data-driven, community-targeted efforts via direct grants to hospitals for tele-stroke and tele-psych.", insight: "Bundle telehealth hardware solutions with Hospital Association training programs." },
-            { abbr: "IL", name: "Illinois", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "HFS is using funds to right-size care delivery via direct transformation grants to rural hospitals to convert service lines.", insight: "Direct sales to CAHs using state grant money for server and storage refreshes." },
-            { abbr: "IN", name: "Indiana", archetype: "centralized", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Building a centralized Medical Operations Coordination Center (MOCC). Retaining significant funds at state level for tech.", insight: "Engage IRHA to deploy standardized remote-care endpoint packages." },
-            { abbr: "IA", name: "Iowa", archetype: "centralized", techFocus: "Cybersecurity", confidence: "high", route: "Focus on connecting local care to specialized centers and centrally subsidizing rural connections to the state HIE.", insight: "Focus on network security and secure remote access for distributed clinics." },
-            { abbr: "KS", name: "Kansas", archetype: "regional", techFocus: "Cloud & Edge", confidence: "high", route: "KDHE coordinates with the 'Rural Health Alliance', heavily pushing rural providers into Accountable Care Organizations (ACOs).", insight: "Local Health Department infrastructure modernization (servers/switches)." },
-            { abbr: "KY", name: "Kentucky", archetype: "regional", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Establishing public-private partnerships to build 'Rural Community Hubs' for chronic care innovation. Strong university research ties.", insight: "Academic computing environments; position high-performance computing (HPC) nodes." },
-            { abbr: "LA", name: "Louisiana", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Establishing a 'Rural Tech Catalyst Fund' specifically acting as a voucher program for rural providers to purchase technology.", insight: "FQHC network infrastructure upgrades and centralized data management." },
-            { abbr: "ME", name: "Maine", archetype: "centralized", techFocus: "Data & AI", confidence: "high", route: "Explicitly planning a 'Rural AI Hub' centralized at the state or a major academic center to drive analytics.", insight: "Data interoperability solutions between rural clinics and the state CDC." },
-            { abbr: "MD", name: "Maryland", archetype: "centralized", techFocus: "Data & AI", confidence: "high", route: "State-managed centralized approach heavily utilizing the All-Payer model to dictate rural stability.", insight: "High-level consulting, value-based care analytics, and massive data storage." },
-            { abbr: "MA", name: "Massachusetts", archetype: "centralized", techFocus: "Cybersecurity", confidence: "medium", route: "State EOHHS launching SHINE HT program and handling SDOH tracking centrally.", insight: "Compliance and cybersecurity auditing tools for small independent hospitals." },
-            { abbr: "MI", name: "Michigan", archetype: "subgrant", techFocus: "Cybersecurity", confidence: "high", route: "Direct grants to Community Mental Health Services Programs (CMHSPs) to buy vehicles and staff mobile crisis units.", insight: "Statewide initiatives to secure rural health data exchanges; position Dell Security." },
-            { abbr: "MN", name: "Minnesota", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "MDH is running a 'Collaboration for Financial Viability' program consisting of direct grants to providers.", insight: "Hospitals will have competitive grant money; target core infrastructure overhauls." },
-            { abbr: "MS", name: "Mississippi", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Direct grants for telehealth and health IT upgrades under 'Health Technology Advancement and Modernization'.", insight: "Cost-reduction technologies; HCI (VxRail) to reduce IT headcount needs." },
-            { abbr: "MO", name: "Missouri", archetype: "regional", techFocus: "Cloud & Edge", confidence: "high", route: "Activating local community hubs. Funds flow to local lead agencies (hospitals or CAP agencies) to coordinate.", insight: "State-wide shared services platforms and hybrid cloud implementations." },
-            { abbr: "MT", name: "Montana", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: true, confidence: "high", route: "Funding critical facility repairs and modernization across rural facilities alongside apprenticeships via local colleges.", insight: "Simulation lab tech, VR training endpoints, and high-res medical displays." },
-            { abbr: "NE", name: "Nebraska", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Direct wellness and hospital sustainability grants, engaging the Nebraska Hospital Association.", insight: "Hospital operational efficiency tools; hyperconverged infrastructure." },
-            { abbr: "NV", name: "Nevada", archetype: "centralized", techFocus: "Telehealth & Endpoints", higherEd: true, confidence: "high", route: "State-managed allocation largely flowing to NSHE institutions for workforce and centralized telehealth extension.", insight: "Telehealth backbone infrastructure and remote edge computing devices." },
-            { abbr: "NH", name: "New Hampshire", archetype: "centralized", techFocus: "Cybersecurity", confidence: "high", route: "State DHHS scaling the CCBHC model statewide, effectively directing the IT upgrades from a central level.", insight: "Securing sensitive behavioral health data; endpoint encryption." },
-            { abbr: "NJ", name: "New Jersey", archetype: "subgrant", techFocus: "Data & AI", confidence: "high", route: "Concentrating funds via a Request for Applications (RFA) distributed directly to providers and tribal organizations.", insight: "Target specific health networks with population health analytics hardware." },
-            { abbr: "NM", name: "New Mexico", archetype: "tribal", techFocus: "Telehealth & Endpoints", confidence: "medium", route: "Significant portion of funds acting as pass-throughs to Indian Health Service (IHS) and 638 facilities.", insight: "Tribal health clinic modernization; reliable endpoints and networking." },
-            { abbr: "NY", name: "New York", archetype: "centralized", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "DOH centrally dictating 'Rural Roots' pipeline via SUNY schools, alongside explicit state-managed cybersecurity strengthening.", insight: "Network-level analytics and state-aggregated data center solutions." },
-            { abbr: "NC", name: "North Carolina", archetype: "regional", techFocus: "Cloud & Edge", confidence: "high", route: "Launching locally governed 'NC ROOTS' Hubs. Regional bodies connecting medical and mental health supports.", insight: "Safety net provider tech refreshes; edge servers for remote clinics." },
-            { abbr: "ND", name: "North Dakota", archetype: "centralized", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Massive centralized 'Connect Tech' play managed alongside the Bank of North Dakota for unified EHR/payer hubs, supported by UND.", insight: "Research data tools; scalable unstructured data storage (PowerScale)." },
-            { abbr: "OH", name: "Ohio", archetype: "regional", techFocus: "Cybersecurity", confidence: "high", route: "Tiered funding for regional alliances (Clinically Integrated Networks) to coordinate care and shared services.", insight: "Bundle grant applications with standardized cybersecurity audits/hardware." },
-            { abbr: "OK", name: "Oklahoma", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: true, confidence: "high", route: "Pivoted to offering a direct microgrants program ($50k-$250k) for one-time equipment purchases by clinics, alongside OSU medical integration.", insight: "Medical education tech and mobile clinic endpoints." },
-            { abbr: "OR", name: "Oregon", archetype: "tribal", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Heavy focus on long-term shared infrastructure and explicit Tribal sovereignty distributions. Provider tracking via OHSU.", insight: "Workforce management data systems; university data center expansion." },
-            { abbr: "PA", name: "Pennsylvania", archetype: "regional", techFocus: "Cybersecurity", confidence: "high", route: "Establishing 'Rural Care Collaboratives' (RCCs). Regional bodies dictating local tech solutions.", insight: "Protecting academic-to-rural-hospital data pipelines." },
-            { abbr: "RI", name: "Rhode Island", archetype: "centralized", techFocus: "Data & AI", confidence: "high", route: "Boutique pilot lab exploring a 'State-Sponsored EHR' and centralized Rural Health Data Hub.", insight: "Health equity mapping requires heavy data analysis and visualization workstations." },
-            { abbr: "SC", name: "South Carolina", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Implementing a 'Tech Catalyst Fund' providing competitive seed funding directly to rural health startups/clinics.", insight: "Direct relationship with SCORH to build a centralized managed cloud for hospitals." },
-            { abbr: "SD", name: "South Dakota", archetype: "centralized", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Centralized 'Tech and Data Connection' modernizing digital health and launching a statewide Rural Data Atlas.", insight: "EMS technology, rugged tablets for ambulances, and comms gateways." },
-            { abbr: "TN", name: "Tennessee", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Complex plan with 17 distinct initiatives, largely sub-granting for mobile units and local tech adoption.", insight: "New Rural Emergency Hospital (REH) builds mean ground-up IT infrastructure (servers to endpoints)." },
-            { abbr: "TX", name: "Texas", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Decentralized. 80 rural hospital districts receiving direct endpoint/infra funding. Subcontracting hubs via RFPs.", insight: "Massive opportunity for VxRail and PowerEdge as Texas aggressively modernizes on-prem data centers to prevent rural hospital closures." },
-            { abbr: "UT", name: "Utah", archetype: "centralized", techFocus: "Telehealth & Endpoints", confidence: "high", route: "Implementing state-managed PATH program to strengthen rural food infrastructure and active transportation.", insight: "Telehealth focus; remote patient monitoring gateways." },
-            { abbr: "VT", name: "Vermont", archetype: "centralized", techFocus: "Cybersecurity", confidence: "high", route: "Building a 'Clinically Integrated Network of Shared Services' featuring centralized procurement for a Shared EHR.", insight: "Securing primary care data exchanges across the state network." },
-            { abbr: "VA", name: "Virginia", archetype: "tribal", techFocus: "Data & AI", confidence: "medium", route: "DMAS prioritizing competitive grant programs specifically for federally recognized tribes and broadband extension.", insight: "Social Determinants of Health (SDOH) massive data processing infrastructure." },
-            { abbr: "WA", name: "Washington", archetype: "tribal", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "Mix of direct awards with massive explicit $20M/year tribal set-asides. Heavy investments in UW and WSU medical schools.", insight: "Value-based care analytics requiring high-performance computing clusters." },
-            { abbr: "WV", name: "West Virginia", archetype: "subgrant", techFocus: "Cloud & Edge", confidence: "high", route: "Operating 'Smart Care Catalyst' grants, passing funds down for tech-enabled innovation at the clinic level.", insight: "Distressed asset turnaround; replace aging servers with efficient HCI solutions." },
-            { abbr: "WI", name: "Wisconsin", archetype: "regional", techFocus: "Data & AI", higherEd: true, confidence: "high", route: "$230M total distributed to regional care coordination networks. Operational support via UW.", insight: "Hybrid Academic/Operational tools; university-managed cloud services." },
-            { abbr: "WY", name: "Wyoming", archetype: "centralized", techFocus: "Data & AI", confidence: "high", route: "Creating a centralized state trust structure prioritizing CAHs and dictating EMS regionalization from the top down.", insight: "Statewide data lakes and secure edge-to-core data pipelines." }
+            { abbr: "AL", name: "Alabama", award: "$203.4M", leadAgency: "ADECA (with Finance and Medicaid)", archetype: "regional", techFocus: "Data & AI", higherEd: true, tribal: false, confidence: "high",
+              route: "Building a new School of Healthcare Sciences to anchor rural workforce training. Plan includes regional shared-service IT hubs for clusters of hospitals and digital obstetric regionalization (including telerobotic ultrasound).",
+              insight: "Procurement is likely to flow through regional shared-service hubs rather than a single state RFP. Workforce-training infrastructure (simulation, learning systems) is a named line item." },
+            { abbr: "AK", name: "Alaska", award: "$272.2M", leadAgency: "Alaska Department of Health (DOH)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: true, confidence: "high",
+              route: "Second-largest recipient with the highest per-1,000-rural-resident figure (~$662,755 per KFF). DOH has contracted with the Alaska Community Foundation (ACF) to manage the subaward process, application portal, and payment processing.",
+              insight: "Priorities include medical transport infrastructure, tribal health organizations, and the 'Spark Technology and Innovation' initiative focused on AI/wearables for village monitoring. First budget period: Dec 29, 2025 – Oct 30, 2026." },
+            { abbr: "AZ", name: "Arizona", award: "$167.0M", leadAgency: "AHCCCS (Medicaid)", archetype: "regional", techFocus: "Telehealth & Endpoints", higherEd: true, tribal: false, confidence: "medium",
+              route: "Leverages managed-care organizations for distribution. Priorities include telehealth links between Phoenix/Tucson specialists and rural clinics, and workforce pipelines.",
+              insight: "Northern Arizona University is a likely academic partner based on state context (inferred from report, not explicitly confirmed)." },
+            { abbr: "AR", name: "Arkansas", award: "$208.8M", leadAgency: "Department of Finance and Administration (DFA)", archetype: "centralized", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "Plan organized around three initiatives: HEART (nutrition / Farm-to-School), PACT (funds to Clinically Integrated Networks for facility upgrades and M&A stabilization), and THRIVE (digital infrastructure including a referenced 'ROADMAP' data system).",
+              insight: "Centralized data infrastructure procurement is the headline tech component. Hospitals receive support primarily through PACT facility-upgrade funding." },
+            { abbr: "CA", name: "California", award: "$233.6M", leadAgency: "Department of Health Care Access and Information (HCAI)", archetype: "regional", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "Plan follows a hub-and-spoke model anchored by larger hospitals. A new 'Rural Technical Assistance Center' will support smaller providers on HIE and cybersecurity implementation; a 'Statewide Workforce Mapping Tool' procurement is included.",
+              insight: "Workforce mapping is an explicit procurement category. RTAC engagement is the clearest channel to smaller rural providers." },
+            { abbr: "CO", name: "Colorado", award: "$200.1M", leadAgency: "Department of Health Care Policy & Financing (HCPF / Medicaid)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "HCPF uses funds to top up Medicaid rates or provide capital grants tied to the Hospital Transformation Program (HTP). Behavioral health integration into primary care and conditional solvency grants to independent rural hospitals are core elements.",
+              insight: "Many small awards rather than concentrated procurement. Behavioral-health integration creates demand for EHR modules and reporting tools." },
+            { abbr: "CT", name: "Connecticut", award: "$154.2M", leadAgency: "Department of Social Services (DSS / Medicaid)", archetype: "centralized", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "One of the few states where Medicaid leads rather than DOH. DSS coordinates with Office of Rural Health, Office of Health Strategy, and DMHAS. Application identifies 31 population-health projects focused on treatment barriers and patient-centered care.",
+              insight: "Explicit priorities on interoperability and analytics point toward enterprise data integration work rather than device-level procurement." },
+            { abbr: "DE", name: "Delaware", award: "$157.4M", leadAgency: "Department of Health and Social Services (DHSS)", archetype: "centralized", techFocus: "Data & AI", higherEd: true, tribal: false, confidence: "medium",
+              route: "Consolidates spending into approximately 15 larger initiatives. Published allocations include ~$97.5M for 'Hope Centers' (integrated service sites), a multi-year medical education investment with rural training pipeline, and a Health Information Exchange allocation.",
+              insight: "Specific figures should be verified against the Delaware state project narrative before external use." },
+            { abbr: "FL", name: "Florida", award: "$209.9M", leadAgency: "Agency for Health Care Administration (AHCA)", archetype: "subgrant", techFocus: "Cloud & Edge", higherEd: false, tribal: false, confidence: "high",
+              route: "~15 distinct initiatives using a competitive RFA approach. Allocations include ~$5M for HIE / Encounter Notification Service onboarding, a 10% cap on Tech Catalyst funding, and a 20% renovation cap.",
+              insight: "Renovation cap is consistent with federal capital-use restrictions. RFA structure means many smaller wins rather than a single state procurement." },
+            { abbr: "GA", name: "Georgia", award: "~$218M", leadAgency: "Department of Community Health (DCH)", archetype: "regional", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "medium",
+              route: "DCH 'GREAT Health' program includes treat-vs-transport telehealth pilots for EMS and deployment of obstetric telehealth carts in rural EDs. Positioning RHTP spending to align with the CMS AHEAD model.",
+              insight: "Award figure is approximate per state sources. EMS tele-equipment and OB telehealth carts are named procurement categories." },
+            { abbr: "HI", name: "Hawaii", award: "$188.9M", leadAgency: "Executive Office / Department of Health", archetype: "centralized", techFocus: "Telehealth & Endpoints", higherEd: true, tribal: false, confidence: "high",
+              route: "Plan emphasizes inter-island transport subsidies, neighbor-island residencies funded to John A. Burns School of Medicine (JABSOM), and integration of Native Hawaiian traditional healers.",
+              insight: "Inter-island logistics and JABSOM partnerships are the primary tech-procurement vectors." },
+            { abbr: "ID", name: "Idaho", award: "$186.0M", leadAgency: "Department of Health and Welfare (IDHW)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: true, confidence: "high",
+              route: "IDHW pursues data-driven, community-targeted right-sizing. Tech elements focus on tele-stroke and tele-psych for rural hospitals. A tribal set-aside of 3–10% is referenced in state materials.",
+              insight: "Demand will appear at individual hospital level. Tele-stroke / tele-psych endpoints are named priorities." },
+            { abbr: "IL", name: "Illinois", award: "$193.4M", leadAgency: "Department of Healthcare and Family Services (HFS)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "HFS plan organized into three categories: Transforming Rural Healthcare, Overcoming Geographic Barriers, and Building a Resilient Rural Workforce. HFS held 38+ stakeholder meetings during application development. Includes direct grants for service line conversion, virtual care platforms, and mobile units.",
+              insight: "Direct grants flow to individual hospitals. Mobile clinic infrastructure and virtual-care platforms are named procurement categories." },
+            { abbr: "IN", name: "Indiana", award: "$206.9M", leadAgency: "FSSA with IDOH", archetype: "centralized", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "Defined 40/60 split: 40% for statewide initiatives, 60% for regional grants distributed across 8 regions. Statewide Medical Operations Coordination Center (MOCC) is budgeted at ~$56.2M.",
+              insight: "MOCC is a single significant procurement (centralized patient-transfer coordination). 60% of funding flows through regional grants — hybrid model with both archetypes present." },
+            { abbr: "IA", name: "Iowa", award: "$209.0M", leadAgency: "Department of Health and Human Services", archetype: "centralized", techFocus: "Data & AI", higherEd: true, tribal: false, confidence: "high",
+              route: "'Hometown Connections' plan ties local care to specialized centers and subsidizes HIE connections. University of Iowa Holden Comprehensive Cancer Center is expected to play a role in oncology satellite networks; CyncHealth is referenced as the state HIE entity for rural onboarding subsidies.",
+              insight: "HIE onboarding subsidies and oncology satellite networks are the headline procurement categories." },
+            { abbr: "KS", name: "Kansas", award: "$221.9M", leadAgency: "Kansas Department of Health and Environment (KDHE)", archetype: "regional", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "KDHE plan targets 100% of rural Medicaid beneficiaries in Accountable Care Organizations by 2031. Funds support technical assistance, downside-risk protection, and remote patient monitoring.",
+              insight: "ACO expansion drives RPM demand. Procurement flows through ACO infrastructure rather than individual hospitals." },
+            { abbr: "KY", name: "Kentucky", award: "~$200M", leadAgency: "Cabinet for Health and Family Services (CHFS)", archetype: "regional", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "medium",
+              route: "Establishing an 'A3 Team' within the Department for Public Health to coordinate initiatives. Priorities include maternal health in maternal-care deserts, the EmPATH psychiatric emergency model, and FQHC-based chronic care hubs.",
+              insight: "Award figure is approximate; published CMS figures should be confirmed before external use." },
+            { abbr: "LA", name: "Louisiana", award: "$208.4M", leadAgency: "Louisiana Department of Health (LDH)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "LDH plan includes the Rural Tech Catalyst Fund (RTCF-LA) — a dedicated allocation for rural provider technology acquisition — alongside 'Rural HERO' workforce incentives and tele-EMS pilots.",
+              insight: "RTCF-LA functions as a technology voucher for rural providers. Many small awards rather than concentrated procurement." },
+            { abbr: "ME", name: "Maine", award: "$190.0M", leadAgency: "Department of Health and Human Services (DHHS)", archetype: "centralized", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "medium",
+              route: "Plan includes a 'Rural AI Hub' concept for centralized analytics services to rural providers, plus capital grants to retrofit rural hospitals for PACE (Program of All-Inclusive Care for the Elderly) models.",
+              insight: "The Rural AI Hub's eventual hosting model — academic partner, state-hosted, or commercial cloud — is not yet specified in publicly available documents." },
+            { abbr: "MA", name: "Massachusetts", award: "$162.0M", leadAgency: "Executive Office of Health and Human Services (EOHHS)", archetype: "centralized", techFocus: "Data & AI", higherEd: false, tribal: true, confidence: "high",
+              route: "Limited rural footprint. Plan concentrates on social drivers of health, Tribal partnerships (Mashpee Wampanoag and Aquinnah Wampanoag), and workforce housing. Includes an initiative ('SHINE HT') to help community health centers adopt technology within their EHR systems.",
+              insight: "'SHINE HT' is distinct from the federal SHINE Medicare insurance counseling program despite naming overlap." },
+            { abbr: "MI", name: "Michigan", award: "$173.1M", leadAgency: "Department of Health and Human Services (MDHHS)", archetype: "subgrant", techFocus: "Cybersecurity", higherEd: false, tribal: true, confidence: "high",
+              route: "Expanding mobile crisis infrastructure through Community Mental Health Services Programs (CMHSPs) and listing tribal entities as direct subrecipients. Per KFF, Michigan's per-rural-resident figure is among the lowest nationally.",
+              insight: "CMHSP funding drives behavioral-health IT and mobile crisis infrastructure demand." },
+            { abbr: "MN", name: "Minnesota", award: "$193M+", leadAgency: "Minnesota Department of Health (MDH)", archetype: "subgrant", techFocus: "Data & AI", higherEd: true, tribal: true, confidence: "high",
+              route: "MDH 'Collaboration for Financial Viability' program funds chronic-management technology and tribal Community Health Representative support. Grants to University of Minnesota and regional systems expand rural rotations.",
+              insight: "Direct grants to providers; UMN serves as workforce-pipeline anchor. Tribal CHR support is a named line item." },
+            { abbr: "MO", name: "Missouri", award: "~$200M", leadAgency: "Department of Health and Senior Services", archetype: "regional", techFocus: "Cloud & Edge", higherEd: false, tribal: false, confidence: "medium",
+              route: "Plan elements include local community hub coordination and a 'Digital Backbone' state-level interoperability procurement.",
+              insight: "Award figure is approximate; verify against CMS project abstracts before external use." },
+            { abbr: "MS", name: "Mississippi", award: "$205.9M", leadAgency: "State Department of Health (MSDH)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "BRIDGE framework (Building Rural Infrastructure for Delivery, Growth and Efficiency) with a 'Health Technology Advancement and Modernization' (HTAM) line item funding telehealth and health IT upgrades, plus capital investments in psychiatric emergency services.",
+              insight: "HTAM line item is the main vehicle for IT/telehealth procurement; psych-emergency capital is a separate track." },
+            { abbr: "MT", name: "Montana", award: "$233.5M", leadAgency: "Department of Public Health and Human Services (DPHHS)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: true, tribal: false, confidence: "high",
+              route: "Plan prioritizes operational solvency for frontier Critical Access Hospitals and expanded micro-credential and apprenticeship pathways through state colleges.",
+              insight: "Solvency-focused grants are the dominant funding mechanism. Workforce simulation/training tech ties to state college partnerships." },
+            { abbr: "NE", name: "Nebraska", award: "~$219M", leadAgency: "Department of Health and Human Services (DHHS)", archetype: "subgrant", techFocus: "Cloud & Edge", higherEd: false, tribal: false, confidence: "medium",
+              route: "Plan includes a re-established 'Presidential Fitness Test' (funds to school districts), 'Whole foods through local growers' grants to agricultural cooperatives, and hospital billing-readiness support coordinated with the Nebraska Hospital Association.",
+              insight: "Award figure is approximate. NHA-coordinated billing-readiness is the relevant tech vector for hospitals." },
+            { abbr: "NV", name: "Nevada", award: "$179.9M", leadAgency: "Department of Health and Human Services (DHHS)", archetype: "centralized", techFocus: "Telehealth & Endpoints", higherEd: true, tribal: true, confidence: "high",
+              route: "Plan includes an adapted 'Teach Nevada' scholarship program for health disciplines flowing through Nevada System of Higher Education (NSHE) institutions and a tribal set-aside.",
+              insight: "Workforce-pipeline funding routes through NSHE. Tribal set-aside represents a direct allocation channel." },
+            { abbr: "NH", name: "New Hampshire", award: "~$150M", leadAgency: "Department of Health and Human Services (DHHS)", archetype: "centralized", techFocus: "Cybersecurity", higherEd: false, tribal: false, confidence: "medium",
+              route: "Prioritizes the Certified Community Behavioral Health Clinic (CCBHC) model. Funds flow to Community Mental Health Centers for IT upgrades required to meet CCBHC federal reporting standards. Plan also establishes a family medicine residency in Coos County, likely partnered with Androscoggin Valley Hospital.",
+              insight: "CCBHC reporting requirements drive demand for EHR upgrades and analytics specific to behavioral health." },
+            { abbr: "NJ", name: "New Jersey", award: "$147.3M", leadAgency: "NJDOH and NJDHS (co-leading)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "Smallest total award but high per-rural-resident allocation. State has issued an RFA structured around four activities: Rural Preventive Health, Technology/Telehealth/RPM, Training and Capacity, and Clinical Workforce. Initial sub-award round of ~$28M is under review.",
+              insight: "State has published an RHTP Vendor Directory; inclusion does not constitute endorsement. NJ has no federally recognized tribes." },
+            { abbr: "NM", name: "New Mexico", award: "$211.5M", leadAgency: "Human Services Department (HSD)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: true, tribal: true, confidence: "medium",
+              route: "Specific plan details are less publicly documented than for other states. Given state demographics, a significant portion is expected to pass through to Indian Health Service and tribal 638 facilities. Project ECHO (originated at the University of New Mexico) is a likely beneficiary for remote specialist consult expansion.",
+              insight: "Project ECHO and IHS pass-through are inferred rather than confirmed. Plan details may evolve as state publishes more material." },
+            { abbr: "NY", name: "New York", award: "$212.1M", leadAgency: "Department of Health (DOH)", archetype: "centralized", techFocus: "Cybersecurity", higherEd: true, tribal: false, confidence: "high",
+              route: "Plan centers on the 'Rural Roots' workforce pipeline (flowing to SUNY institutions and partner health systems), eConsult partnerships with academic medical centers (e.g., URMC, Bassett Healthcare), and an explicit cybersecurity line item for rural facilities.",
+              insight: "Cybersecurity is a named procurement category, distinct from many other states. SUNY is the workforce-pipeline anchor." },
+            { abbr: "NC", name: "North Carolina", award: "$213.0M", leadAgency: "NCDHHS, Office of Rural Health", archetype: "regional", techFocus: "Data & AI", higherEd: true, tribal: false, confidence: "high",
+              route: "Launching regional 'NC ROOTS' Hubs connecting medical, behavioral, and social supports. Duke-Margolis Center for Health Policy is named as a subrecipient for policy design and evaluation.",
+              insight: "Central theme is supporting rural providers through value-based care transitions. NC ROOTS Hubs are the key regional convening point." },
+            { abbr: "ND", name: "North Dakota", award: "$198.9M", leadAgency: "Department of Health & Human Services (HHS)", archetype: "centralized", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "Unique structure: RHTP funds are managed in partnership with the Bank of North Dakota, which administers a rural health medical facility infrastructure loan program providing short-term gap financing to grant recipients. Plan elements include 'Connect Tech' (~$168M over five years for EHR/payer hub modernization) and 'Eat Well ND' nutrition programs.",
+              insight: "Bank of North Dakota partnership is unusual nationally. Connect Tech is the dominant tech-procurement category." },
+            { abbr: "OH", name: "Ohio", award: "$202.0M", leadAgency: "Ohio Department of Health (ODH)", archetype: "regional", techFocus: "Cybersecurity", higherEd: false, tribal: false, confidence: "high",
+              route: "ODH uses tiered funding for regional Clinically Integrated Networks (CINs) to coordinate care, shared services, and telehealth. The 'Ohio Rural Health Transformation Project' emphasizes maternal/infant vitality and substance use response.",
+              insight: "Tiered regional CIN funding is the dominant flow. Shared services and telehealth are named procurement priorities." },
+            { abbr: "OK", name: "Oklahoma", award: "$223.5M", leadAgency: "Oklahoma State Department of Health (OSDH)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: true, confidence: "high",
+              route: "Adopted a direct microgrants program with individual awards anticipated in the $50,000–$250,000 range, targeted at one-time equipment and technology purchases by rural clinics.",
+              insight: "Microgrant archetype calls for high-volume engagement with many small buyers rather than enterprise contracts." },
+            { abbr: "OR", name: "Oregon", award: "$197.3M", leadAgency: "Oregon Health Authority (OHA)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: true, confidence: "high",
+              route: "OHA is phasing implementation: Phase 1 (2026–2027) for shovel-ready catalyst grants; Phase 2 for long-term shared infrastructure. Workforce loan repayment and telehealth investments are priorities.",
+              insight: "Phase 1 catalyst grants suit smaller, faster procurements; Phase 2 may concentrate spending on shared infrastructure." },
+            { abbr: "PA", name: "Pennsylvania", award: "$193.3M", leadAgency: "Department of Human Services (DHS)", archetype: "regional", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "Establishing regional 'Rural Care Collaboratives' expected to be staffed and meeting by end of 2026. Priorities include tele-EMS (tele-stroke, tele-behavioral health in ambulances) and linking rural hospitals to referral centers such as UPMC and Geisinger.",
+              insight: "Tele-EMS equipment (ruggedized tablets, cellular routers, mobile connectivity) is a named procurement category." },
+            { abbr: "RI", name: "Rhode Island", award: "$156.2M", leadAgency: "Executive Office of Health and Human Services (EOHHS)", archetype: "centralized", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "Highest per-rural-resident award in the country (~$6,305). Application references a state-sponsored EHR concept and a centralized rural health data hub. The Rhode Island Health Center Association is designated as oversight body for community health center allocations.",
+              insight: "Highly concentrated procurement potential; small state geography lends itself to single-vendor enterprise stacks." },
+            { abbr: "SC", name: "South Carolina", award: "$200.0M", leadAgency: "South Carolina Department of Health and Human Services (SCDHHS / Medicaid)", archetype: "subgrant", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "'Connections to Care' initiative expands digital infrastructure through EHR, RPM, and a statewide resource database. A 'Tech Catalyst Fund' provides seed funding for rural health technology startups — an unusual state-level posture functioning as venture capital for rural health tech.",
+              insight: "Tech Catalyst Fund is a notable state-level posture that may seed new vendor entrants in the rural health tech space." },
+            { abbr: "SD", name: "South Dakota", award: "$189.5M", leadAgency: "Department of Health", archetype: "centralized", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "'Tech and Data Connection for a Healthier South Dakota' modernizes digital health and launches a 'Rural Data Atlas.' A parallel Medicaid Primary Accountable Care Transformation moves rural providers from fee-for-service toward partial capitation. Tele-EMS partnerships (e.g., Avel eCare model) are referenced.",
+              insight: "Rural Data Atlas and capitation transition both create demand for analytics infrastructure." },
+            { abbr: "TN", name: "Tennessee", award: "$206.9M", leadAgency: "Department of Health (TDH)", archetype: "subgrant", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "Most complex plan with 17 distinct initiatives under the 'MaRTHA' (Make Rural TN Healthy Again) banner. Notable technology elements include 'TN Community Compass' (resource referral) and a statewide eConsult platform.",
+              insight: "Complexity of 17 initiatives implies many smaller procurement decisions rather than a unified state stack." },
+            { abbr: "TX", name: "Texas", award: "$281.3M", leadAgency: "Health and Human Services Commission (HHSC), with State Office of Rural Health", archetype: "subgrant", techFocus: "Cybersecurity", higherEd: false, tribal: false, confidence: "high",
+              route: "Largest Year-1 award. 'Rural Texas Strong' framework includes 'Lone Star Advanced AI and Telehealth' and 'Rural Texas Patients in the Driver's Seat.' State materials indicate ~163 rural hospitals surveyed, with priorities on cybersecurity hardening and statewide RPM networks.",
+              insight: "Despite the large total award, Texas's per-rural-resident figure is the lowest in the country (~$66) — implies broad distribution rather than concentrated state procurement." },
+            { abbr: "UT", name: "Utah", award: "$195.7M", leadAgency: "Department of Health and Human Services (DHHS)", archetype: "centralized", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "Combines a value-based payment track ('FAST'), food-infrastructure investments ('PATH'), and a re-established 'Gold Medal Schools' program.",
+              insight: "Value-based payment framework drives demand for analytics tying clinical outcomes to payment data." },
+            { abbr: "VT", name: "Vermont", award: "$195.1M", leadAgency: "Agency of Human Services (AHS)", archetype: "centralized", techFocus: "Data & AI", higherEd: false, tribal: false, confidence: "high",
+              route: "'Clinically Integrated Network of Shared Services' funds a shared EHR for participating providers, a statewide closed-loop referral platform, and workforce housing.",
+              insight: "Vermont's plan leans more than most toward enterprise shared-services procurement." },
+            { abbr: "VA", name: "Virginia", award: "$189.5M", leadAgency: "Department of Medical Assistance Services (DMAS / Medicaid)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: true, confidence: "medium",
+              route: "DMAS is hiring a core team in 2026 to manage 'VA Rural Vitality.' Priorities include a tribal grants program (Virginia has federally recognized tribes), OB/GYN shortage mitigation, and broadband/telehealth infrastructure.",
+              insight: "Procurement details may evolve as DMAS staffs up in 2026. Tribal grants are a named distinct channel." },
+            { abbr: "WA", name: "Washington", award: "$181.3M", leadAgency: "Health Care Authority (HCA)", archetype: "regional", techFocus: "Data & AI", higherEd: true, tribal: true, confidence: "high",
+              route: "Sets aside $20M annually for Tribal entities and invests in University of Washington and Washington State University medical schools. Distribution is a mix of direct awards and competitive procurements.",
+              insight: "$20M/yr tribal set-aside is the largest explicit state-level tribal allocation per the report." },
+            { abbr: "WV", name: "West Virginia", award: "$199.5M", leadAgency: "Department of Health and Human Resources (DHHR)", archetype: "subgrant", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "'Mountain State Care Force' includes return-to-home workforce incentives, a 'Connected Care Grid' for on-demand virtual care, and a 'Smart Care Catalyst' grant program for tech-enabled innovation.",
+              insight: "Smart Care Catalyst is a clinic-level grant channel; Connected Care Grid implies statewide virtual-care infrastructure." },
+            { abbr: "WI", name: "Wisconsin", award: "$203.7M", leadAgency: "Department of Health Services (DHS)", archetype: "regional", techFocus: "Data & AI", higherEd: false, tribal: true, confidence: "high",
+              route: "Allocates $27.5M to Tribal Nations. Additional elements include payment reform (cost-based to prospective payment for rural clinics) and $230M over five years in care coordination grants to regional networks.",
+              insight: "$27.5M tribal allocation is one of the largest nationally. Regional care coordination networks are the primary procurement channel." },
+            { abbr: "WY", name: "Wyoming", award: "$205.0M", leadAgency: "Wyoming Department of Health (WDH)", archetype: "centralized", techFocus: "Telehealth & Endpoints", higherEd: false, tribal: false, confidence: "high",
+              route: "'Perpetuity Fund' is a trust structure with allocations approximately 40.7% to CAH basic incentives and 26.9% to EMS regionalization. Funds flow primarily to CAHs and EMS agencies.",
+              insight: "Trust structure is unusual nationally. EMS regionalization at 26.9% of allocation drives ground-ambulance tech demand." }
         ];
 
         // --- Logic: Map Generation & Interaction ---
@@ -599,20 +778,19 @@
                 // Map Archetypes to names and numerical values for Plotly's colorscale
                 const hoverText = stateData.map(s => {
                     let archName = "";
-                    if(s.archetype === 'centralized') archName = "Centralized Command";
+                    if(s.archetype === 'centralized') archName = "Centralized Procurement";
                     if(s.archetype === 'regional') archName = "Regional Coalition";
                     if(s.archetype === 'subgrant') archName = "Competitive Sub-Grant";
-                    if(s.archetype === 'tribal') archName = "Tribal Sovereignty";
                     
-                    const edMarker = s.higherEd ? "<br>🎓 Higher Ed Funding" : "";
-                    return `<b>${s.name}</b><br>${archName}${edMarker}`;
+                    const edMarker = s.higherEd ? "<br>🎓 Higher Ed Partner" : "";
+                    const tribalMarker = s.tribal ? "<br>🤝 Tribal Allocation" : "";
+                    return `<b>${s.name}</b><br>${s.award}<br>${archName}${edMarker}${tribalMarker}`;
                 });
                 
                 const zValues = stateData.map(s => {
                     if(s.archetype === 'centralized') return 1;
                     if(s.archetype === 'regional') return 2;
                     if(s.archetype === 'subgrant') return 3;
-                    if(s.archetype === 'tribal') return 4;
                     return 1;
                 });
 
@@ -626,16 +804,14 @@
                     showscale: false, 
                     colorscale: [
                         [0, '#3b82f6'],      // Blue-500 (Centralized)
-                        [0.25, '#3b82f6'], 
-                        [0.25, '#10b981'],   // Emerald-500 (Regional)
-                        [0.5, '#10b981'],
-                        [0.5, '#f59e0b'],    // Amber-500 (Subgrant)
-                        [0.75, '#f59e0b'],
-                        [0.75, '#8b5cf6'],   // Purple-500 (Tribal)
-                        [1, '#8b5cf6']
+                        [0.33, '#3b82f6'], 
+                        [0.34, '#10b981'],   // Emerald-500 (Regional)
+                        [0.66, '#10b981'],
+                        [0.67, '#f59e0b'],   // Amber-500 (Subgrant)
+                        [1, '#f59e0b']
                     ],
                     zmin: 1,
-                    zmax: 4,
+                    zmax: 3,
                     marker: {
                         line: {
                             color: '#ffffff',
@@ -658,7 +834,26 @@
                     textfont: {
                         size: 16
                     },
-                    hoverinfo: 'skip', // Let the underlying state handle the hover card
+                    hoverinfo: 'skip',
+                    showlegend: false
+                };
+
+                // Tribal overlay trace — small purple dot to indicate cross-cutting tribal allocation
+                const tribalStates = stateData.filter(s => s.tribal);
+                const tribalLocations = tribalStates.map(s => s.abbr);
+                const tribalIcons = tribalStates.map(() => '●');
+
+                const tribalTrace = {
+                    type: 'scattergeo',
+                    locationmode: 'USA-states',
+                    locations: tribalLocations,
+                    mode: 'text',
+                    text: tribalIcons,
+                    textfont: {
+                        size: 14,
+                        color: '#7c3aed'
+                    },
+                    hoverinfo: 'skip',
                     showlegend: false
                 };
 
@@ -675,7 +870,7 @@
                     dragmode: false // Disable panning/zooming
                 };
 
-                Plotly.newPlot('plotlyMap', [trace, iconTrace], layout, {responsive: true, displayModeBar: false});
+                Plotly.newPlot('plotlyMap', [trace, iconTrace, tribalTrace], layout, {responsive: true, displayModeBar: false});
 
                 // Attach click listener to the map
                 document.getElementById('plotlyMap').on('plotly_click', function(data){
@@ -697,11 +892,13 @@
                 // Populate Text
                 document.getElementById('detailName').innerText = state.name;
                 document.getElementById('detailAbbr').innerText = state.abbr;
+                document.getElementById('detailAward').innerText = "FY26 Award: " + state.award;
+                document.getElementById('detailLeadAgency').innerText = "Lead Agency: " + state.leadAgency;
                 
-                // Format Archetype Badge
+                // Format Archetype Badge (3 archetypes per report)
                 const archBadge = document.getElementById('detailArchetype');
                 if (state.archetype === 'centralized') {
-                    archBadge.innerText = 'Centralized Command';
+                    archBadge.innerText = 'Centralized Procurement';
                     archBadge.className = "inline-block text-xs px-2.5 py-1 rounded font-bold shadow-sm bg-blue-100 text-blue-700 border border-blue-200";
                 } else if (state.archetype === 'regional') {
                     archBadge.innerText = 'Regional Coalition';
@@ -709,9 +906,6 @@
                 } else if (state.archetype === 'subgrant') {
                     archBadge.innerText = 'Competitive Sub-Grant';
                     archBadge.className = "inline-block text-xs px-2.5 py-1 rounded font-bold shadow-sm bg-amber-100 text-amber-700 border border-amber-200";
-                } else if (state.archetype === 'tribal') {
-                    archBadge.innerText = 'Tribal Sovereignty';
-                    archBadge.className = "inline-block text-xs px-2.5 py-1 rounded font-bold shadow-sm bg-purple-100 text-purple-700 border border-purple-200";
                 }
 
                 // Populate Tech Focus Badge
@@ -732,6 +926,16 @@
                     edBadge.classList.remove('inline-block');
                 }
 
+                // Tribal Allocation Badge (cross-cutting indicator per report Section 5.1)
+                const tribalBadge = document.getElementById('detailTribal');
+                if (state.tribal) {
+                    tribalBadge.classList.remove('hidden');
+                    tribalBadge.classList.add('inline-block');
+                } else {
+                    tribalBadge.classList.add('hidden');
+                    tribalBadge.classList.remove('inline-block');
+                }
+
                 document.getElementById('detailRoute').innerHTML = state.route;
                 document.getElementById('detailProcurement').innerText = state.insight;
                 
@@ -743,19 +947,19 @@
                 if (state.confidence === 'high') {
                     confBar.style.width = '90%';
                     confBar.className = 'bg-emerald-500 h-2 rounded-full transition-all duration-500';
-                    confLabel.innerText = "Documented Structure";
+                    confLabel.innerText = "Documented in Report";
                     confLabel.className = "text-xs font-bold text-emerald-600 px-2 py-0.5 bg-emerald-50 rounded-full border border-emerald-100";
-                    confText.innerText = "Based on explicit state RHTP publication.";
+                    confText.innerText = "Based on explicit state RHTP publication or CMS project abstract.";
                 } else if (state.confidence === 'medium') {
                     confBar.style.width = '60%';
                     confBar.className = 'bg-amber-500 h-2 rounded-full transition-all duration-500';
-                    confLabel.innerText = "Inferred Structure";
+                    confLabel.innerText = "Approximate / Inferred";
                     confLabel.className = "text-xs font-bold text-amber-600 px-2 py-0.5 bg-amber-50 rounded-full border border-amber-100";
-                    confText.innerText = "Based on structural extrapolation and funding trends.";
+                    confText.innerText = "Award figure approximate, or plan details inferred — verify before external use.";
                 } else {
                     confBar.style.width = '30%';
                     confBar.className = 'bg-red-400 h-2 rounded-full transition-all duration-500';
-                    confLabel.innerText = "Best Guess";
+                    confLabel.innerText = "Awaiting Documentation";
                     confLabel.className = "text-xs font-bold text-red-500 px-2 py-0.5 bg-red-50 rounded-full border border-red-100";
                     confText.innerText = "Awaiting formal state documentation.";
                 }
@@ -771,14 +975,13 @@
         // --- Chart Generation ---
         function renderCharts() {
             // Data Prep
-            const archCounts = { centralized: 0, regional: 0, subgrant: 0, tribal: 0 };
+            const archCounts = { centralized: 0, regional: 0, subgrant: 0 };
             const techCounts = { cyber: 0, edge: 0, telehealth: 0, data: 0 };
 
             stateData.forEach(s => {
                 if (s.archetype === 'centralized') archCounts.centralized++;
                 if (s.archetype === 'regional') archCounts.regional++;
                 if (s.archetype === 'subgrant') archCounts.subgrant++;
-                if (s.archetype === 'tribal') archCounts.tribal++;
                 
                 if (s.techFocus === 'Cybersecurity') techCounts.cyber++;
                 if (s.techFocus === 'Cloud & Edge') techCounts.edge++;
@@ -786,15 +989,15 @@
                 if (s.techFocus === 'Data & AI') techCounts.data++;
             });
 
-            // Chart 1: Archetypes
+            // Chart 1: Archetypes (3 categories per report)
             const ctx1 = document.getElementById('archetypeChart').getContext('2d');
             new Chart(ctx1, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Centralized Command', 'Regional Coalition', 'Competitive Sub-Grant', 'Tribal Sovereignty'],
+                    labels: ['Centralized Procurement', 'Regional Coalition', 'Competitive Sub-Grant'],
                     datasets: [{
-                        data: [archCounts.centralized, archCounts.regional, archCounts.subgrant, archCounts.tribal],
-                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'], // Blue, Emerald, Amber, Purple
+                        data: [archCounts.centralized, archCounts.regional, archCounts.subgrant],
+                        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b'],
                         borderWidth: 0,
                         hoverOffset: 4
                     }]
@@ -803,7 +1006,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 8, padding: 15 } }
+                        legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 8, padding: 15, font: { size: 11 } } }
                     },
                     cutout: '70%'
                 }
@@ -814,11 +1017,11 @@
             new Chart(ctx2, {
                 type: 'bar',
                 data: {
-                    labels: ['Cloud & Edge', 'Telehealth', 'Data & AI', 'Cybersecurity'],
+                    labels: ['Telehealth & Endpoints', 'Data & AI', 'Cybersecurity', 'Cloud & Edge'],
                     datasets: [{
                         label: 'Number of States',
-                        data: [techCounts.edge, techCounts.telehealth, techCounts.data, techCounts.cyber],
-                        backgroundColor: ['#0ea5e9', '#14b8a6', '#6366f1', '#ef4444'], // Sky, Teal, Indigo, Red
+                        data: [techCounts.telehealth, techCounts.data, techCounts.cyber, techCounts.edge],
+                        backgroundColor: ['#14b8a6', '#6366f1', '#ef4444', '#0ea5e9'],
                         borderRadius: 4
                     }]
                 },
@@ -835,7 +1038,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return context.raw + ' States focused on this area';
+                                    return context.raw + ' states';
                                 }
                             }
                         }
